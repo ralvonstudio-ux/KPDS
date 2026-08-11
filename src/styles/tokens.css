@@ -1,0 +1,55 @@
+/**
+ * Design tokens — Khatu Pixel Digital Studio
+ * Single source of truth for color, spacing, radius, shadow, and motion.
+ * Mapped into Tailwind theme utilities in tailwind.config.ts.
+ * See docs/design-system.md for the annotated moodboard/rationale.
+ */
+:root {
+  /* Color */
+  --color-canvas: #f8f7f4;
+  --color-surface: #ffffff;
+  --color-ink: #111111;
+  --color-muted: #6b7280;
+  --color-gold: #c59d5f;
+  --color-gold-soft: #d9be8c;
+  --color-gold-deep: #a9814a;
+  --color-espresso: #2b2118;
+  --color-line: rgba(17, 17, 17, 0.08);
+  --color-line-strong: rgba(17, 17, 17, 0.14);
+
+  /* 8px spacing grid */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2rem;
+  --space-6: 3rem;
+  --space-8: 4rem;
+  --space-12: 6rem;
+  --space-section: clamp(6rem, 4.5rem + 6vw, 10rem);
+
+  /* Radii */
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Shadow */
+  --shadow-clay: 0 1px 2px rgba(43, 33, 24, 0.04), 0 12px 32px -12px rgba(43, 33, 24, 0.16);
+  --shadow-clay-lg: 0 4px 8px rgba(43, 33, 24, 0.04), 0 24px 60px -20px rgba(43, 33, 24, 0.22);
+
+  /* Motion limits — see docs/design-system.md "Motion" for rules */
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 180ms;
+  --duration-base: 320ms;
+  --duration-slow: 520ms;
+  --scale-card-hover: 1.015;
+  --scale-image-hover: 1.05;
+  --lift-button: 2px;
+
+  /* Breakpoints (reference only — enforced via Tailwind screens) */
+  --bp-sm: 640px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+  --bp-2xl: 1440px;
+}

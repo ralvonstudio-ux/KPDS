@@ -1,0 +1,57 @@
+@import "@fontsource-variable/geist";
+@import "./tokens.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-feature-settings: "ss01" 1, "cv01" 1;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-soft);
+    color: var(--color-espresso);
+  }
+
+  /* Visible, consistent focus state for keyboard users across the app. */
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus, 0 0 0 3px rgba(197, 157, 95, 0.45));
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .content-wrap {
+    @apply mx-auto w-full max-w-content px-6 md:px-10;
+  }
+
+  .section-space {
+    padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+  }
+}
