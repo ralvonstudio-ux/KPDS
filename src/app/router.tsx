@@ -13,6 +13,7 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import ServicesPage from "@/features/services/pages/ServicesPage";
 import ServiceDetailPage from "@/features/services/pages/ServiceDetailPage";
 import PortfolioPage from "@/features/portfolio/pages/PortfolioPage";
+import BookEventPage from "@/features/booking/pages/BookEventPage";
 
 import LoginPage from "@/features/auth/pages/LoginPage";
 import SignupPage from "@/features/auth/pages/SignupPage";
@@ -52,11 +53,9 @@ export function AppRouter() {
         <Route
           path="/book-your-event"
           element={
-            <ComingSoonPage
-              eyebrow="Book Your Event"
-              title="The booking form lands next"
-              description="Reserve-your-date and advance payment are the very next phase of this build."
-            />
+            <ProtectedRoute>
+              <BookEventPage />
+            </ProtectedRoute>
           }
         />
         <Route path="/login" element={<LoginPage />} />

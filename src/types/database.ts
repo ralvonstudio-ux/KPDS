@@ -43,6 +43,7 @@ export interface CustomisationField {
 
 export interface Database {
   public: {
+    Views: Record<string, never>;
     Tables: {
       profiles: {
         Row: {
@@ -56,6 +57,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["profiles"]["Row"]> & { id: string };
         Update: Partial<Database["public"]["Tables"]["profiles"]["Row"]>;
+        Relationships: [];
       };
       services: {
         Row: {
@@ -76,6 +78,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["services"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["services"]["Row"]>;
+        Relationships: [];
       };
       service_gallery: {
         Row: {
@@ -88,6 +91,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["service_gallery"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["service_gallery"]["Row"]>;
+        Relationships: [];
       };
       bookings: {
         Row: {
@@ -111,6 +115,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["bookings"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["bookings"]["Row"]>;
+        Relationships: [];
       };
       booking_status_history: {
         Row: {
@@ -123,6 +128,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["booking_status_history"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["booking_status_history"]["Row"]>;
+        Relationships: [];
       };
       quotations: {
         Row: {
@@ -142,6 +148,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["quotations"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["quotations"]["Row"]>;
+        Relationships: [];
       };
       quotation_items: {
         Row: {
@@ -156,6 +163,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["quotation_items"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["quotation_items"]["Row"]>;
+        Relationships: [];
       };
       team_members: {
         Row: {
@@ -170,6 +178,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["team_members"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["team_members"]["Row"]>;
+        Relationships: [];
       };
       booking_assignments: {
         Row: {
@@ -181,6 +190,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["booking_assignments"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["booking_assignments"]["Row"]>;
+        Relationships: [];
       };
       categories: {
         Row: {
@@ -196,6 +206,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["categories"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["categories"]["Row"]>;
+        Relationships: [];
       };
       products: {
         Row: {
@@ -217,6 +228,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["products"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["products"]["Row"]>;
+        Relationships: [];
       };
       product_images: {
         Row: {
@@ -229,6 +241,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["product_images"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["product_images"]["Row"]>;
+        Relationships: [];
       };
       product_variants: {
         Row: {
@@ -244,6 +257,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["product_variants"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["product_variants"]["Row"]>;
+        Relationships: [];
       };
       carts: {
         Row: {
@@ -254,6 +268,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["carts"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["carts"]["Row"]>;
+        Relationships: [];
       };
       cart_items: {
         Row: {
@@ -269,6 +284,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["cart_items"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["cart_items"]["Row"]>;
+        Relationships: [];
       };
       orders: {
         Row: {
@@ -294,6 +310,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["orders"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["orders"]["Row"]>;
+        Relationships: [];
       };
       order_items: {
         Row: {
@@ -311,6 +328,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["order_items"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["order_items"]["Row"]>;
+        Relationships: [];
       };
       order_status_history: {
         Row: {
@@ -322,6 +340,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["order_status_history"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["order_status_history"]["Row"]>;
+        Relationships: [];
       };
       payments: {
         Row: {
@@ -342,6 +361,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["payments"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["payments"]["Row"]>;
+        Relationships: [];
       };
       portfolio_items: {
         Row: {
@@ -358,6 +378,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["portfolio_items"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["portfolio_items"]["Row"]>;
+        Relationships: [];
       };
       testimonials: {
         Row: {
@@ -373,6 +394,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["testimonials"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["testimonials"]["Row"]>;
+        Relationships: [];
       };
     };
     Functions: {

@@ -9,13 +9,22 @@ are updated alongside this file.
 |---|---|---|---|
 | 1. Foundation | Day 1 | Repo, Vite/React/TS/Tailwind scaffold, Geist Sans, design tokens, full Supabase schema (19 tables + timeline/history tables) with RLS on every table, Storage buckets/policies, Supabase client + typed schema, Auth context | **Done** — builds, typechecks, and lints clean. Schema is written and ready to apply; no live Supabase project connected yet (client chose to supply credentials later — see `.env.example`). |
 | 2. Public shell + auth + services/portfolio | Day 2–3 | Floating nav, footer, router with protected-route guards, Login/Signup/Password Reset, Services list/detail, Portfolio masonry + filters + lightbox | Not started |
-| 3. Homepage + booking + advance payment | Day 3–4 | Editorial homepage, Book Your Event form, Razorpay order-creation + signature-verification Edge Functions, payment success/failure states | Not started |
+| 3. Homepage + booking + advance payment | Day 3–4 | Editorial homepage, Book Your Event form, Razorpay order-creation + signature-verification Edge Functions, payment success/failure states | **Done** — homepage bento sections (services/portfolio/testimonials) hide gracefully when there's no data yet rather than showing fake content; booking form creates a real `bookings` row then opens Razorpay Checkout; `create-razorpay-order`/`verify-razorpay-payment` Edge Functions re-derive amounts server-side and never trust the client. Booking is a single-page form, not a multi-step wizard — a deliberate simplification, see note below. Payment flow is untestable end-to-end until real Supabase + Razorpay keys are supplied. |
 | 4. Admin content + shop + cart | Day 5–6 | Admin CRUD for services/portfolio/categories/products/variants with Storage uploads, Shop browsing, product detail, cart | Not started |
 | 5. Checkout + CRM + quotations | Day 7–8 | Checkout + Razorpay shop payment, quotation builder (line items/GST/discount), publish quote, team assignment, booking status/timeline updates | Not started |
 | 6. Customer dashboard + admin hardening | Day 9–10 | Profile, My Bookings/Orders + detail/timeline, quote acceptance + balance payment, admin KPI overview, filters, route-protection audit | Not started |
 | 7. QA, content, deployment, handover | Day 11–15 | End-to-end RLS/payment/responsive/accessibility QA, real content seeding, Vercel + env var config, client handover guide | Not started |
 
 ## Notes for whoever picks this up
+
+- Booking form: the client's workbook envisions a multi-step stepper (details
+  → review → confirm). We shipped a single well-validated page instead —
+  fewer steps to abandon, same data collected. Worth revisiting after real
+  user feedback, not before.
+- Razorpay Edge Functions (`supabase/functions/create-razorpay-order`,
+  `verify-razorpay-payment`) need `RAZORPAY_KEY_ID` / `RAZORPAY_KEY_SECRET`
+  set via `supabase secrets set` before they'll do anything — see `.env.example`.
+
 
 - Env: copy `.env.example` → `.env.local`. Supabase and Razorpay are both
   placeholder-scoped for now — nothing will hit a real backend until real

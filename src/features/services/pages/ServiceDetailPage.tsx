@@ -125,7 +125,7 @@ export default function ServiceDetailPage() {
           <p className="mt-2 text-sm text-muted">
             Final pricing is negotiated for every event based on scope, location, and deliverables.
           </p>
-          <ButtonLink to="/book-your-event" variant="gold" className="mt-6 w-full">
+          <ButtonLink to={`/book-your-event?service=${service.slug}`} variant="gold" className="mt-6 w-full">
             Book Your Event
           </ButtonLink>
         </aside>
