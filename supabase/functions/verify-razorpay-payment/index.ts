@@ -1,12 +1,15 @@
 // Verifies a Razorpay checkout payment signature server-side and, only if
 // valid, marks the matching public.payments row "paid" and advances the
-// booking/order it belongs to. This is the ONLY path that can ever write a
-// payment as successful — the client cannot mark its own payment paid.
+// booking/order it belongs to. This is the primary path for marking a
+// payment successful, called by the client right after Razorpay Checkout
+// closes. razorpay-webhook is the server-side backstop for the case where
+// the browser closes before this call fires — see that function's comment.
 //
 // Deploy: supabase functions deploy verify-razorpay-payment
 // Secrets required: RAZORPAY_KEY_SECRET
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import { corsHeaders, handleCorsPreflight, jsonResponse } from "../_shared/cors.ts";
+import { applyPaymentSuccess } from "../_shared/applyPaymentSuccess.ts";
 
 interface RequestBody {
   razorpay_order_id: string;
@@ -81,41 +84,7 @@ Deno.serve(async (req) => {
       return jsonResponse({ error: "Payment verification failed." }, 400);
     }
 
-    await admin
-      .from("payments")
-      .update({
-        status: "paid",
-        razorpay_payment_id,
-        razorpay_signature,
-      })
-      .eq("id", payment.id);
-
-    if (payment.purpose === "booking_advance" && payment.booking_id) {
-      const { data: booking } = await admin
-        .from("bookings")
-        .select("advance_paid_paise")
-        .eq("id", payment.booking_id)
-        .single();
-      await admin
-        .from("bookings")
-        .update({
-          advance_paid_paise: (booking?.advance_paid_paise ?? 0) + payment.amount_paise,
-          status: "advance_paid",
-        })
-        .eq("id", payment.booking_id);
-    } else if (payment.purpose === "booking_balance" && payment.booking_id) {
-      const { data: booking } = await admin
-        .from("bookings")
-        .select("advance_paid_paise")
-        .eq("id", payment.booking_id)
-        .single();
-      await admin
-        .from("bookings")
-        .update({ advance_paid_paise: (booking?.advance_paid_paise ?? 0) + payment.amount_paise })
-        .eq("id", payment.booking_id);
-    } else if (payment.purpose === "shop_order" && payment.order_id) {
-      await admin.from("orders").update({ status: "processing" }).eq("id", payment.order_id);
-    }
+    await applyPaymentSuccess(admin, { ...payment, razorpay_payment_id, razorpay_signature });
 
     return jsonResponse({ success: true });
   } catch (err) {

@@ -24,19 +24,22 @@ export function Navbar() {
     <header className="sticky top-0 z-50 px-4 pt-4 md:px-6">
       <div className="content-wrap">
         <div className="flex items-center justify-between rounded-full border border-line bg-canvas/80 px-4 py-2.5 shadow-clay backdrop-blur-md md:px-6">
-          <NavLink to="/" className="flex items-center gap-2 text-sm font-semibold tracking-tight text-ink">
+          <NavLink to="/" className="flex shrink-0 items-center gap-2 whitespace-nowrap text-sm font-semibold tracking-tight text-ink">
             <span className="text-base">Khatu Pixel</span>
-            <span className="hidden text-muted sm:inline">Digital Studio</span>
+            <span className="hidden text-muted lg:inline">Digital Studio</span>
           </NavLink>
 
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
+          {/* Full inline nav needs real estate for logo + 4 links + 2 icons + CTA —
+              below lg that combination wraps ungracefully, so the hamburger
+              covers everything from mobile through tablet, not just mobile. */}
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
             {links.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
                   cn(
-                    "rounded-full px-4 py-2 text-sm font-medium text-ink/80 transition-colors hover:text-ink",
+                    "whitespace-nowrap rounded-full px-4 py-2 text-sm font-medium text-ink/80 transition-colors hover:text-ink",
                     isActive && "text-ink",
                   )
                 }
@@ -46,11 +49,11 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-2 lg:flex">
             <NavLink
               to="/cart"
               aria-label={`View cart${itemCount > 0 ? ` (${itemCount} item${itemCount === 1 ? "" : "s"})` : ""}`}
-              className="relative rounded-full p-2.5 text-ink/70 transition-colors hover:bg-black/[0.04] hover:text-ink"
+              className="relative shrink-0 rounded-full p-2.5 text-ink/70 transition-colors hover:bg-black/[0.04] hover:text-ink"
             >
               <CartIcon />
               {itemCount > 0 && (
@@ -61,14 +64,14 @@ export function Navbar() {
             </NavLink>
             <NavLink
               to={user ? (isAdmin ? "/admin" : "/account") : "/login"}
-              className="rounded-full p-2.5 text-ink/70 transition-colors hover:bg-black/[0.04] hover:text-ink"
+              className="shrink-0 rounded-full p-2.5 text-ink/70 transition-colors hover:bg-black/[0.04] hover:text-ink"
               aria-label={user ? "My account" : "Log in"}
             >
               <UserIcon />
             </NavLink>
             <NavLink
               to="/book-your-event"
-              className="ml-1 rounded-full bg-espresso px-5 py-2.5 text-sm font-medium text-white shadow-clay transition-transform active:translate-y-px hover:bg-ink"
+              className="ml-1 shrink-0 whitespace-nowrap rounded-full bg-espresso px-5 py-2.5 text-sm font-medium text-white shadow-clay transition-transform active:translate-y-px hover:bg-ink"
             >
               Book Your Event
             </NavLink>
@@ -76,7 +79,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="rounded-full p-2 text-ink md:hidden"
+            className="rounded-full p-2 text-ink lg:hidden"
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
             onClick={() => setIsOpen((v) => !v)}
@@ -93,7 +96,7 @@ export function Navbar() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
               aria-label="Mobile"
-              className="mt-2 flex flex-col gap-1 rounded-2xl border border-line bg-surface p-3 shadow-clay md:hidden"
+              className="mt-2 flex flex-col gap-1 rounded-2xl border border-line bg-surface p-3 shadow-clay lg:hidden"
             >
               {[...links, { to: "/book-your-event", label: "Book Your Event" }].map((link) => (
                 <NavLink
