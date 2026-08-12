@@ -18,6 +18,7 @@ export type CartItem = CartItemRow & {
 };
 
 interface CartContextValue {
+  cartId: string | null;
   items: CartItem[];
   itemCount: number;
   subtotalPaise: number;
@@ -133,8 +134,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const value = useMemo<CartContextValue>(() => {
     const itemCount = items.reduce((sum, i) => sum + i.quantity, 0);
     const subtotalPaise = items.reduce((sum, i) => sum + i.quantity * i.unit_price_paise, 0);
-    return { items, itemCount, subtotalPaise, isLoading, addItem, updateQuantity, removeItem, refetch };
-  }, [items, isLoading, addItem, updateQuantity, removeItem, refetch]);
+    return { cartId, items, itemCount, subtotalPaise, isLoading, addItem, updateQuantity, removeItem, refetch };
+  }, [cartId, items, isLoading, addItem, updateQuantity, removeItem, refetch]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

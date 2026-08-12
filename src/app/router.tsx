@@ -19,6 +19,9 @@ import ShopHomePage from "@/features/shop/pages/ShopHomePage";
 import ShopCategoryPage from "@/features/shop/pages/ShopCategoryPage";
 import ProductDetailPage from "@/features/shop/pages/ProductDetailPage";
 import CartPage from "@/features/cart/pages/CartPage";
+import CheckoutPage from "@/features/checkout/pages/CheckoutPage";
+import CheckoutSuccessPage from "@/features/checkout/pages/CheckoutSuccessPage";
+import CheckoutFailedPage from "@/features/checkout/pages/CheckoutFailedPage";
 
 import LoginPage from "@/features/auth/pages/LoginPage";
 import SignupPage from "@/features/auth/pages/SignupPage";
@@ -34,6 +37,11 @@ import AdminPortfolioEditPage from "@/features/admin/portfolio/pages/AdminPortfo
 import AdminCategoriesPage from "@/features/admin/categories/pages/AdminCategoriesPage";
 import AdminProductsListPage from "@/features/admin/products/pages/AdminProductsListPage";
 import AdminProductEditPage from "@/features/admin/products/pages/AdminProductEditPage";
+import AdminBookingsListPage from "@/features/admin/bookings/pages/AdminBookingsListPage";
+import AdminBookingDetailPage from "@/features/admin/bookings/pages/AdminBookingDetailPage";
+import AdminTeamPage from "@/features/admin/team/pages/AdminTeamPage";
+import AdminOrdersListPage from "@/features/admin/orders/pages/AdminOrdersListPage";
+import AdminOrderDetailPage from "@/features/admin/orders/pages/AdminOrderDetailPage";
 
 export function AppRouter() {
   return (
@@ -57,6 +65,23 @@ export function AppRouter() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/checkout"
+          element={
+            <ProtectedRoute>
+              <CheckoutPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/checkout/success"
+          element={
+            <ProtectedRoute>
+              <CheckoutSuccessPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/checkout/failed" element={<CheckoutFailedPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
@@ -93,10 +118,6 @@ export function AppRouter() {
         />
       </Route>
 
-      <Route path="/checkout" element={<ComingSoonPage eyebrow="Checkout" title="Checkout coming soon" description="Checkout and Razorpay shop payment land in the next phase of the build." />} />
-      <Route path="/checkout/success" element={<ComingSoonPage eyebrow="Checkout" title="Payment success coming soon" description="" />} />
-      <Route path="/checkout/failed" element={<ComingSoonPage eyebrow="Checkout" title="Payment failure coming soon" description="" />} />
-
       <Route
         element={
           <ProtectedRoute role="admin">
@@ -105,10 +126,8 @@ export function AppRouter() {
         }
       >
         <Route path="/admin" element={<AdminOverviewPage />} />
-        <Route
-          path="/admin/bookings"
-          element={<ComingSoonPage eyebrow="Admin" title="Bookings management coming soon" description="The CRM and quotation builder land in the next phase of the build." />}
-        />
+        <Route path="/admin/bookings" element={<AdminBookingsListPage />} />
+        <Route path="/admin/bookings/:id" element={<AdminBookingDetailPage />} />
         <Route path="/admin/services" element={<AdminServicesListPage />} />
         <Route path="/admin/services/:id" element={<AdminServiceEditPage />} />
         <Route path="/admin/portfolio" element={<AdminPortfolioListPage />} />
@@ -116,18 +135,13 @@ export function AppRouter() {
         <Route path="/admin/categories" element={<AdminCategoriesPage />} />
         <Route path="/admin/products" element={<AdminProductsListPage />} />
         <Route path="/admin/products/:id" element={<AdminProductEditPage />} />
-        <Route
-          path="/admin/orders"
-          element={<ComingSoonPage eyebrow="Admin" title="Order management coming soon" description="This module lands in the checkout/payment phase of the build." />}
-        />
+        <Route path="/admin/orders" element={<AdminOrdersListPage />} />
+        <Route path="/admin/orders/:id" element={<AdminOrderDetailPage />} />
         <Route
           path="/admin/customers"
           element={<ComingSoonPage eyebrow="Admin" title="Customer list coming soon" description="This module lands in the admin operations phase of the build." />}
         />
-        <Route
-          path="/admin/team"
-          element={<ComingSoonPage eyebrow="Admin" title="Team roster coming soon" description="This module lands in the CRM/team-assignment phase of the build." />}
-        />
+        <Route path="/admin/team" element={<AdminTeamPage />} />
       </Route>
     </Routes>
   );
