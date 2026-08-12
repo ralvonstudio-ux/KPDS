@@ -15,12 +15,25 @@ import ServiceDetailPage from "@/features/services/pages/ServiceDetailPage";
 import PortfolioPage from "@/features/portfolio/pages/PortfolioPage";
 import BookEventPage from "@/features/booking/pages/BookEventPage";
 
+import ShopHomePage from "@/features/shop/pages/ShopHomePage";
+import ShopCategoryPage from "@/features/shop/pages/ShopCategoryPage";
+import ProductDetailPage from "@/features/shop/pages/ProductDetailPage";
+import CartPage from "@/features/cart/pages/CartPage";
+
 import LoginPage from "@/features/auth/pages/LoginPage";
 import SignupPage from "@/features/auth/pages/SignupPage";
 import ResetPasswordPage from "@/features/auth/pages/ResetPasswordPage";
 
 import AccountOverviewPage from "@/features/account/pages/AccountOverviewPage";
 import AdminOverviewPage from "@/features/admin/pages/AdminOverviewPage";
+
+import AdminServicesListPage from "@/features/admin/services/pages/AdminServicesListPage";
+import AdminServiceEditPage from "@/features/admin/services/pages/AdminServiceEditPage";
+import AdminPortfolioListPage from "@/features/admin/portfolio/pages/AdminPortfolioListPage";
+import AdminPortfolioEditPage from "@/features/admin/portfolio/pages/AdminPortfolioEditPage";
+import AdminCategoriesPage from "@/features/admin/categories/pages/AdminCategoriesPage";
+import AdminProductsListPage from "@/features/admin/products/pages/AdminProductsListPage";
+import AdminProductEditPage from "@/features/admin/products/pages/AdminProductEditPage";
 
 export function AppRouter() {
   return (
@@ -31,24 +44,10 @@ export function AppRouter() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/services/:slug" element={<ServiceDetailPage />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
-        <Route
-          path="/shop"
-          element={
-            <ComingSoonPage
-              eyebrow="Shop"
-              title="The gift boutique is being curated"
-              description="Ready-made and customised gifts land in the next phase of the build."
-            />
-          }
-        />
-        <Route
-          path="/shop/product/:slug"
-          element={<ComingSoonPage eyebrow="Shop" title="Product page coming soon" description="Product detail pages land in the next phase of the build." />}
-        />
-        <Route
-          path="/cart"
-          element={<ComingSoonPage eyebrow="Cart" title="Your cart is being built" description="Cart and checkout land alongside the shop." />}
-        />
+        <Route path="/shop" element={<ShopHomePage />} />
+        <Route path="/shop/product/:slug" element={<ProductDetailPage />} />
+        <Route path="/shop/:categorySlug" element={<ShopCategoryPage />} />
+        <Route path="/cart" element={<CartPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route
           path="/book-your-event"
@@ -78,23 +77,23 @@ export function AppRouter() {
         />
         <Route
           path="/account/bookings"
-          element={<ComingSoonPage eyebrow="Account" title="My Bookings coming soon" description="Your bookings, quotations, and payment history land with the booking-flow build." />}
+          element={<ComingSoonPage eyebrow="Account" title="My Bookings coming soon" description="Your bookings, quotations, and payment history land with the customer dashboard build." />}
         />
         <Route
           path="/account/bookings/:id"
-          element={<ComingSoonPage eyebrow="Account" title="Booking detail coming soon" description="Quotation, timeline, and balance payment land with the booking-flow build." />}
+          element={<ComingSoonPage eyebrow="Account" title="Booking detail coming soon" description="Quotation, timeline, and balance payment land with the customer dashboard build." />}
         />
         <Route
           path="/account/orders"
-          element={<ComingSoonPage eyebrow="Account" title="My Orders coming soon" description="Your shop orders and tracking land with the shop build." />}
+          element={<ComingSoonPage eyebrow="Account" title="My Orders coming soon" description="Your shop orders and tracking land with the customer dashboard build." />}
         />
         <Route
           path="/account/orders/:id"
-          element={<ComingSoonPage eyebrow="Account" title="Order detail coming soon" description="Order items and status timeline land with the shop build." />}
+          element={<ComingSoonPage eyebrow="Account" title="Order detail coming soon" description="Order items and status timeline land with the customer dashboard build." />}
         />
       </Route>
 
-      <Route path="/checkout" element={<ComingSoonPage eyebrow="Checkout" title="Checkout coming soon" description="Checkout and Razorpay payment land with the shop build." />} />
+      <Route path="/checkout" element={<ComingSoonPage eyebrow="Checkout" title="Checkout coming soon" description="Checkout and Razorpay shop payment land in the next phase of the build." />} />
       <Route path="/checkout/success" element={<ComingSoonPage eyebrow="Checkout" title="Payment success coming soon" description="" />} />
       <Route path="/checkout/failed" element={<ComingSoonPage eyebrow="Checkout" title="Payment failure coming soon" description="" />} />
 
@@ -106,22 +105,29 @@ export function AppRouter() {
         }
       >
         <Route path="/admin" element={<AdminOverviewPage />} />
-        {[
-          ["/admin/bookings", "Bookings"],
-          ["/admin/services", "Services"],
-          ["/admin/portfolio", "Portfolio"],
-          ["/admin/categories", "Categories"],
-          ["/admin/products", "Products"],
-          ["/admin/orders", "Orders"],
-          ["/admin/customers", "Customers"],
-          ["/admin/team", "Team"],
-        ].map(([path, label]) => (
-          <Route
-            key={path}
-            path={path}
-            element={<ComingSoonPage eyebrow="Admin" title={`${label} management coming soon`} description="This module lands in an upcoming phase of the build." />}
-          />
-        ))}
+        <Route
+          path="/admin/bookings"
+          element={<ComingSoonPage eyebrow="Admin" title="Bookings management coming soon" description="The CRM and quotation builder land in the next phase of the build." />}
+        />
+        <Route path="/admin/services" element={<AdminServicesListPage />} />
+        <Route path="/admin/services/:id" element={<AdminServiceEditPage />} />
+        <Route path="/admin/portfolio" element={<AdminPortfolioListPage />} />
+        <Route path="/admin/portfolio/:id" element={<AdminPortfolioEditPage />} />
+        <Route path="/admin/categories" element={<AdminCategoriesPage />} />
+        <Route path="/admin/products" element={<AdminProductsListPage />} />
+        <Route path="/admin/products/:id" element={<AdminProductEditPage />} />
+        <Route
+          path="/admin/orders"
+          element={<ComingSoonPage eyebrow="Admin" title="Order management coming soon" description="This module lands in the checkout/payment phase of the build." />}
+        />
+        <Route
+          path="/admin/customers"
+          element={<ComingSoonPage eyebrow="Admin" title="Customer list coming soon" description="This module lands in the admin operations phase of the build." />}
+        />
+        <Route
+          path="/admin/team"
+          element={<ComingSoonPage eyebrow="Admin" title="Team roster coming soon" description="This module lands in the CRM/team-assignment phase of the build." />}
+        />
       </Route>
     </Routes>
   );

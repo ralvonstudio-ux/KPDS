@@ -25,6 +25,15 @@ export function formatDate(iso: string | null | undefined): string {
   }).format(new Date(iso));
 }
 
+/** Turn a title into a URL-safe slug, e.g. "Wedding Photography!" -> "wedding-photography". */
+export function slugify(input: string): string {
+  return input
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 /** Generate a human-readable, collision-resistant booking/order reference, e.g. KPS-A1B2C3. */
 export function generateReference(prefix: "KPS" | "KPO" = "KPS"): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no ambiguous 0/O/1/I

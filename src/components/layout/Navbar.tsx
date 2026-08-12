@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
+import { useCart } from "@/features/cart/CartContext";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -15,6 +16,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { user, isAdmin } = useAuth();
+  const { itemCount } = useCart();
 
   useEffect(() => setIsOpen(false), [location.pathname]);
 
@@ -47,10 +49,15 @@ export function Navbar() {
           <div className="hidden items-center gap-2 md:flex">
             <NavLink
               to="/cart"
-              aria-label="View cart"
-              className="rounded-full p-2.5 text-ink/70 transition-colors hover:bg-black/[0.04] hover:text-ink"
+              aria-label={`View cart${itemCount > 0 ? ` (${itemCount} item${itemCount === 1 ? "" : "s"})` : ""}`}
+              className="relative rounded-full p-2.5 text-ink/70 transition-colors hover:bg-black/[0.04] hover:text-ink"
             >
               <CartIcon />
+              {itemCount > 0 && (
+                <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-gold px-1 text-[10px] font-semibold text-espresso">
+                  {itemCount}
+                </span>
+              )}
             </NavLink>
             <NavLink
               to={user ? (isAdmin ? "/admin" : "/account") : "/login"}
