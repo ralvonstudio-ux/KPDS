@@ -5,17 +5,29 @@
  * See docs/design-system.md for the annotated moodboard/rationale.
  */
 :root {
-  /* Color */
-  --color-canvas: #f8f7f4;
-  --color-surface: #ffffff;
-  --color-ink: #111111;
-  --color-muted: #6b7280;
-  --color-gold: #c59d5f;
-  --color-gold-soft: #d9be8c;
-  --color-gold-deep: #a9814a;
-  --color-espresso: #2b2118;
-  --color-line: rgba(17, 17, 17, 0.08);
-  --color-line-strong: rgba(17, 17, 17, 0.14);
+  /* Color — canonical palette */
+  --color-obsidian: #0b0b0c;
+  --color-bone: #f4f2ed;
+  --color-soft-white: #faf9f6;
+  --color-ink: #111113;
+  --color-graphite: #666568;
+  --color-crimson: #a51d2d;
+  --color-crimson-light: #c13a4c;
+  --color-wine: #641722;
+  --color-ash: #ddd9d2;
+
+  /* Semantic aliases — kept so ::selection/focus-ring fallbacks below (and
+     any future plain-CSS, non-Tailwind styling) stay in sync with the
+     Tailwind config's alias block without duplicating hex values. */
+  --color-canvas: var(--color-bone);
+  --color-surface: var(--color-soft-white);
+  --color-muted: var(--color-graphite);
+  --color-gold: var(--color-crimson);
+  --color-gold-soft: var(--color-crimson-light);
+  --color-gold-deep: var(--color-wine);
+  --color-espresso: var(--color-obsidian);
+  --color-line: var(--color-ash);
+  --color-line-strong: #c7c1b4;
 
   /* 8px spacing grid */
   --space-1: 0.5rem;
@@ -30,12 +42,13 @@
   /* Radii */
   --radius-sm: 12px;
   --radius-md: 20px;
-  --radius-lg: 24px;
-  --radius-xl: 32px;
+  --radius-lg: 28px;
+  --radius-hero: 36px;
 
-  /* Shadow */
-  --shadow-clay: 0 1px 2px rgba(43, 33, 24, 0.04), 0 12px 32px -12px rgba(43, 33, 24, 0.16);
-  --shadow-clay-lg: 0 4px 8px rgba(43, 33, 24, 0.04), 0 24px 60px -20px rgba(43, 33, 24, 0.22);
+  /* Shadow — soft claymorphism, never a hard black drop-shadow */
+  --shadow-clay: 0 12px 40px rgba(11, 11, 12, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  --shadow-clay-lg: 0 24px 70px rgba(11, 11, 12, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --shadow-focus: 0 0 0 3px rgba(165, 29, 45, 0.35);
 
   /* Motion limits — see docs/design-system.md "Motion" for rules */
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
@@ -43,7 +56,7 @@
   --duration-base: 320ms;
   --duration-slow: 520ms;
   --scale-card-hover: 1.015;
-  --scale-image-hover: 1.05;
+  --scale-image-hover: 1.04;
   --lift-button: 2px;
 
   /* Breakpoints (reference only — enforced via Tailwind screens) */
