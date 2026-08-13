@@ -22,7 +22,7 @@ export interface ProductDraft {
 }
 
 export function useAdminProducts() {
-  const [data, setData] = useState<(Product & { categories: { name: string } | null })[] | null>(null);
+  const [data, setData] = useState<(Product & { categories: { name: string } | null; product_images: { image_url: string }[] })[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -31,7 +31,7 @@ export function useAdminProducts() {
     setError(null);
     const { data, error } = await supabase
       .from("products")
-      .select("*, categories(name)")
+      .select("*, categories(name), product_images(image_url)")
       .order("sort_order", { ascending: true });
     if (error) setError(error.message);
     else setData(data ?? []);
