@@ -39,6 +39,26 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
+-- Central "am I an admin" check used by RLS policies across every table.
+-- security definer + fixed search_path lets it bypass RLS on profiles safely
+-- (the alternative, a plain subquery, works too since a user can always read
+-- their own profiles row, but this keeps every policy below one line long
+-- and avoids re-deriving the same subquery two dozen times). Lives here,
+-- right after the profiles table it queries, rather than in the earlier
+-- extensions/helpers migration — see the comment there for why.
+create or replace function public.is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (
+    select 1 from public.profiles
+    where id = auth.uid() and role = 'admin'
+  );
+$$;
+
 alter table public.profiles enable row level security;
 
 create policy "profiles_select_own_or_admin"

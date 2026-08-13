@@ -40,7 +40,7 @@
   /* Visible, consistent focus state for keyboard users across the app. */
   :focus-visible {
     outline: none;
-    box-shadow: var(--shadow-focus, 0 0 0 3px rgba(197, 157, 95, 0.45));
+    box-shadow: var(--shadow-focus, 0 0 0 3px rgba(165, 29, 45, 0.35));
     border-radius: 4px;
   }
 }

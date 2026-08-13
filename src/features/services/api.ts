@@ -12,7 +12,7 @@ interface AsyncState<T> {
   error: string | null;
 }
 
-export function useServices() {
+export function useServices(limit?: number) {
   const [state, setState] = useState<AsyncState<Service[]>>({ data: null, isLoading: true, error: null });
   const [reloadKey, setReloadKey] = useState(0);
 
@@ -20,12 +20,14 @@ export function useServices() {
     let isMounted = true;
     setState((s) => ({ ...s, isLoading: true, error: null }));
 
-    supabase
+    let query = supabase
       .from("services")
       .select("*")
       .eq("is_published", true)
-      .order("sort_order", { ascending: true })
-      .then(({ data, error }) => {
+      .order("sort_order", { ascending: true });
+    if (limit) query = query.limit(limit);
+
+    query.then(({ data, error }) => {
         if (!isMounted) return;
         if (error) {
           setState({ data: null, isLoading: false, error: error.message });
@@ -37,7 +39,7 @@ export function useServices() {
     return () => {
       isMounted = false;
     };
-  }, [reloadKey]);
+  }, [reloadKey, limit]);
 
   return { ...state, refetch: () => setReloadKey((k) => k + 1) };
 }

@@ -23,8 +23,8 @@ export const cardHover = {
   transition: { duration: 0.25, ease: [0.22, 1, 0.36, 1] },
 };
 
-/** Image hover zoom — capped at 1.05. */
+/** Image hover zoom — capped at 1.04 per docs/design-system.md. */
 export const imageZoomHover = {
-  whileHover: { scale: 1.05 },
+  whileHover: { scale: 1.04 },
   transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
 };

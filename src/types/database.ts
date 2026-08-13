@@ -43,6 +43,7 @@ export interface CustomisationField {
 
 export interface Database {
   public: {
+    Views: Record<string, never>;
     Tables: {
       profiles: {
         Row: {
@@ -56,6 +57,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["profiles"]["Row"]> & { id: string };
         Update: Partial<Database["public"]["Tables"]["profiles"]["Row"]>;
+        Relationships: [];
       };
       services: {
         Row: {
@@ -76,6 +78,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["services"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["services"]["Row"]>;
+        Relationships: [];
       };
       service_gallery: {
         Row: {
@@ -88,6 +91,15 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["service_gallery"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["service_gallery"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "service_gallery_service_id_fkey";
+            columns: ["service_id"];
+            isOneToOne: false;
+            referencedRelation: "services";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       bookings: {
         Row: {
@@ -111,6 +123,22 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["bookings"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["bookings"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "bookings_customer_id_fkey";
+            columns: ["customer_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "bookings_service_id_fkey";
+            columns: ["service_id"];
+            isOneToOne: false;
+            referencedRelation: "services";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       booking_status_history: {
         Row: {
@@ -123,6 +151,22 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["booking_status_history"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["booking_status_history"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "booking_status_history_booking_id_fkey";
+            columns: ["booking_id"];
+            isOneToOne: false;
+            referencedRelation: "bookings";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "booking_status_history_changed_by_fkey";
+            columns: ["changed_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       quotations: {
         Row: {
@@ -142,6 +186,15 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["quotations"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["quotations"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "quotations_booking_id_fkey";
+            columns: ["booking_id"];
+            isOneToOne: true;
+            referencedRelation: "bookings";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       quotation_items: {
         Row: {
@@ -156,6 +209,15 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["quotation_items"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["quotation_items"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "quotation_items_quotation_id_fkey";
+            columns: ["quotation_id"];
+            isOneToOne: false;
+            referencedRelation: "quotations";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       team_members: {
         Row: {
@@ -170,6 +232,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["team_members"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["team_members"]["Row"]>;
+        Relationships: [];
       };
       booking_assignments: {
         Row: {
@@ -181,6 +244,22 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["booking_assignments"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["booking_assignments"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "booking_assignments_booking_id_fkey";
+            columns: ["booking_id"];
+            isOneToOne: false;
+            referencedRelation: "bookings";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "booking_assignments_team_member_id_fkey";
+            columns: ["team_member_id"];
+            isOneToOne: false;
+            referencedRelation: "team_members";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       categories: {
         Row: {
@@ -196,6 +275,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["categories"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["categories"]["Row"]>;
+        Relationships: [];
       };
       products: {
         Row: {
@@ -217,6 +297,15 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["products"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["products"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "products_category_id_fkey";
+            columns: ["category_id"];
+            isOneToOne: false;
+            referencedRelation: "categories";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       product_images: {
         Row: {
@@ -229,6 +318,15 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["product_images"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["product_images"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "product_images_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       product_variants: {
         Row: {
@@ -244,6 +342,15 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["product_variants"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["product_variants"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "product_variants_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       carts: {
         Row: {
@@ -254,6 +361,15 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["carts"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["carts"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "carts_customer_id_fkey";
+            columns: ["customer_id"];
+            isOneToOne: true;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       cart_items: {
         Row: {
@@ -269,6 +385,29 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["cart_items"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["cart_items"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "cart_items_cart_id_fkey";
+            columns: ["cart_id"];
+            isOneToOne: false;
+            referencedRelation: "carts";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "cart_items_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "cart_items_variant_id_fkey";
+            columns: ["variant_id"];
+            isOneToOne: false;
+            referencedRelation: "product_variants";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       orders: {
         Row: {
@@ -294,6 +433,15 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["orders"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["orders"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "orders_customer_id_fkey";
+            columns: ["customer_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       order_items: {
         Row: {
@@ -311,6 +459,29 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["order_items"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["order_items"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "order_items_order_id_fkey";
+            columns: ["order_id"];
+            isOneToOne: false;
+            referencedRelation: "orders";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "order_items_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "order_items_variant_id_fkey";
+            columns: ["variant_id"];
+            isOneToOne: false;
+            referencedRelation: "product_variants";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       order_status_history: {
         Row: {
@@ -322,6 +493,22 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["order_status_history"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["order_status_history"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "order_status_history_order_id_fkey";
+            columns: ["order_id"];
+            isOneToOne: false;
+            referencedRelation: "orders";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "order_status_history_changed_by_fkey";
+            columns: ["changed_by"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       payments: {
         Row: {
@@ -342,6 +529,29 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["payments"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["payments"]["Row"]>;
+        Relationships: [
+          {
+            foreignKeyName: "payments_booking_id_fkey";
+            columns: ["booking_id"];
+            isOneToOne: false;
+            referencedRelation: "bookings";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "payments_order_id_fkey";
+            columns: ["order_id"];
+            isOneToOne: false;
+            referencedRelation: "orders";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "payments_customer_id_fkey";
+            columns: ["customer_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
+          },
+        ];
       };
       portfolio_items: {
         Row: {
@@ -358,6 +568,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["portfolio_items"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["portfolio_items"]["Row"]>;
+        Relationships: [];
       };
       testimonials: {
         Row: {
@@ -373,6 +584,7 @@ export interface Database {
         };
         Insert: Partial<Database["public"]["Tables"]["testimonials"]["Row"]>;
         Update: Partial<Database["public"]["Tables"]["testimonials"]["Row"]>;
+        Relationships: [];
       };
     };
     Functions: {

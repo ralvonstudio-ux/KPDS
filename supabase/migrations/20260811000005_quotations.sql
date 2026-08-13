@@ -81,9 +81,12 @@ set search_path = public
 as $$
 declare
   v_quotation public.quotations;
-  v_booking_id uuid;
 begin
-  select q.*, b.id into v_quotation, v_booking_id
+  -- Single-target `select q.* into v_quotation` — a `.*` record expansion
+  -- can't share an INTO list with an extra scalar target (b.id), which is
+  -- what the previous version of this function tried to do. booking_id is
+  -- already a column on quotations, so no second variable is needed anyway.
+  select q.* into v_quotation
   from public.quotations q
   join public.bookings b on b.id = q.booking_id
   where q.id = p_quotation_id and b.customer_id = auth.uid();
@@ -101,7 +104,7 @@ begin
   where id = p_quotation_id
   returning * into v_quotation;
 
-  update public.bookings set status = 'confirmed' where id = v_booking_id;
+  update public.bookings set status = 'confirmed' where id = v_quotation.booking_id;
 
   return v_quotation;
 end;

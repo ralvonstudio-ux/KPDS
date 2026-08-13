@@ -4,10 +4,12 @@ Luxury photography, videography, and customised-gift studio platform: public
 portfolio site, event booking with staged payments, a gift shop, and customer +
 admin dashboards.
 
-**Status:** in active build, following
-[`docs/build-plan.md`](docs/build-plan.md) and the client's
-`Khatu_Pixel_Digital_Studio_15_Day_Project_Management.xlsx` workbook. Not yet
-launch-ready — see that plan for what's done vs. outstanding.
+**Status:** feature-complete end to end (public site, booking + advance/
+balance payments, shop + checkout, customer dashboard, admin console) against
+placeholder Supabase/Razorpay credentials — see
+[`docs/build-plan.md`](docs/build-plan.md) for what that does and doesn't
+cover, and [`docs/handover.md`](docs/handover.md) for the pre-launch
+checklist and deploy steps once real credentials are connected.
 
 ## Stack
 
@@ -35,8 +37,9 @@ src/
   types/          shared TypeScript types, incl. the Supabase schema mirror
 supabase/
   migrations/     ordered SQL migrations — schema, RLS, triggers, functions
-  functions/      Edge Functions (Razorpay order creation, payment/webhook verification)
-docs/             design system, information architecture, handover guide
+  functions/      Edge Functions (Razorpay order creation, payment verification, webhook)
+  seed.sql        sample content for a fresh dev/staging database
+docs/             design system, information architecture, build plan, handover guide
 ```
 
 ## Database & security
