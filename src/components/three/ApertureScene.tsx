@@ -95,16 +95,23 @@ export function ApertureScene({ className }: { className?: string }) {
     <SceneErrorBoundary>
       <Canvas
         className={className}
-        camera={{ position: [0, 0, 5], fov: 40 }}
+        camera={{ position: [0, 0, 8], fov: 36 }}
         dpr={[1, 1.75]}
         gl={{ antialias: true, alpha: true, powerPreference: "low-power" }}
       >
         <Suspense fallback={null}>
           <Lights />
-          <ApertureRing />
-          <Bokeh position={[-2.1, 1.1, -1.5]} scale={0.28} color="#D9BE8C" />
-          <Bokeh position={[2.3, -1.3, -2]} scale={0.4} color="#641722" />
-          <Bokeh position={[1.6, 1.6, -1]} scale={0.18} color="#A51D2D" />
+          {/* Scaled down from the ring's natural size so it stays fully
+              inside the camera frustum with real margin even while
+              tumbling on X/Y — a canvas clips hard at its own edge, so a
+              tilted torus that only "just" fits at rest gets visibly cut
+              off the moment it rotates. */}
+          <group scale={0.72}>
+            <ApertureRing />
+          </group>
+          <Bokeh position={[-2.4, 1.3, -2]} scale={0.24} color="#D9BE8C" />
+          <Bokeh position={[2.6, -1.6, -2.5]} scale={0.34} color="#641722" />
+          <Bokeh position={[1.8, 1.9, -1.5]} scale={0.15} color="#A51D2D" />
         </Suspense>
       </Canvas>
     </SceneErrorBoundary>

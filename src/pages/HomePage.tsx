@@ -60,8 +60,15 @@ function Hero() {
       <div ref={textRef} className="relative order-2 lg:order-1">
         {/* Ambient 3D signature piece — a slowly rotating aperture ring,
             deliberately kept behind and smaller than the headline so the
-            photography stays the visual lead, per docs/design-system.md. */}
-        <div className="pointer-events-none absolute -left-16 -top-24 -z-10 h-[420px] w-[420px] opacity-70 md:-left-24 md:-top-32">
+            photography stays the visual lead, per docs/design-system.md.
+            Sits above-left of the copy rather than through it — a
+            background accent glimpsed at the edges, not something the
+            headline has to compete with for attention. Hidden below md:
+            on the stacked mobile layout there's no room to keep it clear
+            of the text at every rotation angle, and a phone is exactly
+            where you don't want to spend a WebGL context on a decorative
+            extra anyway. */}
+        <div className="pointer-events-none absolute -left-28 -top-40 -z-10 hidden h-[360px] w-[360px] opacity-60 md:block">
           <LazyApertureScene className="h-full w-full" />
         </div>
 
