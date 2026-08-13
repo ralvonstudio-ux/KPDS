@@ -6,8 +6,8 @@ import { useCart } from "@/features/cart/CartContext";
 import { cn } from "@/lib/utils";
 
 const links = [
+  { to: "/portfolio", label: "Work" },
   { to: "/services", label: "Services" },
-  { to: "/portfolio", label: "Portfolio" },
   { to: "/shop", label: "Shop" },
   { to: "/about", label: "About" },
 ];
@@ -33,7 +33,7 @@ export function Navbar() {
       <div className="content-wrap">
         <div
           className={cn(
-            "flex items-center justify-between rounded-full border border-line bg-canvas/80 shadow-clay backdrop-blur-md transition-[padding] duration-300 ease-editorial md:px-6",
+            "grid grid-cols-[auto_1fr_auto] items-center gap-4 rounded-full border border-line bg-canvas/80 shadow-clay backdrop-blur-md transition-[padding] duration-300 ease-editorial md:px-6",
             isScrolled ? "px-3.5 py-2" : "px-4 py-2.5",
           )}
         >
@@ -42,10 +42,11 @@ export function Navbar() {
             <span className="hidden text-muted lg:inline">Digital Studio</span>
           </NavLink>
 
-          {/* Full inline nav needs real estate for logo + 4 links + 2 icons + CTA —
-              below lg that combination wraps ungracefully, so the hamburger
-              covers everything from mobile through tablet, not just mobile. */}
-          <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+          {/* True center column — full inline nav needs real estate for
+              logo + 4 links + 2 icons + CTA; below lg that combination
+              wraps ungracefully, so the hamburger covers everything from
+              mobile through tablet, not just mobile. */}
+          <nav className="hidden items-center justify-center gap-1 lg:flex" aria-label="Primary">
             {links.map((link) => (
               <NavLink
                 key={link.to}
@@ -62,7 +63,7 @@ export function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-2 lg:flex">
+          <div className="hidden items-center justify-self-end gap-2 lg:flex">
             <NavLink
               to="/cart"
               aria-label={`View cart${itemCount > 0 ? ` (${itemCount} item${itemCount === 1 ? "" : "s"})` : ""}`}
@@ -92,7 +93,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="rounded-full p-2 text-ink lg:hidden"
+            className="justify-self-end rounded-full p-2 text-ink lg:hidden"
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
             onClick={() => setIsOpen((v) => !v)}

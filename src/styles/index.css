@@ -43,6 +43,15 @@
     box-shadow: var(--shadow-focus, 0 0 0 3px rgba(165, 29, 45, 0.35));
     border-radius: 4px;
   }
+
+  /* Toggled only by <CustomCursor>, only while it's actually mounted (the
+     cinematic homepage — no text inputs there to lose their I-beam cursor).
+     Never a static rule, so a component failure can't strand a user with
+     no visible pointer. */
+  html.kpds-cursor-none,
+  html.kpds-cursor-none * {
+    cursor: none !important;
+  }
 }
 
 @layer utilities {
