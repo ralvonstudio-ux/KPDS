@@ -45,20 +45,7 @@ begin
 end;
 $$;
 
--- Central "am I an admin" check used by RLS policies across every table.
--- security definer + fixed search_path lets it bypass RLS on profiles safely
--- (the alternative, a plain subquery, works too since a user can always read
--- their own profiles row, but this keeps every policy below one line long
--- and avoids re-deriving the same subquery two dozen times).
-create or replace function public.is_admin()
-returns boolean
-language sql
-stable
-security definer
-set search_path = public
-as $$
-  select exists (
-    select 1 from public.profiles
-    where id = auth.uid() and role = 'admin'
-  );
-$$;
+-- is_admin() lives in 20260811000002_profiles.sql, right after the profiles
+-- table is created — a `language sql` function is validated against the
+-- catalog at CREATE FUNCTION time, so it can't reference a table (profiles)
+-- that doesn't exist yet in this earlier migration.
