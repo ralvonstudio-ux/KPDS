@@ -2,11 +2,12 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import type { Service } from "@/features/services/api";
 import { formatINR } from "@/lib/utils";
-import { cardHover, imageZoomHover } from "@/lib/motion";
+import { imageZoomHover } from "@/lib/motion";
+import { TiltCard } from "@/components/ui/TiltCard";
 
 export function ServiceCard({ service, className }: { service: Service; className?: string }) {
   return (
-    <motion.div {...cardHover} className={className}>
+    <TiltCard maxTilt={4} className={className}>
       <Link
         to={`/services/${service.slug}`}
         className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface shadow-clay focus-visible:outline-none focus-visible:shadow-focus"
@@ -36,6 +37,6 @@ export function ServiceCard({ service, className }: { service: Service; classNam
           </p>
         </div>
       </Link>
-    </motion.div>
+    </TiltCard>
   );
 }

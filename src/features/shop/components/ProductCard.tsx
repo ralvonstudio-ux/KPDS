@@ -2,13 +2,14 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import type { ProductWithImages } from "@/features/shop/api";
 import { formatINR } from "@/lib/utils";
-import { cardHover, imageZoomHover } from "@/lib/motion";
+import { imageZoomHover } from "@/lib/motion";
+import { TiltCard } from "@/components/ui/TiltCard";
 
 export function ProductCard({ product }: { product: ProductWithImages }) {
   const cover = [...product.product_images].sort((a, b) => a.sort_order - b.sort_order)[0];
 
   return (
-    <motion.div {...cardHover}>
+    <TiltCard maxTilt={4}>
       <Link
         to={`/shop/product/${product.slug}`}
         className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface shadow-clay focus-visible:outline-none focus-visible:shadow-focus"
@@ -31,6 +32,6 @@ export function ProductCard({ product }: { product: ProductWithImages }) {
           <p className="mt-auto pt-2 text-sm font-medium text-gold-deep">{formatINR(product.base_price_paise)}</p>
         </div>
       </Link>
-    </motion.div>
+    </TiltCard>
   );
 }
