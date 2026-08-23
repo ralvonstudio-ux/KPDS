@@ -68,8 +68,8 @@ export default function AccountOverviewPage() {
           ) : (
             <div className="mt-3">
               <p className="text-sm text-muted">No orders yet.</p>
-              <ButtonLink to="/shop" variant="outline" size="sm" className="mt-3">
-                Visit the Shop
+              <ButtonLink to="/gift-center" variant="outline" size="sm" className="mt-3">
+                Visit the Gift Center
               </ButtonLink>
             </div>
           )}

@@ -11,7 +11,7 @@ export function ProductCard({ product }: { product: ProductWithImages }) {
   return (
     <TiltCard maxTilt={4}>
       <Link
-        to={`/shop/product/${product.slug}`}
+        to={`/gift-center/product/${product.slug}`}
         className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface shadow-clay focus-visible:outline-none focus-visible:shadow-focus"
       >
         <div className="aspect-square overflow-hidden bg-black/5">

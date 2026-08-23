@@ -12,12 +12,12 @@ export default function ShopCategoryPage() {
 
   return (
     <div className="section-space content-wrap">
-      <Link to="/shop" className="text-sm text-muted underline underline-offset-2 hover:text-ink">
+      <Link to="/gift-center" className="text-sm text-muted underline underline-offset-2 hover:text-ink">
         ← All categories
       </Link>
 
       <div className="mt-6">
-        <PageHeader eyebrow="Shop" title={categorySlug?.replace(/-/g, " ") ?? "Shop"} />
+        <PageHeader eyebrow="Gift Center" title={categorySlug?.replace(/-/g, " ") ?? "Gift Center"} />
       </div>
 
       <div className="mt-16">

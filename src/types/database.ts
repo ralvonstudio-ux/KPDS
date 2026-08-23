@@ -285,6 +285,8 @@ export interface Database {
           name: string;
           description: string | null;
           base_price_paise: number;
+          compare_at_price_paise: number | null;
+          is_bestseller: boolean;
           is_customisable: boolean;
           customisation_fields: CustomisationField[];
           stock_tracked: boolean;

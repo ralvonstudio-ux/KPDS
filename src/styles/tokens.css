@@ -1,33 +1,48 @@
 /**
  * Design tokens — Khatu Pixel Digital Studio
- * Single source of truth for color, spacing, radius, shadow, and motion.
- * Mapped into Tailwind theme utilities in tailwind.config.ts.
- * See docs/design-system.md for the annotated moodboard/rationale.
+ * Palette: Ivory / Navy / Coral. Every semantic color is a CSS custom
+ * property in "R G B" triplet form (no commas) so Tailwind can apply it as
+ * `rgb(var(--color-x) / <alpha-value>)` — that gives every alias working
+ * opacity modifiers (e.g. `bg-canvas/80`) AND means light/dark mode is just
+ * two blocks of variable values below, never a per-component `dark:` class.
+ * Flip `.dark` on <html> (see src/context/ThemeContext.tsx) and the entire
+ * app re-themes from these two blocks alone.
+ *
+ * Two tokens look similar but serve different roles, and only one of them
+ * flips between modes:
+ *  - `ink` is *text* — dark navy on the light page, ivory on the dark page.
+ *  - `espresso` is *dark chrome* (primary buttons, the marquee bar, the
+ *    WhatsApp CTA card) — it stays the same navy in both themes, since
+ *    that's what "Book" and friends look like in every screenshot. It is
+ *    deliberately NOT overridden in the `.dark` block below.
+ *
+ * See docs/design-system.md for the annotated rationale.
  */
 :root {
-  /* Color — canonical palette */
-  --color-obsidian: #0b0b0c;
-  --color-bone: #f4f2ed;
-  --color-soft-white: #faf9f6;
-  --color-ink: #111113;
-  --color-graphite: #666568;
-  --color-crimson: #a51d2d;
-  --color-crimson-light: #c13a4c;
-  --color-wine: #641722;
-  --color-ash: #ddd9d2;
+  /* ---- Light mode (default) ---- */
+  --color-ivory: 246 242 231; /* page background */
+  --color-ivory-soft: 251 248 242; /* card / surface background, slightly whiter */
+  --color-ink: 23 31 56; /* primary text — dark navy on the light page */
+  --color-espresso: 23 31 56; /* dark chrome — buttons, marquee, WhatsApp CTA. Constant across themes. */
+  --color-espresso-deep: 15 20 39; /* deepest chrome variant */
+  --color-coral: 232 96 74; /* primary accent — CTAs, links, active states, prices */
+  --color-coral-light: 240 128 108; /* hover / soft accent */
+  --color-coral-deep: 196 72 54; /* pressed / deep accent */
+  --color-muted: 115 111 102; /* secondary text, warm gray */
+  --color-line: 228 223 211; /* hairline borders */
+  --color-line-strong: 210 203 187;
 
-  /* Semantic aliases — kept so ::selection/focus-ring fallbacks below (and
-     any future plain-CSS, non-Tailwind styling) stay in sync with the
-     Tailwind config's alias block without duplicating hex values. */
-  --color-canvas: var(--color-bone);
-  --color-surface: var(--color-soft-white);
-  --color-muted: var(--color-graphite);
-  --color-gold: var(--color-crimson);
-  --color-gold-soft: var(--color-crimson-light);
-  --color-gold-deep: var(--color-wine);
-  --color-espresso: var(--color-obsidian);
-  --color-line: var(--color-ash);
-  --color-line-strong: #c7c1b4;
+  /* Canonical palette names (docs/design-system.md) — same values as the
+     semantic tokens above, kept for anything written against the canonical
+     rather than semantic names. */
+  --color-obsidian: var(--color-espresso);
+  --color-bone: var(--color-ivory);
+  --color-soft-white: var(--color-ivory-soft);
+  --color-graphite: var(--color-muted);
+  --color-crimson: var(--color-coral);
+  --color-crimson-light: var(--color-coral-light);
+  --color-wine: var(--color-coral-deep);
+  --color-ash: var(--color-line);
 
   /* 8px spacing grid */
   --space-1: 0.5rem;
@@ -46,9 +61,9 @@
   --radius-hero: 36px;
 
   /* Shadow — soft claymorphism, never a hard black drop-shadow */
-  --shadow-clay: 0 12px 40px rgba(11, 11, 12, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  --shadow-clay-lg: 0 24px 70px rgba(11, 11, 12, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  --shadow-focus: 0 0 0 3px rgba(165, 29, 45, 0.35);
+  --shadow-clay: 0 12px 40px rgba(23, 31, 56, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --shadow-clay-lg: 0 24px 70px rgba(23, 31, 56, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --shadow-focus: 0 0 0 3px rgba(232, 96, 74, 0.35);
 
   /* Motion limits — see docs/design-system.md "Motion" for rules */
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
@@ -65,4 +80,27 @@
   --bp-lg: 1024px;
   --bp-xl: 1280px;
   --bp-2xl: 1440px;
+}
+
+/* ---- Dark mode ---- */
+:root.dark {
+  --color-ivory: 13 18 36; /* page background becomes deep navy */
+  --color-ivory-soft: 22 29 53; /* card surface, one step lighter than the page */
+  --color-ink: 241 237 226; /* text becomes ivory-white on the dark page */
+  --color-coral: 240 118 97; /* lightened so it keeps ~4.5:1 contrast on the dark page */
+  --color-coral-light: 247 148 130;
+  --color-coral-deep: 216 92 70;
+  --color-muted: 154 148 136;
+  --color-line: 40 48 76;
+  --color-line-strong: 58 68 100;
+
+  /* --color-espresso / --color-espresso-deep intentionally NOT redefined:
+     "dark chrome" elements (buttons, marquee, WhatsApp CTA) stay the same
+     navy in both themes rather than getting darker still, or they'd
+     disappear into the near-black page background instead of standing
+     out from it. */
+
+  --shadow-clay: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  --shadow-clay-lg: 0 24px 70px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  --shadow-focus: 0 0 0 3px rgba(240, 118, 97, 0.4);
 }

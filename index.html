@@ -4,12 +4,27 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#F8F7F4" />
+    <meta name="theme-color" content="#F6F2E7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0D1224" media="(prefers-color-scheme: dark)" />
     <meta
       name="description"
       content="Khatu Pixel Digital Studio — photography, videography, and customised gifts. Capturing moments, creating memories."
     />
     <title>Khatu Pixel Digital Studio</title>
+
+    <!-- Set the theme class before React mounts so there's never a flash of
+         the wrong theme. Mirrors the read/write logic in ThemeContext. -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("kpds-theme");
+          var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (e) {
+          /* localStorage unavailable (privacy mode etc.) — fall back to light. */
+        }
+      })();
+    </script>
 
     <!-- Open Graph / social sharing — replace og:image with a real studio photo before launch -->
     <meta property="og:type" content="website" />

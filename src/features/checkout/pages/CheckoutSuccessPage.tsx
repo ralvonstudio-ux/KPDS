@@ -37,7 +37,7 @@ export default function CheckoutSuccessPage() {
           <p className="mt-4 text-sm text-muted">Thank you — your order has been placed.</p>
         )}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
-          <ButtonLink to="/shop" variant="gold">
+          <ButtonLink to="/gift-center" variant="gold">
             Continue shopping
           </ButtonLink>
           <ButtonLink to="/" variant="outline">

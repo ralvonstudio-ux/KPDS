@@ -9,12 +9,13 @@ redirect rules that guard protected routes. Implemented in `src/app/router.tsx`.
 |---|---|
 | `/` | Home |
 | `/about` | About |
-| `/services` | Services (catalogue) |
-| `/services/:slug` | Service detail |
+| `/studio` | Studio — services catalogue (was `/services`) |
+| `/studio/:slug` | Service detail |
 | `/portfolio` | Portfolio (masonry + filters + lightbox) |
-| `/shop` | Shop (category grid) |
-| `/shop/:categorySlug` | Shop — category filtered |
-| `/shop/product/:slug` | Product detail |
+| `/offers` | Offers — curated promotions |
+| `/gift-center` | Gift Center — category grid (was `/shop`) |
+| `/gift-center/:categorySlug` | Gift Center — category filtered |
+| `/gift-center/product/:slug` | Product detail |
 | `/cart` | Cart |
 | `/contact` | Contact |
 | `/book-your-event` | Book Your Event |
@@ -70,8 +71,10 @@ authorized); a signed-out visitor is redirected to `/login`.
 
 ## Navigation
 
-- Public floating nav: Home, Services, Portfolio, Shop, Book Your Event
-  (primary CTA styled distinctly), Account/Login icon, Cart icon with item count.
+- Public nav: Home, Gift Center, Studio, Portfolio, Offers, Contact, plus a
+  location pill (visual only, not yet wired), search (client-side, filters
+  Studio + Gift Center), theme toggle (light/dark), Cart icon with item
+  count, Account/Login icon, and "Book" (primary CTA, styled distinctly).
 - Customer dashboard: sidebar nav (desktop) collapsing to a bottom/drawer nav
   (mobile) — Overview, Bookings, Orders, Profile.
 - Admin console: sidebar nav (desktop) collapsing to a drawer (mobile) —

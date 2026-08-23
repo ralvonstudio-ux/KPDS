@@ -93,8 +93,8 @@ export default function CheckoutPage() {
           title="Your cart is empty"
           description="Add something to your cart before checking out."
           action={
-            <ButtonLink to="/shop" variant="outline" className="mt-2">
-              Visit the Shop
+            <ButtonLink to="/gift-center" variant="outline" className="mt-2">
+              Visit the Gift Center
             </ButtonLink>
           }
         />

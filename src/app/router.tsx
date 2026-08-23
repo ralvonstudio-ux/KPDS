@@ -19,6 +19,7 @@ const ContactPage = lazy(() => import("@/pages/ContactPage"));
 const ServicesPage = lazy(() => import("@/features/services/pages/ServicesPage"));
 const ServiceDetailPage = lazy(() => import("@/features/services/pages/ServiceDetailPage"));
 const PortfolioPage = lazy(() => import("@/features/portfolio/pages/PortfolioPage"));
+const OffersPage = lazy(() => import("@/pages/OffersPage"));
 const BookEventPage = lazy(() => import("@/features/booking/pages/BookEventPage"));
 
 const ShopHomePage = lazy(() => import("@/features/shop/pages/ShopHomePage"));
@@ -62,12 +63,13 @@ export function AppRouter() {
         <Route element={<PublicLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/services/:slug" element={<ServiceDetailPage />} />
+          <Route path="/studio" element={<ServicesPage />} />
+          <Route path="/studio/:slug" element={<ServiceDetailPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
-          <Route path="/shop" element={<ShopHomePage />} />
-          <Route path="/shop/product/:slug" element={<ProductDetailPage />} />
-          <Route path="/shop/:categorySlug" element={<ShopCategoryPage />} />
+          <Route path="/offers" element={<OffersPage />} />
+          <Route path="/gift-center" element={<ShopHomePage />} />
+          <Route path="/gift-center/product/:slug" element={<ProductDetailPage />} />
+          <Route path="/gift-center/:categorySlug" element={<ShopCategoryPage />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route

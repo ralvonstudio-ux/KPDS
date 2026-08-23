@@ -11,8 +11,8 @@ export default function ServicesPage() {
   return (
     <div className="section-space content-wrap">
       <PageHeader
-        eyebrow="What we offer"
-        title="Services"
+        eyebrow="Khatu Pixel Digital Studio"
+        title="Studio"
         description="Every package is shaped around your event — see what's included, then talk to us for a quote built around you."
       />
 

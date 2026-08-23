@@ -9,7 +9,7 @@ export function ServiceCard({ service, className }: { service: Service; classNam
   return (
     <TiltCard maxTilt={4} className={className}>
       <Link
-        to={`/services/${service.slug}`}
+        to={`/studio/${service.slug}`}
         className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface shadow-clay focus-visible:outline-none focus-visible:shadow-focus"
       >
         <div className="aspect-[4/5] overflow-hidden bg-black/5">

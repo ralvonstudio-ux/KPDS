@@ -44,8 +44,8 @@ export default function ProductDetailPage() {
           title="Product not found"
           description="This item may be sold out or no longer available."
           action={
-            <ButtonLink to="/shop" variant="outline" className="mt-2">
-              Back to Shop
+            <ButtonLink to="/gift-center" variant="outline" className="mt-2">
+              Back to Gift Center
             </ButtonLink>
           }
         />
@@ -57,7 +57,7 @@ export default function ProductDetailPage() {
 
   const handleFileField = async (key: string, file: File) => {
     if (!user) {
-      navigate(`/login?redirect=/shop/product/${slug}`);
+      navigate(`/login?redirect=/gift-center/product/${slug}`);
       return;
     }
     setUploadingKey(key);
@@ -75,7 +75,7 @@ export default function ProductDetailPage() {
   const handleAddToCart = async () => {
     setFormError(null);
     if (!user) {
-      navigate(`/login?redirect=/shop/product/${slug}`);
+      navigate(`/login?redirect=/gift-center/product/${slug}`);
       return;
     }
     if (product.is_customisable) {
@@ -106,8 +106,8 @@ export default function ProductDetailPage() {
 
   return (
     <div className="section-space content-wrap">
-      <Link to="/shop" className="text-sm text-muted underline underline-offset-2 hover:text-ink">
-        ← Shop
+      <Link to="/gift-center" className="text-sm text-muted underline underline-offset-2 hover:text-ink">
+        ← Gift Center
       </Link>
 
       <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-2">
@@ -245,7 +245,7 @@ export default function ProductDetailPage() {
           {!user && (
             <p className="mt-3 text-xs text-muted">
               You'll need to{" "}
-              <Link to={`/login?redirect=/shop/product/${slug}`} className="underline underline-offset-2">
+              <Link to={`/login?redirect=/gift-center/product/${slug}`} className="underline underline-offset-2">
                 log in
               </Link>{" "}
               to add items to your cart.

@@ -12,7 +12,7 @@ export default function ShopHomePage() {
     <div className="section-space content-wrap">
       <PageHeader
         eyebrow="Custom gifts"
-        title="Shop"
+        title="Gift Center"
         description="Photo frames, printed albums, and personalised keepsakes — crafted from your favourite moments."
       />
 
@@ -33,7 +33,7 @@ export default function ShopHomePage() {
             {categories.map((category) => (
               <motion.div key={category.id} variants={fadeUp}>
                 <Link
-                  to={`/shop/${category.slug}`}
+                  to={`/gift-center/${category.slug}`}
                   className="group block overflow-hidden rounded-card border border-line bg-surface shadow-clay focus-visible:outline-none focus-visible:shadow-focus"
                 >
                   <div className="aspect-[4/3] overflow-hidden bg-black/5">

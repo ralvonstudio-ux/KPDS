@@ -1,4 +1,5 @@
 @import "@fontsource-variable/geist";
+@import "@fontsource-variable/lora";
 @import "./tokens.css";
 @tailwind base;
 @tailwind components;
@@ -28,29 +29,20 @@
   }
 
   body {
-    @apply bg-canvas text-ink font-sans antialiased;
+    @apply bg-canvas text-ink font-sans antialiased transition-colors duration-300;
     font-feature-settings: "ss01" 1, "cv01" 1;
   }
 
   ::selection {
-    background-color: var(--color-gold-soft);
-    color: var(--color-espresso);
+    background-color: rgb(var(--color-coral-light));
+    color: rgb(var(--color-espresso));
   }
 
   /* Visible, consistent focus state for keyboard users across the app. */
   :focus-visible {
     outline: none;
-    box-shadow: var(--shadow-focus, 0 0 0 3px rgba(165, 29, 45, 0.35));
+    box-shadow: var(--shadow-focus);
     border-radius: 4px;
-  }
-
-  /* Toggled only by <CustomCursor>, only while it's actually mounted (the
-     cinematic homepage — no text inputs there to lose their I-beam cursor).
-     Never a static rule, so a component failure can't strand a user with
-     no visible pointer. */
-  html.kpds-cursor-none,
-  html.kpds-cursor-none * {
-    cursor: none !important;
   }
 }
 
@@ -62,5 +54,23 @@
   .section-space {
     padding-top: var(--space-section);
     padding-bottom: var(--space-section);
+  }
+
+  .marquee-track {
+    animation: marquee 22s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }

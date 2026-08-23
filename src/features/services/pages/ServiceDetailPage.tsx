@@ -21,8 +21,8 @@ export default function ServiceDetailPage() {
           title="Service not found"
           description="This service may have been renamed or is no longer offered."
           action={
-            <ButtonLink to="/services" variant="outline" className="mt-2">
-              Back to Services
+            <ButtonLink to="/studio" variant="outline" className="mt-2">
+              Back to Studio
             </ButtonLink>
           }
         />
