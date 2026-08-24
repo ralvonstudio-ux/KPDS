@@ -44,7 +44,7 @@ export default function ShopHomePage() {
   const cardItems = useFallback ? FALLBACK_PRODUCTS : (products ?? []).map(productToCardItem);
 
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <p className="text-eyebrow uppercase tracking-[0.14em] text-muted">Gift Center</p>
       <h1 className="mt-3 font-serif text-display-lg text-ink">Gifts with a personal touch.</h1>
       <p className="mt-3 text-base text-muted">What are you shopping for?</p>

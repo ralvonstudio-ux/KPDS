@@ -88,7 +88,7 @@ export default function CheckoutPage() {
 
   if (items.length === 0 && status === "form") {
     return (
-      <div className="section-space content-wrap">
+      <div className="page-space content-wrap">
         <EmptyState
           title="Your cart is empty"
           description="Add something to your cart before checking out."
@@ -105,7 +105,7 @@ export default function CheckoutPage() {
   const total = subtotalPaise + SHIPPING_PAISE;
 
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <PageHeader eyebrow="Almost there" title="Checkout" />
 
       <div className="mx-auto mt-12 grid max-w-4xl grid-cols-1 gap-8 lg:max-w-none lg:grid-cols-[1.4fr_1fr]">

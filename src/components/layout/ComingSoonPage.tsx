@@ -7,7 +7,7 @@ import { ButtonLink } from "@/components/ui/Button";
  */
 export function ComingSoonPage({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
   return (
-    <div className="section-space content-wrap flex flex-col items-center text-center">
+    <div className="page-space content-wrap flex flex-col items-center text-center">
       <p className="text-eyebrow uppercase tracking-[0.14em] text-gold-deep">{eyebrow}</p>
       <h1 className="mt-3 max-w-xl text-display-md text-ink">{title}</h1>
       <p className="mt-4 max-w-md text-muted">{description}</p>

@@ -39,7 +39,7 @@ export default function ProductDetailPage() {
   if (error) return <ErrorState description={error} />;
   if (!product) {
     return (
-      <div className="section-space content-wrap">
+      <div className="page-space content-wrap">
         <EmptyState
           title="Product not found"
           description="This item may be sold out or no longer available."
@@ -105,7 +105,7 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <Link to="/gift-center" className="text-sm text-muted underline underline-offset-2 hover:text-ink">
         ← Gift Center
       </Link>

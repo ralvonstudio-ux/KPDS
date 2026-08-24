@@ -11,7 +11,7 @@ export default function ShopCategoryPage() {
   const { data: products, isLoading, error } = useShopProducts(categorySlug);
 
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <Link to="/gift-center" className="text-sm text-muted underline underline-offset-2 hover:text-ink">
         ← All categories
       </Link>

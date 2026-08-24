@@ -10,7 +10,7 @@ export default function CheckoutSuccessPage() {
   const order = (location.state as { order?: Order } | null)?.order;
 
   return (
-    <div className="section-space content-wrap flex justify-center">
+    <div className="page-space content-wrap flex justify-center">
       <motion.div
         initial="hidden"
         animate="visible"

@@ -51,8 +51,21 @@
     @apply mx-auto w-full max-w-content px-6 md:px-10;
   }
 
+  /* Vertical rhythm BETWEEN sections — a scene inside a longer scrolling
+     page (the homepage's Studio/Testimonials/etc.) that needs breathing
+     room from whatever comes before it. Symmetric top+bottom. */
   .section-space {
     padding-top: var(--space-section);
+    padding-bottom: var(--space-section);
+  }
+
+  /* Vertical rhythm for a standalone PAGE's outermost wrapper, sitting
+     directly under the sticky navbar with nothing above it to separate
+     from — section-space's full clamp() on top would leave 96–160px of
+     dead space between the navbar and the page title. Small top gap,
+     full section-space-sized bottom gap before the footer. */
+  .page-space {
+    padding-top: clamp(2rem, 1.4rem + 2vw, 3rem);
     padding-bottom: var(--space-section);
   }
 

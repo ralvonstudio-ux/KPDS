@@ -10,7 +10,7 @@ export default function CartPage() {
   const { items, isLoading, subtotalPaise, updateQuantity, removeItem } = useCart();
 
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <PageHeader eyebrow="Your bag" title="Cart" />
 
       <div className="mx-auto mt-12 max-w-3xl">

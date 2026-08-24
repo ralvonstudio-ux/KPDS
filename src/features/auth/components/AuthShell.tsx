@@ -17,7 +17,7 @@ export function AuthShell({
   footer?: ReactNode;
 }) {
   return (
-    <div className="section-space content-wrap flex justify-center">
+    <div className="page-space content-wrap flex justify-center">
       <motion.div
         initial="hidden"
         animate="visible"

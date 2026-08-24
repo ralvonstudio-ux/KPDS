@@ -2,7 +2,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 
 export default function AboutPage() {
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <PageHeader
         eyebrow="Our story"
         title="About Khatu Pixel"

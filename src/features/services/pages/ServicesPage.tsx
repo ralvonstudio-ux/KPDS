@@ -12,7 +12,7 @@ export default function ServicesPage() {
   const cards = hasRealServices ? services : FALLBACK_SERVICES;
 
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <PageHeader
         eyebrow="Khatu Pixel Digital Studio"
         title="Studio"

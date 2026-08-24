@@ -31,7 +31,7 @@ const OFFERS = [
 
 export default function OffersPage() {
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <PageHeader
         eyebrow="Limited time"
         title="Offers"

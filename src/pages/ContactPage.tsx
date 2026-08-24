@@ -32,7 +32,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <PageHeader
         eyebrow="Get in touch"
         title="Contact us"

@@ -115,7 +115,7 @@ export default function BookEventPage() {
   }
 
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <PageHeader
         eyebrow="Reserve your date"
         title="Book Your Event"
@@ -238,7 +238,7 @@ export default function BookEventPage() {
 
 function SuccessState({ booking }: { booking: Booking }) {
   return (
-    <div className="section-space content-wrap flex justify-center">
+    <div className="page-space content-wrap flex justify-center">
       <motion.div
         initial="hidden"
         animate="visible"
