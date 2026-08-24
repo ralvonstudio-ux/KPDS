@@ -2,52 +2,8 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useShopProducts } from "@/features/shop/api";
 import { ProductCard, productToCardItem, type ProductCardItem } from "@/features/shop/components/ProductCard";
+import { FALLBACK_PRODUCTS } from "@/features/shop/components/fallbackProducts";
 import { fadeUp, staggerChildren } from "@/lib/motion";
-
-// Shown only when the real catalogue hasn't loaded yet (offline, slow
-// connection, or nothing published in Supabase yet) — this section should
-// never render empty. These aren't real, orderable products (no row in the
-// database), so their card skips cart/wishlist and just links through to
-// the Gift Center. Real products always take priority the moment they're
-// available.
-const FALLBACK_PRODUCTS: ProductCardItem[] = [
-  {
-    id: "fallback-tshirt",
-    name: "Customized Couple T-Shirt",
-    image: "https://picsum.photos/seed/kpds-gift-tshirt/900/900",
-    imageAlt: "Customized Couple T-Shirt",
-    href: "/gift-center",
-    basePricePaise: 79900,
-    comparePricePaise: 99900,
-    isBestseller: true,
-    isCustomisable: false,
-    isReal: false,
-  },
-  {
-    id: "fallback-mug",
-    name: "Customized Photo Mug",
-    image: "https://picsum.photos/seed/kpds-gift-mug/900/900",
-    imageAlt: "Customized Photo Mug",
-    href: "/gift-center",
-    basePricePaise: 39900,
-    comparePricePaise: null,
-    isBestseller: false,
-    isCustomisable: false,
-    isReal: false,
-  },
-  {
-    id: "fallback-frame",
-    name: "Personalized Photo Frame",
-    image: "https://picsum.photos/seed/kpds-gift-frame/900/900",
-    imageAlt: "Personalized Photo Frame",
-    href: "/gift-center",
-    basePricePaise: 69900,
-    comparePricePaise: null,
-    isBestseller: false,
-    isCustomisable: false,
-    isReal: false,
-  },
-];
 
 /** "Gift Center" — the customised-gifts storefront side of the business. */
 export function GiftCenterSection() {

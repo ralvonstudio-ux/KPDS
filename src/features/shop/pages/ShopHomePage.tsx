@@ -2,7 +2,8 @@ import { useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import { useShopCategories, useShopProducts } from "@/features/shop/api";
 import { ProductCard, productToCardItem } from "@/features/shop/components/ProductCard";
-import { LoadingState, EmptyState, ErrorState } from "@/components/ui/States";
+import { FALLBACK_PRODUCTS } from "@/features/shop/components/fallbackProducts";
+import { EmptyState } from "@/components/ui/States";
 import { staggerChildren, fadeUp } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -24,10 +25,23 @@ function categoryEmoji(name: string): string {
   return CATEGORY_EMOJI.find(([pattern]) => pattern.test(name))?.[1] ?? "🎁";
 }
 
+// Shown only when the real occasion list hasn't loaded — purely visual
+// (there's no real category behind them to filter by), so selecting one
+// while this is showing has no effect. Matches the reference design.
+const FALLBACK_OCCASIONS = ["Birthday", "Anniversary", "Wedding", "Couple"];
+
 export default function ShopHomePage() {
-  const { data: categories } = useShopCategories();
+  const { data: categories, error: categoriesError, refetch: refetchCategories } = useShopCategories();
   const [activeCategorySlug, setActiveCategorySlug] = useState<string | null>(null);
-  const { data: products, isLoading, error } = useShopProducts(activeCategorySlug ?? undefined);
+  const { data: products, isLoading, error: productsError, refetch: refetchProducts } = useShopProducts(activeCategorySlug ?? undefined);
+
+  const hasRealProducts = !!products && products.length > 0;
+  // Fallback is only meaningful for the unfiltered view — it's a generic
+  // "here's what the Gift Center looks like" placeholder, not tied to any
+  // one occasion, so a genuinely empty *filtered* result still shows the
+  // real empty state rather than unrelated placeholder products.
+  const useFallback = !activeCategorySlug && !hasRealProducts;
+  const cardItems = useFallback ? FALLBACK_PRODUCTS : (products ?? []).map(productToCardItem);
 
   return (
     <div className="section-space content-wrap">
@@ -39,21 +53,49 @@ export default function ShopHomePage() {
         <FilterPill active={activeCategorySlug === null} onClick={() => setActiveCategorySlug(null)}>
           All occasions
         </FilterPill>
-        {categories?.map((category) => (
-          <FilterPill
-            key={category.id}
-            active={activeCategorySlug === category.slug}
-            onClick={() => setActiveCategorySlug(category.slug)}
-          >
-            <span aria-hidden="true">{categoryEmoji(category.name)}</span> {category.name}
-          </FilterPill>
-        ))}
+        {categories && categories.length > 0
+          ? categories.map((category) => (
+              <FilterPill
+                key={category.id}
+                active={activeCategorySlug === category.slug}
+                onClick={() => setActiveCategorySlug(category.slug)}
+              >
+                <span aria-hidden="true">{categoryEmoji(category.name)}</span> {category.name}
+              </FilterPill>
+            ))
+          : categoriesError &&
+            FALLBACK_OCCASIONS.map((name) => (
+              <FilterPill key={name} active={false} onClick={() => {}}>
+                <span aria-hidden="true">{categoryEmoji(name)}</span> {name}
+              </FilterPill>
+            ))}
       </div>
 
+      {(productsError || categoriesError) && (
+        <p className="mt-4 text-xs text-muted">
+          Having trouble reaching the live catalogue — showing example gifts below.{" "}
+          <button
+            type="button"
+            onClick={() => {
+              refetchProducts();
+              refetchCategories();
+            }}
+            className="font-medium text-coral underline underline-offset-2 hover:text-coral-deep"
+          >
+            Try again
+          </button>
+        </p>
+      )}
+
       <div className="mt-12">
-        {isLoading && <LoadingState label="Loading gifts…" />}
-        {error && <ErrorState description={error} />}
-        {!isLoading && !error && products && products.length === 0 && (
+        {isLoading && cardItems.length === 0 && (
+          <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="aspect-square animate-pulse rounded-card-lg bg-black/5" />
+            ))}
+          </div>
+        )}
+        {!isLoading && cardItems.length === 0 && (
           <EmptyState
             title={activeCategorySlug ? "Nothing here yet" : "The boutique is opening soon"}
             description={
@@ -63,7 +105,7 @@ export default function ShopHomePage() {
             }
           />
         )}
-        {!isLoading && !error && products && products.length > 0 && (
+        {!isLoading && cardItems.length > 0 && (
           <motion.div
             key={activeCategorySlug ?? "all"}
             initial="hidden"
@@ -71,9 +113,9 @@ export default function ShopHomePage() {
             variants={staggerChildren}
             className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-4"
           >
-            {products.map((product) => (
-              <motion.div key={product.id} variants={fadeUp}>
-                <ProductCard item={productToCardItem(product)} />
+            {cardItems.map((item) => (
+              <motion.div key={item.id} variants={fadeUp}>
+                <ProductCard item={item} />
               </motion.div>
             ))}
           </motion.div>

@@ -21,9 +21,11 @@ interface AsyncState<T> {
 
 export function useShopCategories() {
   const [state, setState] = useState<AsyncState<Category[]>>({ data: null, isLoading: true, error: null });
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
+    setState((s) => ({ ...s, isLoading: true, error: null }));
     supabase
       .from("categories")
       .select("*")
@@ -36,17 +38,18 @@ export function useShopCategories() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [reloadKey]);
 
-  return state;
+  return { ...state, refetch: () => setReloadKey((k) => k + 1) };
 }
 
 export function useShopProducts(categorySlug?: string) {
   const [state, setState] = useState<AsyncState<ProductWithImages[]>>({ data: null, isLoading: true, error: null });
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     let isMounted = true;
-    setState((s) => ({ ...s, isLoading: true }));
+    setState((s) => ({ ...s, isLoading: true, error: null }));
 
     async function run() {
       let categoryId: string | undefined;
@@ -76,9 +79,9 @@ export function useShopProducts(categorySlug?: string) {
     return () => {
       isMounted = false;
     };
-  }, [categorySlug]);
+  }, [categorySlug, reloadKey]);
 
-  return state;
+  return { ...state, refetch: () => setReloadKey((k) => k + 1) };
 }
 
 export function useShopProduct(slug: string | undefined) {
