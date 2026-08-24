@@ -7,7 +7,7 @@ function getInitialTheme(): Theme {
   if (typeof window === "undefined") return "light";
   // index.html already set the class synchronously before React mounted
   // (see the inline script there) — read it back rather than re-deriving
-  // from localStorage/matchMedia, so the two can never disagree.
+  // from localStorage, so the two can never disagree.
   return document.documentElement.classList.contains("dark") ? "dark" : "light";
 }
 
@@ -30,16 +30,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       // Privacy mode / storage disabled — theme just won't persist across visits.
     }
   }, [theme]);
-
-  // Follow the OS setting for a visitor who hasn't made an explicit choice
-  // on this device yet.
-  useEffect(() => {
-    if (localStorage.getItem(STORAGE_KEY)) return;
-    const mql = window.matchMedia("(prefers-color-scheme: dark)");
-    const onChange = (e: MediaQueryListEvent) => setThemeState(e.matches ? "dark" : "light");
-    mql.addEventListener("change", onChange);
-    return () => mql.removeEventListener("change", onChange);
-  }, []);
 
   const setTheme = useCallback((next: Theme) => setThemeState(next), []);
   const toggleTheme = useCallback(() => setThemeState((t) => (t === "dark" ? "light" : "dark")), []);

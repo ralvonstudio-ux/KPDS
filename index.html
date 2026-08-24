@@ -13,15 +13,18 @@
     <title>Khatu Pixel Digital Studio</title>
 
     <!-- Set the theme class before React mounts so there's never a flash of
-         the wrong theme. Mirrors the read/write logic in ThemeContext. -->
+         the wrong theme. Mirrors the read/write logic in ThemeContext.
+         Deliberately does NOT follow the OS's prefers-color-scheme — the
+         reference design is Ivory/Navy/Coral on a light page, so every
+         first-time visitor sees exactly that, regardless of their system
+         theme. Dark mode is opt-in only, via the navbar toggle. -->
     <script>
       (function () {
         try {
           var stored = localStorage.getItem("kpds-theme");
-          var dark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
-          document.documentElement.classList.toggle("dark", dark);
+          document.documentElement.classList.toggle("dark", stored === "dark");
         } catch (e) {
-          /* localStorage unavailable (privacy mode etc.) — fall back to light. */
+          /* localStorage unavailable (privacy mode etc.) — light by default. */
         }
       })();
     </script>
