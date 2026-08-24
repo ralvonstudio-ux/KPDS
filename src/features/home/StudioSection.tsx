@@ -3,14 +3,38 @@ import { motion } from "framer-motion";
 import { useServices } from "@/features/services/api";
 import { formatINR } from "@/lib/utils";
 import { fadeUp, staggerChildren, imageZoomHover } from "@/lib/motion";
-import { LoadingState } from "@/components/ui/States";
+
+// Shown only when the real catalogue hasn't loaded yet (offline, slow
+// connection, or nothing published in Supabase yet) — this section should
+// never render empty. Real services always take priority the moment
+// they're available; this never overrides them.
+const FALLBACK_SERVICES = [
+  { title: "Wedding Stories", startingPricePaise: 2500000, image: "https://picsum.photos/seed/kpds-studio-wedding/900/1200" },
+  { title: "Pre-Wedding Stories", startingPricePaise: 1500000, image: "https://picsum.photos/seed/kpds-studio-prewedding/900/1200" },
+  { title: "Cinematic Films", startingPricePaise: 2000000, image: "https://picsum.photos/seed/kpds-studio-films/900/1200" },
+  { title: "Haldi Celebration", startingPricePaise: 1200000, image: "https://picsum.photos/seed/kpds-studio-haldi/900/1200" },
+];
 
 /** "KPDS Studio" — the photography/videography side of the business. */
 export function StudioSection() {
-  const { data: services, isLoading } = useServices(4);
+  const { data: services } = useServices(4);
 
-  if (isLoading) return <LoadingState label="Loading the studio…" />;
-  if (!services || services.length === 0) return null;
+  const cards =
+    services && services.length > 0
+      ? services.map((s) => ({
+          key: s.id,
+          title: s.title,
+          image: s.cover_image_url,
+          to: `/studio/${s.slug}`,
+          priceLabel: s.is_custom_quote || !s.starting_price_paise ? "Custom Quote" : `From ${formatINR(s.starting_price_paise)}`,
+        }))
+      : FALLBACK_SERVICES.map((s) => ({
+          key: s.title,
+          title: s.title,
+          image: s.image,
+          to: "/studio",
+          priceLabel: `From ${formatINR(s.startingPricePaise)}`,
+        }));
 
   return (
     <section className="section-space content-wrap">
@@ -31,17 +55,17 @@ export function StudioSection() {
         variants={staggerChildren}
         className="mt-10 flex gap-5 overflow-x-auto pb-2"
       >
-        {services.map((service) => (
-          <motion.div key={service.id} variants={fadeUp} className="w-52 shrink-0 sm:w-60">
+        {cards.map((card) => (
+          <motion.div key={card.key} variants={fadeUp} className="w-52 shrink-0 sm:w-60">
             <Link
-              to={`/studio/${service.slug}`}
+              to={card.to}
               className="group block overflow-hidden rounded-card-lg border border-transparent shadow-clay transition-[border-color] duration-200 hover:border-coral focus-visible:outline-none focus-visible:border-coral"
             >
               <div className="aspect-[3/4] overflow-hidden bg-black/5">
-                {service.cover_image_url ? (
+                {card.image ? (
                   <motion.img
                     {...imageZoomHover}
-                    src={service.cover_image_url}
+                    src={card.image}
                     alt=""
                     loading="lazy"
                     className="h-full w-full object-cover"
@@ -51,12 +75,8 @@ export function StudioSection() {
                 )}
               </div>
               <div className="bg-surface p-5">
-                <h3 className="font-serif text-lg text-ink">{service.title}</h3>
-                <p className="mt-1 text-sm text-muted">
-                  {service.is_custom_quote || !service.starting_price_paise
-                    ? "Custom Quote"
-                    : `From ${formatINR(service.starting_price_paise)}`}
-                </p>
+                <h3 className="font-serif text-lg text-ink">{card.title}</h3>
+                <p className="mt-1 text-sm text-muted">{card.priceLabel}</p>
               </div>
             </Link>
           </motion.div>

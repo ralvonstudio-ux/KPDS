@@ -1,20 +1,47 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useShopProducts, type ProductWithImages } from "@/features/shop/api";
+import { useShopProducts } from "@/features/shop/api";
 import { useCart } from "@/features/cart/CartContext";
 import { useWishlist } from "@/features/wishlist/WishlistContext";
 import { useAuth } from "@/context/AuthContext";
 import { formatINR } from "@/lib/utils";
 import { fadeUp, staggerChildren, imageZoomHover } from "@/lib/motion";
-import { LoadingState } from "@/components/ui/States";
+
+// Shown only when the real catalogue hasn't loaded yet (offline, slow
+// connection, or nothing published in Supabase yet) — this section should
+// never render empty. These aren't real, orderable products (no row in the
+// database), so their card skips cart/wishlist entirely and just links
+// through to the Gift Center. Real products always take priority the
+// moment they're available.
+const FALLBACK_PRODUCTS = [
+  {
+    name: "Customized Couple T-Shirt",
+    pricePaise: 79900,
+    comparePricePaise: 99900,
+    bestseller: true,
+    image: "https://picsum.photos/seed/kpds-gift-tshirt/900/900",
+  },
+  {
+    name: "Customized Photo Mug",
+    pricePaise: 39900,
+    comparePricePaise: null,
+    bestseller: false,
+    image: "https://picsum.photos/seed/kpds-gift-mug/900/900",
+  },
+  {
+    name: "Personalized Photo Frame",
+    pricePaise: 69900,
+    comparePricePaise: null,
+    bestseller: false,
+    image: "https://picsum.photos/seed/kpds-gift-frame/900/900",
+  },
+];
 
 /** "Gift Center" — the customised-gifts storefront side of the business. */
 export function GiftCenterSection() {
-  const { data: products, isLoading } = useShopProducts();
-
-  if (isLoading) return <LoadingState label="Loading the gift center…" />;
-  if (!products || products.length === 0) return null;
+  const { data: products } = useShopProducts();
+  const hasRealProducts = !!products && products.length > 0;
 
   return (
     <section className="section-space bg-surface">
@@ -40,18 +67,24 @@ export function GiftCenterSection() {
           variants={staggerChildren}
           className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3"
         >
-          {products.slice(0, 3).map((product) => (
-            <motion.div key={product.id} variants={fadeUp}>
-              <GiftCard product={product} />
-            </motion.div>
-          ))}
+          {hasRealProducts
+            ? products.slice(0, 3).map((product) => (
+                <motion.div key={product.id} variants={fadeUp}>
+                  <RealGiftCard product={product} />
+                </motion.div>
+              ))
+            : FALLBACK_PRODUCTS.map((product) => (
+                <motion.div key={product.name} variants={fadeUp}>
+                  <FallbackGiftCard product={product} />
+                </motion.div>
+              ))}
         </motion.div>
       </div>
     </section>
   );
 }
 
-function GiftCard({ product }: { product: ProductWithImages }) {
+function RealGiftCard({ product }: { product: import("@/features/shop/api").ProductWithImages }) {
   const cover = [...product.product_images].sort((a, b) => a.sort_order - b.sort_order)[0];
   const { user } = useAuth();
   const { addItem } = useCart();
@@ -81,56 +114,34 @@ function GiftCard({ product }: { product: ProductWithImages }) {
   };
 
   return (
-    <div className="group relative overflow-hidden rounded-card-lg border border-line bg-canvas shadow-clay">
-      <Link to={`/gift-center/product/${product.slug}`} className="block">
-        <div className="relative aspect-square overflow-hidden bg-black/5">
-          {cover ? (
-            <motion.img
-              {...imageZoomHover}
-              src={cover.image_url}
-              alt={cover.alt_text ?? product.name}
-              loading="lazy"
-              className="h-full w-full object-cover"
-            />
-          ) : (
-            <div className="flex h-full w-full items-center justify-center text-sm text-muted">Image coming soon</div>
-          )}
-
-          {product.is_bestseller && (
-            <span className="absolute left-3 top-3 rounded-full bg-canvas px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-ink shadow-clay">
-              Bestseller
-            </span>
-          )}
-        </div>
-      </Link>
-
-      <button
-        type="button"
-        onClick={(e) => {
-          e.preventDefault();
-          toggle(product.id);
-        }}
-        aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
-        aria-pressed={wished}
-        className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-canvas text-ink shadow-clay transition-colors hover:text-coral"
-      >
-        <HeartIcon filled={wished} />
-      </button>
-
-      <div className="flex items-center justify-between gap-3 p-5">
-        <div>
-          <Link to={`/gift-center/product/${product.slug}`} className="text-base font-medium text-ink hover:text-coral">
-            {product.name}
-          </Link>
-          <p className="mt-1 flex items-baseline gap-2">
-            <span className="text-sm font-medium text-ink">{formatINR(product.base_price_paise)}</span>
-            {product.compare_at_price_paise && product.compare_at_price_paise > product.base_price_paise && (
-              <span className="text-xs text-muted line-through">{formatINR(product.compare_at_price_paise)}</span>
-            )}
-          </p>
-        </div>
-
-        {product.is_customisable ? (
+    <GiftCardShell
+      image={cover?.image_url ?? null}
+      imageAlt={cover?.alt_text ?? product.name}
+      bestseller={product.is_bestseller}
+      wishlistButton={
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            toggle(product.id);
+          }}
+          aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
+          aria-pressed={wished}
+          className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-canvas text-ink shadow-clay transition-colors hover:text-coral"
+        >
+          <HeartIcon filled={wished} />
+        </button>
+      }
+      titleLink={`/gift-center/product/${product.slug}`}
+      title={product.name}
+      price={formatINR(product.base_price_paise)}
+      comparePrice={
+        product.compare_at_price_paise && product.compare_at_price_paise > product.base_price_paise
+          ? formatINR(product.compare_at_price_paise)
+          : null
+      }
+      action={
+        product.is_customisable ? (
           <Link
             to={`/gift-center/product/${product.slug}`}
             className="shrink-0 rounded-full bg-coral px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-coral-deep"
@@ -146,7 +157,93 @@ function GiftCard({ product }: { product: ProductWithImages }) {
           >
             {status === "added" ? "Added ✓" : status === "adding" ? "Adding…" : "Add to Cart"}
           </button>
-        )}
+        )
+      }
+    />
+  );
+}
+
+function FallbackGiftCard({ product }: { product: (typeof FALLBACK_PRODUCTS)[number] }) {
+  return (
+    <GiftCardShell
+      image={product.image}
+      imageAlt={product.name}
+      bestseller={product.bestseller}
+      wishlistButton={null}
+      titleLink="/gift-center"
+      title={product.name}
+      price={formatINR(product.pricePaise)}
+      comparePrice={product.comparePricePaise ? formatINR(product.comparePricePaise) : null}
+      action={
+        <Link
+          to="/gift-center"
+          className="shrink-0 rounded-full bg-coral px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-coral-deep"
+        >
+          View
+        </Link>
+      }
+    />
+  );
+}
+
+function GiftCardShell({
+  image,
+  imageAlt,
+  bestseller,
+  wishlistButton,
+  titleLink,
+  title,
+  price,
+  comparePrice,
+  action,
+}: {
+  image: string | null;
+  imageAlt: string;
+  bestseller: boolean;
+  wishlistButton: ReactNode;
+  titleLink: string;
+  title: string;
+  price: string;
+  comparePrice: string | null;
+  action: ReactNode;
+}) {
+  return (
+    <div className="group relative overflow-hidden rounded-card-lg border border-line bg-canvas shadow-clay">
+      <Link to={titleLink} className="block">
+        <div className="relative aspect-square overflow-hidden bg-black/5">
+          {image ? (
+            <motion.img
+              {...imageZoomHover}
+              src={image}
+              alt={imageAlt}
+              loading="lazy"
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-sm text-muted">Image coming soon</div>
+          )}
+
+          {bestseller && (
+            <span className="absolute left-3 top-3 rounded-full bg-canvas px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-ink shadow-clay">
+              Bestseller
+            </span>
+          )}
+        </div>
+      </Link>
+
+      {wishlistButton}
+
+      <div className="flex items-center justify-between gap-3 p-5">
+        <div>
+          <Link to={titleLink} className="text-base font-medium text-ink hover:text-coral">
+            {title}
+          </Link>
+          <p className="mt-1 flex items-baseline gap-2">
+            <span className="text-sm font-medium text-ink">{price}</span>
+            {comparePrice && <span className="text-xs text-muted line-through">{comparePrice}</span>}
+          </p>
+        </div>
+        {action}
       </div>
     </div>
   );

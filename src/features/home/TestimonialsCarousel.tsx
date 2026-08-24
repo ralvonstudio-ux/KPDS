@@ -2,15 +2,28 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useTestimonials } from "@/features/testimonials/api";
 
+// Shown only when the real testimonials haven't loaded yet (offline, slow
+// connection, or nothing published in Supabase yet) — this section should
+// never render empty. Real testimonials always take priority the moment
+// they're available.
+const FALLBACK_TESTIMONIAL = {
+  id: "fallback",
+  rating: 5,
+  quote: "KPDS understood exactly what we wanted before we could explain it properly. The Haldi photos alone made us cry — in a good way.",
+  author_name: "Ananya & Rohit",
+  author_role: "Wedding Photography",
+  avatar_url: null as string | null,
+};
+
 /** Single-testimonial carousel with prev/next + "01/03" pagination. */
 export function TestimonialsCarousel() {
-  const { data: testimonials, isLoading } = useTestimonials();
+  const { data } = useTestimonials();
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
 
-  if (isLoading || !testimonials || testimonials.length === 0) return null;
+  const testimonials = data && data.length > 0 ? data : [FALLBACK_TESTIMONIAL];
+  const active = testimonials[index] ?? testimonials[0];
 
-  const active = testimonials[index];
   const go = (delta: number) => {
     setDirection(delta);
     setIndex((i) => (i + delta + testimonials.length) % testimonials.length);
