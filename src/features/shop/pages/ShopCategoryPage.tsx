@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useShopProducts } from "@/features/shop/api";
-import { ProductCard } from "@/features/shop/components/ProductCard";
+import { ProductCard, productToCardItem } from "@/features/shop/components/ProductCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { LoadingState, EmptyState, ErrorState } from "@/components/ui/States";
 import { staggerChildren, fadeUp } from "@/lib/motion";
@@ -36,7 +36,7 @@ export default function ShopCategoryPage() {
           >
             {products.map((product) => (
               <motion.div key={product.id} variants={fadeUp}>
-                <ProductCard product={product} />
+                <ProductCard item={productToCardItem(product)} />
               </motion.div>
             ))}
           </motion.div>
