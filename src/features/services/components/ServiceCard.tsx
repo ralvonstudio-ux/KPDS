@@ -14,7 +14,7 @@ export function ServiceCard({ service, className }: { service: Service; classNam
     <TiltCard maxTilt={4} className={className}>
       <Link
         to={href}
-        className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface shadow-clay transition-[box-shadow,transform] duration-300 ease-editorial hover:-translate-y-1 hover:shadow-clay-lg focus-visible:outline-none focus-visible:shadow-focus"
+        className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface shadow-clay transition-[box-shadow,transform] duration-300 ease-spring hover:-translate-y-1 hover:shadow-clay-lg focus-visible:outline-none focus-visible:shadow-focus"
       >
         <div className="aspect-[4/5] overflow-hidden bg-black/5">
           {service.cover_image_url ? (

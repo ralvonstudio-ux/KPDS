@@ -5,13 +5,13 @@ import { cn } from "@/lib/utils";
 
 const base =
   "inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium " +
-  "transition-[transform,background-color,color,box-shadow] duration-200 ease-editorial " +
+  "transition-[transform,background-color,color,box-shadow] duration-200 ease-spring " +
   "focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 " +
-  "active:translate-y-px";
+  "hover:scale-[1.02] active:scale-[0.96]";
 
 const variants = {
   primary: "bg-espresso text-white hover:bg-ink shadow-clay",
-  gold: "bg-gold text-espresso hover:bg-gold-deep shadow-clay",
+  gold: "bg-gold text-espresso hover:bg-gold-deep shadow-clay hover:shadow-neu-coral",
   outline: "border border-line-strong text-ink hover:border-espresso bg-transparent",
   ghost: "text-ink hover:bg-black/[0.04]",
 };

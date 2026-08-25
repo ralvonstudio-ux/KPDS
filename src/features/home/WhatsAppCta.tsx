@@ -1,3 +1,6 @@
+import { motion } from "framer-motion";
+import { fadeUp } from "@/lib/motion";
+
 // Placeholder WhatsApp number — replace with the studio's real business
 // number during handover (matches the placeholder in Footer.tsx).
 const WHATSAPP_NUMBER = "919839000000";
@@ -6,7 +9,13 @@ const WHATSAPP_MESSAGE = "Hi KPDS! I'd like to talk through an idea for my event
 export function WhatsAppCta() {
   return (
     <section className="content-wrap pb-16 md:pb-24">
-      <div className="flex flex-col items-start justify-between gap-6 rounded-card-lg border border-line bg-surface p-8 shadow-clay md:flex-row md:items-center md:p-10">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={fadeUp}
+        className="flex flex-col items-start justify-between gap-6 rounded-card-lg border border-line bg-surface p-8 shadow-neu md:flex-row md:items-center md:p-10"
+      >
         <div>
           <h3 className="font-serif text-2xl text-ink">Prefer to just talk it through?</h3>
           <p className="mt-2 text-sm text-muted">Tell us what you're planning and we'll take it from there.</p>
@@ -20,7 +29,7 @@ export function WhatsAppCta() {
           <WhatsAppIcon />
           Chat on WhatsApp
         </a>
-      </div>
+      </motion.div>
     </section>
   );
 }

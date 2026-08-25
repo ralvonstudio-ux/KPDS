@@ -72,8 +72,21 @@
   .marquee-track {
     animation: marquee 22s linear infinite;
   }
+
+  /* Gentle idle motion for hero/decorative imagery — breathes even at
+     rest rather than sitting perfectly still. Two variants so adjacent
+     elements don't move in visible lockstep. */
+  .animate-float-subtle {
+    animation: floatSubtle 6s ease-in-out infinite;
+  }
+  .animate-tilt-float {
+    animation: tiltFloat 6s ease-in-out infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .marquee-track {
+    .marquee-track,
+    .animate-float-subtle,
+    .animate-tilt-float {
       animation: none;
     }
   }
@@ -85,5 +98,25 @@
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes floatSubtle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes tiltFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-15px) rotate(1.5deg);
   }
 }

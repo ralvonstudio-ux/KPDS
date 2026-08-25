@@ -59,7 +59,7 @@ export function StudioSection() {
           <motion.div key={card.key} variants={fadeUp} className="w-52 shrink-0 sm:w-60">
             <Link
               to={card.to}
-              className="group block overflow-hidden rounded-card-lg border border-transparent shadow-clay transition-[border-color,box-shadow,transform] duration-300 ease-editorial hover:-translate-y-1 hover:border-coral hover:shadow-clay-lg focus-visible:outline-none focus-visible:border-coral"
+              className="group block overflow-hidden rounded-card-lg border border-transparent shadow-clay transition-[border-color,box-shadow,transform] duration-300 ease-spring hover:-translate-y-1 hover:border-coral hover:shadow-clay-lg focus-visible:outline-none focus-visible:border-coral"
             >
               <div className="aspect-[3/4] overflow-hidden bg-black/5">
                 {card.image ? (
