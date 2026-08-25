@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ButtonLink } from "@/components/ui/Button";
-import { fadeUp, staggerChildren } from "@/lib/motion";
-import { prefersReducedMotion } from "@/lib/gsapSetup";
+import { fadeUp, staggerChildren, prefersReducedMotion } from "@/lib/motion";
 
 // Real photography — hero portraits plus a few portfolio moments, all
 // already self-hosted (see public/images/seed/) so cycling through them
