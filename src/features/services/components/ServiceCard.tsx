@@ -6,11 +6,15 @@ import { imageZoomHover } from "@/lib/motion";
 import { TiltCard } from "@/components/ui/TiltCard";
 
 export function ServiceCard({ service, className }: { service: Service; className?: string }) {
+  // Fallback/placeholder services (see fallbackServices.ts) have no real
+  // slug — send those through to the Studio list instead of a dead detail
+  // route.
+  const href = service.slug ? `/studio/${service.slug}` : "/studio";
   return (
     <TiltCard maxTilt={4} className={className}>
       <Link
-        to={`/services/${service.slug}`}
-        className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface shadow-clay focus-visible:outline-none focus-visible:shadow-focus"
+        to={href}
+        className="group flex h-full flex-col overflow-hidden rounded-card border border-line bg-surface shadow-clay transition-[box-shadow,transform] duration-300 ease-editorial hover:-translate-y-1 hover:shadow-clay-lg focus-visible:outline-none focus-visible:shadow-focus"
       >
         <div className="aspect-[4/5] overflow-hidden bg-black/5">
           {service.cover_image_url ? (

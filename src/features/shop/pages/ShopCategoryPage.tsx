@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useShopProducts } from "@/features/shop/api";
-import { ProductCard } from "@/features/shop/components/ProductCard";
+import { ProductCard, productToCardItem } from "@/features/shop/components/ProductCard";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { LoadingState, EmptyState, ErrorState } from "@/components/ui/States";
 import { staggerChildren, fadeUp } from "@/lib/motion";
@@ -11,13 +11,13 @@ export default function ShopCategoryPage() {
   const { data: products, isLoading, error } = useShopProducts(categorySlug);
 
   return (
-    <div className="section-space content-wrap">
-      <Link to="/shop" className="text-sm text-muted underline underline-offset-2 hover:text-ink">
+    <div className="page-space content-wrap">
+      <Link to="/gift-center" className="text-sm text-muted underline underline-offset-2 hover:text-ink">
         ← All categories
       </Link>
 
       <div className="mt-6">
-        <PageHeader eyebrow="Shop" title={categorySlug?.replace(/-/g, " ") ?? "Shop"} />
+        <PageHeader eyebrow="Gift Center" title={categorySlug?.replace(/-/g, " ") ?? "Gift Center"} />
       </div>
 
       <div className="mt-16">
@@ -36,7 +36,7 @@ export default function ShopCategoryPage() {
           >
             {products.map((product) => (
               <motion.div key={product.id} variants={fadeUp}>
-                <ProductCard product={product} />
+                <ProductCard item={productToCardItem(product)} />
               </motion.div>
             ))}
           </motion.div>

@@ -16,13 +16,13 @@ export default function ServiceDetailPage() {
   if (error) return <ErrorState description={error} />;
   if (!service) {
     return (
-      <div className="section-space content-wrap">
+      <div className="page-space content-wrap">
         <EmptyState
           title="Service not found"
           description="This service may have been renamed or is no longer offered."
           action={
-            <ButtonLink to="/services" variant="outline" className="mt-2">
-              Back to Services
+            <ButtonLink to="/studio" variant="outline" className="mt-2">
+              Back to Studio
             </ButtonLink>
           }
         />
@@ -53,7 +53,7 @@ export default function ServiceDetailPage() {
         </div>
       </div>
 
-      <div className="section-space content-wrap grid grid-cols-1 gap-12 lg:grid-cols-[2fr_1fr]">
+      <div className="page-space content-wrap grid grid-cols-1 gap-12 lg:grid-cols-[2fr_1fr]">
         <div>
           {service.description && (
             <p className="whitespace-pre-line text-base leading-relaxed text-ink/90">{service.description}</p>

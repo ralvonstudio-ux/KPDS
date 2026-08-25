@@ -10,7 +10,7 @@ export default function CartPage() {
   const { items, isLoading, subtotalPaise, updateQuantity, removeItem } = useCart();
 
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <PageHeader eyebrow="Your bag" title="Cart" />
 
       <div className="mx-auto mt-12 max-w-3xl">
@@ -31,8 +31,8 @@ export default function CartPage() {
             title="Your cart is empty"
             description="Browse the shop to find a gift worth wrapping."
             action={
-              <ButtonLink to="/shop" variant="outline" className="mt-2">
-                Visit the Shop
+              <ButtonLink to="/gift-center" variant="outline" className="mt-2">
+                Visit the Gift Center
               </ButtonLink>
             }
           />

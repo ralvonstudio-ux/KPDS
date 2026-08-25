@@ -23,7 +23,7 @@ export default function PortfolioPage() {
   }, [items, activeCategory]);
 
   return (
-    <div className="section-space content-wrap">
+    <div className="page-space content-wrap">
       <PageHeader
         eyebrow="Our work"
         title="Portfolio"

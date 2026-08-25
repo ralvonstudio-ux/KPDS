@@ -4,7 +4,7 @@ import { fadeUp } from "@/lib/motion";
 
 export default function CheckoutFailedPage() {
   return (
-    <div className="section-space content-wrap flex justify-center">
+    <div className="page-space content-wrap flex justify-center">
       <motion.div
         initial="hidden"
         animate="visible"
