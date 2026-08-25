@@ -35,7 +35,7 @@ export function Hero() {
       >
         <div className="aspect-[3/4] overflow-hidden rounded-card-lg shadow-clay-lg">
           <img
-            src="https://picsum.photos/seed/kpds-hero-a/900/1200"
+            src="/images/seed/kpds-hero-a.jpg"
             alt="A KPDS wedding photography moment"
             loading="eager"
             className="h-full w-full object-cover"
@@ -43,7 +43,7 @@ export function Hero() {
         </div>
         <div className="mt-10 aspect-[3/4] overflow-hidden rounded-card-lg shadow-clay-lg">
           <img
-            src="https://picsum.photos/seed/kpds-hero-b/900/1200"
+            src="/images/seed/kpds-hero-b.jpg"
             alt="A personalised KPDS keepsake gift"
             loading="eager"
             className="h-full w-full object-cover"
