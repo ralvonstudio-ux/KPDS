@@ -12,7 +12,7 @@ export const FALLBACK_PRODUCTS: ProductCardItem[] = [
   {
     id: "fallback-tshirt",
     name: "Customized Couple T-Shirt",
-    image: "https://picsum.photos/seed/kpds-gift-tshirt/900/900",
+    image: "/images/seed/kpds-gift-tshirt.jpg",
     imageAlt: "Customized Couple T-Shirt",
     href: "/gift-center",
     basePricePaise: 79900,
@@ -24,7 +24,7 @@ export const FALLBACK_PRODUCTS: ProductCardItem[] = [
   {
     id: "fallback-mug",
     name: "Customized Photo Mug",
-    image: "https://picsum.photos/seed/kpds-gift-mug/900/900",
+    image: "/images/seed/kpds-gift-mug.jpg",
     imageAlt: "Customized Photo Mug",
     href: "/gift-center",
     basePricePaise: 39900,
@@ -36,7 +36,7 @@ export const FALLBACK_PRODUCTS: ProductCardItem[] = [
   {
     id: "fallback-frame",
     name: "Personalized Photo Frame",
-    image: "https://picsum.photos/seed/kpds-gift-frame/900/900",
+    image: "/images/seed/kpds-gift-frame.jpg",
     imageAlt: "Personalized Photo Frame",
     href: "/gift-center",
     basePricePaise: 69900,
