@@ -43,6 +43,15 @@ export default {
           soft: withOpacity("--color-coral-light"),
           deep: withOpacity("--color-coral-deep"),
         },
+        // "coral" is the same token family as "gold" above, under the name
+        // every Ivory/Navy/Coral-era component actually reaches for
+        // (`text-coral`, `hover:bg-coral-deep`, etc.) — without this key,
+        // every one of those classes silently generated no CSS at all.
+        coral: {
+          DEFAULT: withOpacity("--color-coral"),
+          light: withOpacity("--color-coral-light"),
+          deep: withOpacity("--color-coral-deep"),
+        },
         espresso: {
           DEFAULT: withOpacity("--color-espresso"),
           deep: withOpacity("--color-espresso-deep"),

@@ -20,7 +20,11 @@ export function ThemeToggle({ className }: { className?: string }) {
     >
       <span
         className={cn(
-          "flex h-5 w-5 items-center justify-center rounded-full bg-espresso text-canvas shadow-clay transition-transform duration-200 ease-editorial",
+          // The knob (bg-espresso) is constant dark navy in both themes by
+          // design (see tokens.css) — its icon needs a constant LIGHT
+          // color to match, not `text-canvas`, which flips to near-black
+          // in dark mode and made the moon icon nearly invisible on it.
+          "flex h-5 w-5 items-center justify-center rounded-full bg-espresso text-white shadow-clay transition-transform duration-200 ease-editorial",
           isDark ? "translate-x-5" : "translate-x-0",
         )}
       >

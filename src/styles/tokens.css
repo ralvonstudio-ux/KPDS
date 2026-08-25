@@ -106,8 +106,12 @@
   --color-coral-light: 247 148 130;
   --color-coral-deep: 216 92 70;
   --color-muted: 154 148 136;
-  --color-line: 40 48 76;
-  --color-line-strong: 58 68 100;
+  /* Brightened from the original 40/48/76 and 58/68/100 — those read as
+     almost the same navy as the page background (13/18/36), so every
+     card border/divider disappeared. These now hold a clear, visible
+     line against the dark page. */
+  --color-line: 58 68 102;
+  --color-line-strong: 82 95 132;
 
   /* --color-espresso / --color-espresso-deep intentionally NOT redefined:
      "dark chrome" elements (buttons, marquee, WhatsApp CTA) stay the same
@@ -115,8 +119,13 @@
      disappear into the near-black page background instead of standing
      out from it. */
 
-  --shadow-clay: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  --shadow-clay-lg: 0 24px 70px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  /* A black drop-shadow is invisible on a near-black page — swapped for a
+     soft, light-colored halo (a faint lift rather than a cast shadow),
+     paired with a slightly stronger inset top-highlight so the card's
+     top edge still reads as catching light. This is what makes cards
+     visibly separate from the page instead of blending into it. */
+  --shadow-clay: 0 12px 40px rgba(241, 237, 226, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --shadow-clay-lg: 0 24px 70px rgba(241, 237, 226, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   --shadow-focus: 0 0 0 3px rgba(240, 118, 97, 0.4);
 
   /* Neumorphic depth, dark-mode variant — the "light" side becomes a
