@@ -9,11 +9,11 @@ import { fadeUp, imageZoomHover } from "@/lib/motion";
 
 export default function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { data: service, isLoading, error } = useService(slug);
+  const { data: service, isLoading, error, refetch } = useService(slug);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   if (isLoading) return <LoadingState label="Loading service…" />;
-  if (error) return <ErrorState description={error} />;
+  if (error) return <ErrorState description={error} onRetry={refetch} />;
   if (!service) {
     return (
       <div className="page-space content-wrap">

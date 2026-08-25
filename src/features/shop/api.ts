@@ -86,6 +86,7 @@ export function useShopProducts(categorySlug?: string) {
 
 export function useShopProduct(slug: string | undefined) {
   const [state, setState] = useState<AsyncState<ProductWithDetail>>({ data: null, isLoading: true, error: null });
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     if (!slug) return;
@@ -111,7 +112,7 @@ export function useShopProduct(slug: string | undefined) {
     return () => {
       isMounted = false;
     };
-  }, [slug]);
+  }, [slug, reloadKey]);
 
-  return state;
+  return { ...state, refetch: () => setReloadKey((k) => k + 1) };
 }

@@ -50,6 +50,7 @@ export function useService(slug: string | undefined) {
     isLoading: true,
     error: null,
   });
+  const [reloadKey, setReloadKey] = useState(0);
 
   useEffect(() => {
     if (!slug) return;
@@ -75,7 +76,7 @@ export function useService(slug: string | undefined) {
     return () => {
       isMounted = false;
     };
-  }, [slug]);
+  }, [slug, reloadKey]);
 
-  return state;
+  return { ...state, refetch: () => setReloadKey((k) => k + 1) };
 }

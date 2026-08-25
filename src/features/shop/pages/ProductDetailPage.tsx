@@ -13,7 +13,7 @@ import { fadeUp } from "@/lib/motion";
 
 export default function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>();
-  const { data: product, isLoading, error } = useShopProduct(slug);
+  const { data: product, isLoading, error, refetch } = useShopProduct(slug);
   const { user } = useAuth();
   const { addItem } = useCart();
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ export default function ProductDetailPage() {
   const unitPrice = effectiveVariant?.price_paise ?? product?.base_price_paise ?? 0;
 
   if (isLoading) return <LoadingState label="Loading product…" />;
-  if (error) return <ErrorState description={error} />;
+  if (error) return <ErrorState description={error} onRetry={refetch} />;
   if (!product) {
     return (
       <div className="page-space content-wrap">

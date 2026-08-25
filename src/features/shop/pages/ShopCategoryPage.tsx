@@ -8,7 +8,7 @@ import { staggerChildren, fadeUp } from "@/lib/motion";
 
 export default function ShopCategoryPage() {
   const { categorySlug } = useParams<{ categorySlug: string }>();
-  const { data: products, isLoading, error } = useShopProducts(categorySlug);
+  const { data: products, isLoading, error, refetch } = useShopProducts(categorySlug);
 
   return (
     <div className="page-space content-wrap">
@@ -22,7 +22,7 @@ export default function ShopCategoryPage() {
 
       <div className="mt-16">
         {isLoading && <LoadingState label="Loading products…" />}
-        {error && <ErrorState description={error} />}
+        {error && <ErrorState description={error} onRetry={refetch} />}
         {!isLoading && !error && products && products.length === 0 && (
           <EmptyState title="No products here yet" description="We're adding pieces to this collection — check back soon." />
         )}
