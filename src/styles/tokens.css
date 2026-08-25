@@ -65,8 +65,23 @@
   --shadow-clay-lg: 0 24px 70px rgba(23, 31, 56, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.5);
   --shadow-focus: 0 0 0 3px rgba(232, 96, 74, 0.35);
 
+  /* Neumorphic depth — a dual-direction soft shadow (dark offset one
+     corner, light highlight the opposite corner, plus inset highlights)
+     for a tactile "pressed into the page" feel on a handful of panels.
+     Same technique as shadow-clay's restraint (never a hard black
+     shadow), just a second light source added. Kept to Ivory/Navy/Coral
+     — never the borrowed reference site's blue. */
+  --shadow-neu: 6px 6px 16px rgba(23, 31, 56, 0.08), -4px -4px 12px rgba(255, 255, 255, 0.9),
+    inset 1px 2px 3px rgba(255, 255, 255, 0.6), inset -1px -2px 3px rgba(23, 31, 56, 0.04);
+  --shadow-neu-coral: 6px 6px 18px rgba(232, 96, 74, 0.28), -4px -4px 12px rgba(255, 255, 255, 0.85),
+    inset 1px 2px 4px rgba(255, 255, 255, 0.5), inset -1px -2px 4px rgba(23, 31, 56, 0.08);
+
   /* Motion limits — see docs/design-system.md "Motion" for rules */
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  /* A snappier overshoot curve for pressable/poppy micro-interactions
+     (button hover/press, card lift) — reserved for small, fast movements;
+     --ease-editorial stays the default for anything larger or slower. */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --duration-fast: 180ms;
   --duration-base: 320ms;
   --duration-slow: 520ms;
@@ -103,4 +118,12 @@
   --shadow-clay: 0 12px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   --shadow-clay-lg: 0 24px 70px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.03);
   --shadow-focus: 0 0 0 3px rgba(240, 118, 97, 0.4);
+
+  /* Neumorphic depth, dark-mode variant — the "light" side becomes a
+     faint lift off the near-black page rather than white, and the dark
+     side deepens further. */
+  --shadow-neu: 6px 6px 18px rgba(0, 0, 0, 0.5), -4px -4px 12px rgba(255, 255, 255, 0.05),
+    inset 1px 2px 3px rgba(255, 255, 255, 0.05), inset -1px -2px 3px rgba(0, 0, 0, 0.3);
+  --shadow-neu-coral: 6px 6px 20px rgba(240, 118, 97, 0.22), -4px -4px 12px rgba(255, 255, 255, 0.05),
+    inset 1px 2px 4px rgba(255, 255, 255, 0.06), inset -1px -2px 4px rgba(0, 0, 0, 0.35);
 }

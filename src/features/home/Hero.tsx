@@ -33,7 +33,7 @@ export function Hero() {
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
         className="grid grid-cols-2 gap-4"
       >
-        <div className="aspect-[3/4] overflow-hidden rounded-card-lg shadow-clay-lg">
+        <div className="animate-tilt-float aspect-[3/4] overflow-hidden rounded-card-lg shadow-clay-lg">
           <img
             src="/images/seed/kpds-hero-a.jpg"
             alt="A KPDS wedding photography moment"
@@ -41,7 +41,10 @@ export function Hero() {
             className="h-full w-full object-cover"
           />
         </div>
-        <div className="mt-10 aspect-[3/4] overflow-hidden rounded-card-lg shadow-clay-lg">
+        <div
+          className="animate-float-subtle mt-10 aspect-[3/4] overflow-hidden rounded-card-lg shadow-clay-lg"
+          style={{ animationDelay: "1.5s" }}
+        >
           <img
             src="/images/seed/kpds-hero-b.jpg"
             alt="A personalised KPDS keepsake gift"

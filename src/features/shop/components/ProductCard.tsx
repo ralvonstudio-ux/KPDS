@@ -77,7 +77,7 @@ export function ProductCard({ item }: { item: ProductCardItem }) {
   };
 
   return (
-    <div className="group relative overflow-hidden rounded-card-lg border border-line bg-canvas shadow-clay transition-[box-shadow,transform] duration-300 ease-editorial hover:-translate-y-1 hover:shadow-clay-lg">
+    <div className="group relative overflow-hidden rounded-card-lg border border-line bg-canvas shadow-clay transition-[box-shadow,transform] duration-300 ease-spring hover:-translate-y-1 hover:shadow-clay-lg">
       <Link to={item.href} className="block">
         <div className="relative aspect-square overflow-hidden bg-black/5">
           {item.image ? (

@@ -99,9 +99,18 @@ export default {
         clay: "var(--shadow-clay)",
         "clay-lg": "var(--shadow-clay-lg)",
         focus: "var(--shadow-focus)",
+        // Soft neumorphic depth — dual light+dark offset shadow, see the
+        // annotated rationale in tokens.css. Used sparingly on a few
+        // tactile panels, not a wholesale shadow-clay replacement.
+        neu: "var(--shadow-neu)",
+        "neu-coral": "var(--shadow-neu-coral)",
       },
       transitionTimingFunction: {
         editorial: "cubic-bezier(0.22, 1, 0.36, 1)",
+        // Snappy overshoot curve for small, fast, pressable interactions
+        // (button hover/press, card lift) — editorial stays the default
+        // for anything larger or slower.
+        spring: "cubic-bezier(0.34, 1.56, 0.64, 1)",
       },
       maxWidth: {
         content: "1440px",
