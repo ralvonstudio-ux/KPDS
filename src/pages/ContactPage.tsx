@@ -5,6 +5,8 @@ import { z } from "zod";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Input, Textarea } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
+import { submitContactMessage } from "@/features/contact/api";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Enter your name"),
@@ -15,7 +17,9 @@ const contactSchema = z.object({
 type ContactInput = z.infer<typeof contactSchema>;
 
 export default function ContactPage() {
+  usePageMeta("Contact", "Have a question before booking, or a gifting enquiry? Send us a note.");
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -24,11 +28,18 @@ export default function ContactPage() {
   } = useForm<ContactInput>({ resolver: zodResolver(contactSchema) });
 
   // General enquiries only — event bookings go through /book-your-event so
-  // they land in the structured bookings table, not a plain message.
-  const onSubmit = async (_values: ContactInput) => {
-    await new Promise((r) => setTimeout(r, 400));
-    setSubmitted(true);
-    reset();
+  // they land in the structured bookings table, not here. Saved to the
+  // contact_messages table (see src/features/contact/api.ts) and reviewed
+  // from /admin/messages.
+  const onSubmit = async (values: ContactInput) => {
+    setSubmitError(null);
+    try {
+      await submitContactMessage(values);
+      setSubmitted(true);
+      reset();
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -51,6 +62,11 @@ export default function ContactPage() {
             <Input label="Email" type="email" required error={errors.email?.message} {...register("email")} />
             <Input label="Phone (optional)" type="tel" error={errors.phone?.message} {...register("phone")} />
             <Textarea label="Message" required error={errors.message?.message} {...register("message")} />
+            {submitError && (
+              <p role="alert" className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+                {submitError}
+              </p>
+            )}
             <Button type="submit" disabled={isSubmitting} className="mt-2 w-full">
               {isSubmitting ? "Sending…" : "Send message"}
             </Button>

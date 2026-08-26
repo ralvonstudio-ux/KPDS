@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ButtonLink } from "@/components/ui/Button";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { fadeUp, staggerChildren } from "@/lib/motion";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 // Curated promotions — there's no discounts/offers table yet, so this is
 // admin-maintained content in code rather than fabricated dynamic data. If
@@ -30,6 +31,10 @@ const OFFERS = [
 ];
 
 export default function OffersPage() {
+  usePageMeta(
+    "Offers",
+    "Current promotions across the studio and the gift center — check back often, they rotate seasonally.",
+  );
   return (
     <div className="page-space content-wrap">
       <PageHeader

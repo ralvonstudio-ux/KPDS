@@ -1,5 +1,5 @@
 @import "@fontsource-variable/geist";
-@import "@fontsource-variable/lora";
+@import "@fontsource-variable/plus-jakarta-sans";
 @import "./tokens.css";
 @tailwind base;
 @tailwind components;
@@ -49,6 +49,18 @@
 @layer utilities {
   .content-wrap {
     @apply mx-auto w-full max-w-content px-6 md:px-10;
+  }
+
+  /* Whole-site background — a single continuous gradient from ivory blue
+     (top) into sky blue (bottom), applied once on PublicLayout's root so
+     every page shares one uninterrupted backdrop rather than a per-section
+     flat fill. Dark mode keeps the flat deep-violet page color instead —
+     the ivory/sky gradient is a light-mode-only treatment. */
+  .bg-page {
+    background: linear-gradient(180deg, rgb(var(--color-ivory)) 0%, rgb(var(--color-sky)) 100%);
+  }
+  :root.dark .bg-page {
+    background: rgb(var(--color-ivory));
   }
 
   /* Vertical rhythm BETWEEN sections — a scene inside a longer scrolling

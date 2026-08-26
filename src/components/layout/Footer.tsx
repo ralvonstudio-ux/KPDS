@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-canvas">
+    <footer className="border-t border-line">
       <div className="content-wrap grid gap-10 py-16 md:grid-cols-[1.4fr_1fr_1fr] md:py-20">
         <div>
           <p className="font-serif text-2xl font-medium tracking-tight text-ink">KPDS</p>
@@ -22,15 +22,14 @@ export function Footer() {
 
         <div>
           <p className="text-eyebrow uppercase tracking-[0.14em] text-muted">Talk to KPDS</p>
-          {/* Placeholder contact details — replace with the studio's real details during handover. */}
           <ul className="mt-4 space-y-2.5 text-sm text-ink/80">
             <li className="flex items-center gap-2">
               <PhoneIcon />
-              +91 98390 00000
+              <a href="tel:+919519342602" className="hover:text-ink">+91 95193 42602</a>
             </li>
             <li className="flex items-center gap-2">
               <MailIcon />
-              hello@kpds.studio
+              <a href="mailto:hello@kpds.studio" className="hover:text-ink">hello@kpds.studio</a>
             </li>
           </ul>
         </div>

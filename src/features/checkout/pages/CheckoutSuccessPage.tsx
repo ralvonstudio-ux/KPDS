@@ -4,8 +4,10 @@ import type { Order } from "@/features/checkout/api";
 import { ButtonLink } from "@/components/ui/Button";
 import { fadeUp } from "@/lib/motion";
 import { formatINR } from "@/lib/utils";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function CheckoutSuccessPage() {
+  usePageMeta("Order Placed");
   const location = useLocation();
   const order = (location.state as { order?: Order } | null)?.order;
 

@@ -6,8 +6,13 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { LoadingState, EmptyState, ErrorState } from "@/components/ui/States";
 import { cn } from "@/lib/utils";
 import { imageZoomHover } from "@/lib/motion";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function PortfolioPage() {
+  usePageMeta(
+    "Portfolio",
+    "A running archive of weddings, portraits, and brand stories — each frame chosen for how it feels, not just how it looks.",
+  );
   const { data: items, isLoading, error, refetch } = usePortfolioItems();
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);

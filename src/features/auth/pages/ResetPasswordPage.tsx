@@ -12,6 +12,7 @@ import {
   type RequestResetInput,
   type UpdatePasswordInput,
 } from "@/features/auth/schemas";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 /**
  * Handles both halves of the reset flow from one route:
@@ -20,6 +21,7 @@ import {
  *   "recovery" type) -> set-a-new-password form.
  */
 export default function ResetPasswordPage() {
+  usePageMeta("Reset Password");
   const { session } = useAuth();
   const [searchParams] = useSearchParams();
   const isRecoveryMode = searchParams.get("type") === "recovery" || !!session;

@@ -5,7 +5,9 @@ import {
   LayoutDashboard,
   CalendarCheck,
   ShoppingBag,
+  MessageSquare,
   Camera,
+  Image,
   GalleryHorizontalEnd,
   FolderTree,
   Gift,
@@ -36,11 +38,13 @@ const groups: { label: string | null; links: AdminNavLink[] }[] = [
     links: [
       { to: "/admin/bookings", label: "Bookings", icon: CalendarCheck },
       { to: "/admin/orders", label: "Orders", icon: ShoppingBag },
+      { to: "/admin/messages", label: "Messages", icon: MessageSquare },
     ],
   },
   {
     label: "Content",
     links: [
+      { to: "/admin/hero", label: "Homepage Hero", icon: Image },
       { to: "/admin/services", label: "Services", icon: Camera },
       { to: "/admin/portfolio", label: "Portfolio", icon: GalleryHorizontalEnd },
       { to: "/admin/categories", label: "Categories", icon: FolderTree },

@@ -15,10 +15,12 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { EmptyState, LoadingState } from "@/components/ui/States";
 import { formatINR } from "@/lib/utils";
 import { fadeUp } from "@/lib/motion";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 type FlowStatus = "form" | "submitting" | "paying" | "payment_pending";
 
 export default function CheckoutPage() {
+  usePageMeta("Checkout");
   const { user, profile } = useAuth();
   const { items, cartId, subtotalPaise, isLoading: isCartLoading } = useCart();
   const navigate = useNavigate();

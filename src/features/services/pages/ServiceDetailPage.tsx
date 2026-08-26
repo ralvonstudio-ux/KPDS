@@ -6,11 +6,13 @@ import { ButtonLink } from "@/components/ui/Button";
 import { LoadingState, ErrorState, EmptyState } from "@/components/ui/States";
 import { formatINR } from "@/lib/utils";
 import { fadeUp, imageZoomHover } from "@/lib/motion";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { data: service, isLoading, error, refetch } = useService(slug);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  usePageMeta(service?.title, service?.description ?? undefined);
 
   if (isLoading) return <LoadingState label="Loading service…" />;
   if (error) return <ErrorState description={error} onRetry={refetch} />;

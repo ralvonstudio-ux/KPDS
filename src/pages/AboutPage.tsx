@@ -1,12 +1,17 @@
 import { PageHeader } from "@/components/ui/PageHeader";
+import { usePageMeta } from "@/lib/usePageMeta";
+
+const DESCRIPTION =
+  "A photography, videography, and gifting studio built around one idea: your memories deserve craft, not just coverage.";
 
 export default function AboutPage() {
+  usePageMeta("About", DESCRIPTION);
   return (
     <div className="page-space content-wrap">
       <PageHeader
         eyebrow="Our story"
         title="About Khatu Pixel"
-        description="A photography, videography, and gifting studio built around one idea: your memories deserve craft, not just coverage."
+        description={DESCRIPTION}
       />
       <div className="mx-auto mt-16 max-w-2xl space-y-6 text-base leading-relaxed text-ink/90">
         <p>

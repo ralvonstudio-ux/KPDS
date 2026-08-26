@@ -4,6 +4,7 @@ import { GiftCenterSection } from "@/features/home/GiftCenterSection";
 import { StudioSection } from "@/features/home/StudioSection";
 import { TestimonialsCarousel } from "@/features/home/TestimonialsCarousel";
 import { WhatsAppCta } from "@/features/home/WhatsAppCta";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 /**
  * Conventional editorial homepage — Ivory / Navy / Coral, per the studio's
@@ -13,6 +14,7 @@ import { WhatsAppCta } from "@/features/home/WhatsAppCta";
  * Gift Center before Studio.
  */
 export default function HomePage() {
+  usePageMeta("Khatu Pixel Digital Studio");
   return (
     <>
       <Hero />

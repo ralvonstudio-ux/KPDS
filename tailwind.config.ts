@@ -59,13 +59,15 @@ export default {
         line: withOpacity("--color-line"),
         "line-strong": withOpacity("--color-line-strong"),
 
-        // ---- Pastel accent tints, copied from innovathon.online's
-        // tailwind.config.js exactly — used for small colorful touches
-        // (badges, tags, soft decorative blobs), not page/card backgrounds.
+        // ---- Pastel accent tints — small colorful touches (badges, tags,
+        // soft decorative blobs), not page/card backgrounds. pastelPurple
+        // added alongside the original four to match the accent's violet
+        // family for blobs/chips that want to echo the primary color.
         pastelBlue: "#E0EFFF",
         pastelPink: "#FFE5EC",
         pastelGreen: "#E0FFEB",
         pastelYellow: "#FFF5CC",
+        pastelPurple: "#EDE9FE",
       },
       fontFamily: {
         sans: [
@@ -76,27 +78,39 @@ export default {
           "Segoe UI",
           "sans-serif",
         ],
-        // Editorial display serif — headings only, never body copy. Paired
-        // with Geist Sans for everything else (nav, buttons, body text).
-        serif: ["Lora Variable", "Lora", "Georgia", "serif"],
+        // Display headings — a rounded, geometric sans (not a literal
+        // serif; the Tailwind key name is kept as `serif` so every
+        // existing `font-serif` usage site re-themes for free) for the
+        // premium-claymorphism headline voice. Paired with Geist Sans for
+        // everything else (nav, buttons, body text).
+        serif: [
+          "Plus Jakarta Sans Variable",
+          "Plus Jakarta Sans",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "Segoe UI",
+          "sans-serif",
+        ],
       },
       fontSize: {
-        // Editorial display sizes — reserved for hero/section moments only.
+        // Display sizes — reserved for hero/section moments only. Bumped
+        // to a 600 weight (from 500) for the bolder, more confident
+        // headline voice premium claymorphism reads as.
         "display-xl": [
           "clamp(4.5rem, 2.6rem + 7vw, 7.5rem)", // 72px -> 120px
-          { lineHeight: "0.9", letterSpacing: "-0.02em", fontWeight: "500" },
+          { lineHeight: "0.9", letterSpacing: "-0.02em", fontWeight: "600" },
         ],
         "display-lg": [
           "clamp(3rem, 2.3rem + 2.6vw, 4rem)", // 48px -> 64px
-          { lineHeight: "1.05", letterSpacing: "-0.01em", fontWeight: "500" },
+          { lineHeight: "1.05", letterSpacing: "-0.01em", fontWeight: "600" },
         ],
         "display-md": [
           "clamp(2rem, 1.6rem + 1.8vw, 3.25rem)",
-          { lineHeight: "1.1", letterSpacing: "-0.01em", fontWeight: "500" },
+          { lineHeight: "1.1", letterSpacing: "-0.01em", fontWeight: "600" },
         ],
         "display-sm": [
           "clamp(1.375rem, 1.25rem + 0.6vw, 1.75rem)", // 22px -> 28px
-          { lineHeight: "1.2", fontWeight: "500" },
+          { lineHeight: "1.2", fontWeight: "600" },
         ],
         eyebrow: ["0.6875rem", { lineHeight: "1.4", letterSpacing: "0.12em", fontWeight: "500" }],
       },

@@ -1,6 +1,8 @@
 import { ButtonLink } from "@/components/ui/Button";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function NotFoundPage() {
+  usePageMeta("Page Not Found");
   return (
     <div className="page-space content-wrap flex flex-col items-center text-center">
       <p className="text-eyebrow uppercase tracking-[0.14em] text-gold-deep">404</p>

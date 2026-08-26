@@ -2,12 +2,19 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ButtonLink } from "@/components/ui/Button";
 import { FloatingBlob } from "@/components/ui/FloatingBlob";
+import { useHeroImages } from "@/features/home/api";
 import { fadeUp, staggerChildren, prefersReducedMotion } from "@/lib/motion";
 
-// Real photography — hero portraits plus a few portfolio moments, all
-// already self-hosted (see public/images/seed/) so cycling through them
-// costs nothing extra to load.
-const HERO_IMAGES = [
+interface HeroImage {
+  src: string;
+  alt: string;
+}
+
+// Shown only until the studio uploads its own photos from /admin/hero —
+// same fallback pattern as FALLBACK_SERVICES/FALLBACK_PRODUCTS elsewhere.
+// Real photography always takes priority the moment it's published; this
+// never overrides it.
+const FALLBACK_HERO_IMAGES: HeroImage[] = [
   { src: "/images/seed/kpds-hero-a.jpg", alt: "A KPDS wedding photography moment" },
   { src: "/images/seed/kpds-hero-b.jpg", alt: "A personalised KPDS keepsake gift" },
   { src: "/images/seed/kps-port-1.jpg", alt: "A KPDS portfolio moment" },
@@ -17,6 +24,12 @@ const HERO_IMAGES = [
 const SLIDE_INTERVAL_MS = 4500;
 
 export function Hero() {
+  const heroImages = useHeroImages();
+  const images: HeroImage[] =
+    heroImages && heroImages.length > 0
+      ? heroImages.map((h) => ({ src: h.image_url, alt: h.alt_text ?? "A KPDS moment" }))
+      : FALLBACK_HERO_IMAGES;
+
   return (
     <section className="relative overflow-hidden">
       <FloatingBlob color="bg-pastelBlue" size="h-80 w-80" top="5%" left="5%" duration={18} />
@@ -28,7 +41,7 @@ export function Hero() {
           <motion.p variants={fadeUp} className="text-eyebrow uppercase tracking-[0.14em] text-muted">
             KPDS / Creative House
           </motion.p>
-          <motion.h1 variants={fadeUp} className="mt-4 font-serif text-display-lg uppercase text-ink lg:text-display-xl">
+          <motion.h1 variants={fadeUp} className="mt-4 font-serif text-display-lg text-ink lg:text-display-xl">
             Make moments
             <br />
             mean more.
@@ -52,8 +65,8 @@ export function Hero() {
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.15 }}
           className="grid grid-cols-2 gap-4"
         >
-          <HeroSlot slotOffset={0} floatClassName="animate-tilt-float" />
-          <HeroSlot slotOffset={1} floatClassName="animate-float-subtle mt-10" floatDelay="1.5s" />
+          <HeroSlot images={images} slotOffset={0} floatClassName="animate-tilt-float" />
+          <HeroSlot images={images} slotOffset={1} floatClassName="animate-float-subtle mt-10" floatDelay="1.5s" />
         </motion.div>
       </div>
     </section>
@@ -68,10 +81,12 @@ export function Hero() {
  * independent slideshows.
  */
 function HeroSlot({
+  images,
   slotOffset,
   floatClassName,
   floatDelay,
 }: {
+  images: HeroImage[];
   slotOffset: number;
   floatClassName: string;
   floatDelay?: string;
@@ -79,12 +94,12 @@ function HeroSlot({
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (prefersReducedMotion()) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % HERO_IMAGES.length), SLIDE_INTERVAL_MS);
+    if (prefersReducedMotion() || images.length < 2) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % images.length), SLIDE_INTERVAL_MS);
     return () => clearInterval(id);
-  }, []);
+  }, [images.length]);
 
-  const image = HERO_IMAGES[(index + slotOffset) % HERO_IMAGES.length];
+  const image = images[(index + slotOffset) % images.length];
 
   return (
     <div

@@ -1,9 +1,8 @@
 import { motion } from "framer-motion";
 import { fadeUp } from "@/lib/motion";
 
-// Placeholder WhatsApp number — replace with the studio's real business
-// number during handover (matches the placeholder in Footer.tsx).
-const WHATSAPP_NUMBER = "919839000000";
+// Studio's real WhatsApp business number (matches Footer.tsx).
+const WHATSAPP_NUMBER = "919519342602";
 const WHATSAPP_MESSAGE = "Hi KPDS! I'd like to talk through an idea for my event/gift.";
 
 export function WhatsAppCta() {
