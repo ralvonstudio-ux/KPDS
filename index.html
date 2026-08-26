@@ -29,6 +29,44 @@
       })();
     </script>
 
+    <!-- Boot loader — this is a client-rendered SPA (no SSR/SSG), so the
+         page is otherwise blank white until the JS bundle finishes
+         downloading, parsing, and mounting React. On a slow connection or
+         device that can take several seconds; without this, that whole
+         window looks broken rather than loading. Colors are hardcoded
+         (not read from tokens.css) deliberately — this has to render
+         before any stylesheet has loaded. Values match src/styles/tokens.css
+         exactly; update both together if the palette changes.
+         React's createRoot().render() (see src/main.tsx) replaces #root's
+         entire contents on first render, so this disappears on its own —
+         no cleanup code needed. -->
+    <style>
+      #boot-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(180deg, #e6f1fa 0%, #a7d8f2 100%);
+      }
+      html.dark #boot-loader {
+        background: #120e21;
+      }
+      #boot-loader svg {
+        animation: boot-spin 0.9s linear infinite;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #boot-loader svg {
+          animation: none;
+        }
+      }
+      @keyframes boot-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+
     <!-- Open Graph / social sharing. Image is a placeholder seed photo
          (matches the rest of the site's current stock imagery) — swap for
          a real studio photo once the client has one, and confirm the
@@ -53,7 +91,14 @@
     <meta name="twitter:image" content="https://khatupixel.studio/images/seed/kps-portrait-cover.jpg" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <div id="boot-loader" aria-hidden="true">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="10" stroke="#7c6af0" stroke-width="3" opacity="0.2" />
+          <path d="M22 12a10 10 0 0 0-10-10" stroke="#7c6af0" stroke-width="3" stroke-linecap="round" />
+        </svg>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
