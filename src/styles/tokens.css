@@ -1,18 +1,24 @@
 /**
  * Design tokens — Khatu Pixel Digital Studio
- * Palette: Ivory / Navy / Coral. Every semantic color is a CSS custom
- * property in "R G B" triplet form (no commas) so Tailwind can apply it as
- * `rgb(var(--color-x) / <alpha-value>)` — that gives every alias working
- * opacity modifiers (e.g. `bg-canvas/80`) AND means light/dark mode is just
- * two blocks of variable values below, never a per-component `dark:` class.
- * Flip `.dark` on <html> (see src/context/ThemeContext.tsx) and the entire
- * app re-themes from these two blocks alone.
+ * Palette adopted from innovathon.online's compiled CSS (colors pulled
+ * directly from its stylesheet, not eyeballed): a cool pale page
+ * background, dark slate chrome, and a blue accent, replacing the
+ * original Ivory/Navy/Coral values. Layout, components, and class names
+ * are untouched — this is a token-level re-theme only, which is exactly
+ * what this CSS-variable architecture exists for. Every semantic color is
+ * a CSS custom property in "R G B" triplet form (no commas) so Tailwind
+ * can apply it as `rgb(var(--color-x) / <alpha-value>)` — that gives
+ * every alias working opacity modifiers (e.g. `bg-canvas/80`) AND means
+ * light/dark mode is just two blocks of variable values below, never a
+ * per-component `dark:` class. Flip `.dark` on <html> (see
+ * src/context/ThemeContext.tsx) and the entire app re-themes from these
+ * two blocks alone.
  *
  * Two tokens look similar but serve different roles, and only one of them
  * flips between modes:
- *  - `ink` is *text* — dark navy on the light page, ivory on the dark page.
+ *  - `ink` is *text* — dark slate on the light page, off-white on the dark page.
  *  - `espresso` is *dark chrome* (primary buttons, the marquee bar, the
- *    WhatsApp CTA card) — it stays the same navy in both themes, since
+ *    WhatsApp CTA card) — it stays the same dark slate in both themes, since
  *    that's what "Book" and friends look like in every screenshot. It is
  *    deliberately NOT overridden in the `.dark` block below.
  *
@@ -20,21 +26,24 @@
  */
 :root {
   /* ---- Light mode (default) ---- */
-  /* Page background copied exactly from innovathon.online's body
-     background (rgb(247 250 252) / #F7FAFC — its actual page bg, not the
-     dark slate used in that site's decorative gradients). Cards go pure
-     white for the standard "elevated card on a tinted page" pairing that
-     comes with it. The neutral grays (muted/line) shifted from warm to
-     cool to stay coherent with the new cool-toned page — Navy (ink),
-     Coral (accent), and everything else is untouched. */
+  /* Page background: innovathon.online's actual body background
+     (rgb(247 250 252) / #F7FAFC), not the dark slate used in that site's
+     decorative gradients. Cards go pure white for the standard "elevated
+     card on a tinted page" pairing that comes with it. */
   --color-ivory: 247 250 252;
   --color-ivory-soft: 255 255 255;
-  --color-ink: 23 31 56; /* primary text — dark navy on the light page */
-  --color-espresso: 23 31 56; /* dark chrome — buttons, marquee, WhatsApp CTA. Constant across themes. */
-  --color-espresso-deep: 15 20 39; /* deepest chrome variant */
-  --color-coral: 232 96 74; /* primary accent — CTAs, links, active states, prices */
-  --color-coral-light: 240 128 108; /* hover / soft accent */
-  --color-coral-deep: 196 72 54; /* pressed / deep accent */
+  /* Text: innovathon's body text color (#1A202C) exactly. */
+  --color-ink: 26 32 44;
+  /* Dark chrome: innovathon's dark-slate gradient stops (#0F172A /
+     #020617 — Tailwind slate-900/950), used there for its dark sections.
+     Constant across themes — see the file header note on `espresso`. */
+  --color-espresso: 15 23 42;
+  --color-espresso-deep: 2 6 23;
+  /* Accent: innovathon's button/link blue (#2563EB / #60A5FA / #1D4ED8 —
+     Tailwind blue-600/400/700), replacing the original coral. */
+  --color-coral: 37 99 235;
+  --color-coral-light: 96 165 250;
+  --color-coral-deep: 29 78 216;
   --color-muted: 113 128 150; /* secondary text, cool gray */
   --color-line: 226 232 240; /* hairline borders */
   --color-line-strong: 203 213 224;
@@ -68,20 +77,19 @@
   --radius-hero: 36px;
 
   /* Shadow — soft claymorphism, never a hard black drop-shadow */
-  --shadow-clay: 0 12px 40px rgba(23, 31, 56, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  --shadow-clay-lg: 0 24px 70px rgba(23, 31, 56, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  --shadow-focus: 0 0 0 3px rgba(232, 96, 74, 0.35);
+  --shadow-clay: 0 12px 40px rgba(26, 32, 44, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --shadow-clay-lg: 0 24px 70px rgba(26, 32, 44, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  --shadow-focus: 0 0 0 3px rgba(37, 99, 235, 0.35);
 
   /* Neumorphic depth — a dual-direction soft shadow (dark offset one
      corner, light highlight the opposite corner, plus inset highlights)
      for a tactile "pressed into the page" feel on a handful of panels.
      Same technique as shadow-clay's restraint (never a hard black
-     shadow), just a second light source added. Kept to Ivory/Navy/Coral
-     — never the borrowed reference site's blue. */
-  --shadow-neu: 6px 6px 16px rgba(23, 31, 56, 0.08), -4px -4px 12px rgba(255, 255, 255, 0.9),
-    inset 1px 2px 3px rgba(255, 255, 255, 0.6), inset -1px -2px 3px rgba(23, 31, 56, 0.04);
-  --shadow-neu-coral: 6px 6px 18px rgba(232, 96, 74, 0.28), -4px -4px 12px rgba(255, 255, 255, 0.85),
-    inset 1px 2px 4px rgba(255, 255, 255, 0.5), inset -1px -2px 4px rgba(23, 31, 56, 0.08);
+     shadow), just a second light source added. */
+  --shadow-neu: 6px 6px 16px rgba(26, 32, 44, 0.08), -4px -4px 12px rgba(255, 255, 255, 0.9),
+    inset 1px 2px 3px rgba(255, 255, 255, 0.6), inset -1px -2px 3px rgba(26, 32, 44, 0.04);
+  --shadow-neu-coral: 6px 6px 18px rgba(37, 99, 235, 0.28), -4px -4px 12px rgba(255, 255, 255, 0.85),
+    inset 1px 2px 4px rgba(255, 255, 255, 0.5), inset -1px -2px 4px rgba(26, 32, 44, 0.08);
 
   /* Motion limits — see docs/design-system.md "Motion" for rules */
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
@@ -108,10 +116,10 @@
 :root.dark {
   --color-ivory: 13 18 36; /* page background becomes deep navy */
   --color-ivory-soft: 22 29 53; /* card surface, one step lighter than the page */
-  --color-ink: 241 237 226; /* text becomes ivory-white on the dark page */
-  --color-coral: 240 118 97; /* lightened so it keeps ~4.5:1 contrast on the dark page */
-  --color-coral-light: 247 148 130;
-  --color-coral-deep: 216 92 70;
+  --color-ink: 241 237 226; /* text becomes off-white on the dark page */
+  --color-coral: 96 165 250; /* lightened blue (Tailwind blue-400) for contrast on the dark page */
+  --color-coral-light: 147 197 253;
+  --color-coral-deep: 59 130 246;
   --color-muted: 154 148 136;
   /* Brightened from the original 40/48/76 and 58/68/100 — those read as
      almost the same navy as the page background (13/18/36), so every
@@ -122,9 +130,9 @@
 
   /* --color-espresso / --color-espresso-deep intentionally NOT redefined:
      "dark chrome" elements (buttons, marquee, WhatsApp CTA) stay the same
-     navy in both themes rather than getting darker still, or they'd
-     disappear into the near-black page background instead of standing
-     out from it. */
+     dark slate in both themes rather than getting darker still, or
+     they'd disappear into the near-black page background instead of
+     standing out from it. */
 
   /* A black drop-shadow is invisible on a near-black page — swapped for a
      soft, light-colored halo (a faint lift rather than a cast shadow),
@@ -133,13 +141,13 @@
      visibly separate from the page instead of blending into it. */
   --shadow-clay: 0 12px 40px rgba(241, 237, 226, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.07);
   --shadow-clay-lg: 0 24px 70px rgba(241, 237, 226, 0.09), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  --shadow-focus: 0 0 0 3px rgba(240, 118, 97, 0.4);
+  --shadow-focus: 0 0 0 3px rgba(96, 165, 250, 0.4);
 
   /* Neumorphic depth, dark-mode variant — the "light" side becomes a
      faint lift off the near-black page rather than white, and the dark
      side deepens further. */
   --shadow-neu: 6px 6px 18px rgba(0, 0, 0, 0.5), -4px -4px 12px rgba(255, 255, 255, 0.05),
     inset 1px 2px 3px rgba(255, 255, 255, 0.05), inset -1px -2px 3px rgba(0, 0, 0, 0.3);
-  --shadow-neu-coral: 6px 6px 20px rgba(240, 118, 97, 0.22), -4px -4px 12px rgba(255, 255, 255, 0.05),
+  --shadow-neu-coral: 6px 6px 20px rgba(96, 165, 250, 0.22), -4px -4px 12px rgba(255, 255, 255, 0.05),
     inset 1px 2px 4px rgba(255, 255, 255, 0.06), inset -1px -2px 4px rgba(0, 0, 0, 0.35);
 }
