@@ -20,17 +20,24 @@
  */
 :root {
   /* ---- Light mode (default) ---- */
-  --color-ivory: 246 242 231; /* page background */
-  --color-ivory-soft: 251 248 242; /* card / surface background, slightly whiter */
+  /* Page background copied exactly from innovathon.online's body
+     background (rgb(247 250 252) / #F7FAFC — its actual page bg, not the
+     dark slate used in that site's decorative gradients). Cards go pure
+     white for the standard "elevated card on a tinted page" pairing that
+     comes with it. The neutral grays (muted/line) shifted from warm to
+     cool to stay coherent with the new cool-toned page — Navy (ink),
+     Coral (accent), and everything else is untouched. */
+  --color-ivory: 247 250 252;
+  --color-ivory-soft: 255 255 255;
   --color-ink: 23 31 56; /* primary text — dark navy on the light page */
   --color-espresso: 23 31 56; /* dark chrome — buttons, marquee, WhatsApp CTA. Constant across themes. */
   --color-espresso-deep: 15 20 39; /* deepest chrome variant */
   --color-coral: 232 96 74; /* primary accent — CTAs, links, active states, prices */
   --color-coral-light: 240 128 108; /* hover / soft accent */
   --color-coral-deep: 196 72 54; /* pressed / deep accent */
-  --color-muted: 115 111 102; /* secondary text, warm gray */
-  --color-line: 228 223 211; /* hairline borders */
-  --color-line-strong: 210 203 187;
+  --color-muted: 113 128 150; /* secondary text, cool gray */
+  --color-line: 226 232 240; /* hairline borders */
+  --color-line-strong: 203 213 224;
 
   /* Canonical palette names (docs/design-system.md) — same values as the
      semantic tokens above, kept for anything written against the canonical
