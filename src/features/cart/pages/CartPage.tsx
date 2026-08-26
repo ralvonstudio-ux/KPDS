@@ -4,8 +4,10 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { EmptyState, LoadingState } from "@/components/ui/States";
 import { ButtonLink } from "@/components/ui/Button";
 import { formatINR } from "@/lib/utils";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function CartPage() {
+  usePageMeta("Cart");
   const { user } = useAuth();
   const { items, isLoading, subtotalPaise, updateQuantity, removeItem } = useCart();
 

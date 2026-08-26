@@ -1,5 +1,5 @@
 @import "@fontsource-variable/geist";
-@import "@fontsource-variable/lora";
+@import "@fontsource-variable/plus-jakarta-sans";
 @import "./tokens.css";
 @tailwind base;
 @tailwind components;
@@ -51,6 +51,18 @@
     @apply mx-auto w-full max-w-content px-6 md:px-10;
   }
 
+  /* Whole-site background — a single continuous gradient from ivory blue
+     (top) into sky blue (bottom), applied once on PublicLayout's root so
+     every page shares one uninterrupted backdrop rather than a per-section
+     flat fill. Dark mode keeps the flat deep-violet page color instead —
+     the ivory/sky gradient is a light-mode-only treatment. */
+  .bg-page {
+    background: linear-gradient(180deg, rgb(var(--color-ivory)) 0%, rgb(var(--color-sky)) 100%);
+  }
+  :root.dark .bg-page {
+    background: rgb(var(--color-ivory));
+  }
+
   /* Vertical rhythm BETWEEN sections — a scene inside a longer scrolling
      page (the homepage's Studio/Testimonials/etc.) that needs breathing
      room from whatever comes before it. Symmetric top+bottom. */
@@ -89,6 +101,43 @@
     .animate-tilt-float {
       animation: none;
     }
+  }
+
+  /* Skeuomorphic primary button — adapted from innovathon.online's
+     `.skeu-btn-primary` (same technique, KPDS's own coral/blue token
+     rather than a hardcoded hex): a gradient face, a dual offset
+     shadow + inset highlights for a raised, tactile look, and a real
+     inset-only shadow on `:active` so pressing it actually looks
+     pressed in rather than just scaling down. Owns its own hover/press
+     transform entirely — never pair with a Tailwind `hover:scale-*` /
+     `active:scale-*` utility on the same element, they'd fight over
+     the `transform` property. */
+  .skeu-btn-primary {
+    background: linear-gradient(145deg, rgb(var(--color-coral-light)), rgb(var(--color-coral)));
+    border: 1px solid rgb(var(--color-coral-light));
+    color: white;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+    box-shadow:
+      6px 6px 16px rgb(var(--color-coral) / 0.4),
+      -3px -3px 10px rgb(255 255 255 / 0.5),
+      inset 1px 2px 4px rgb(255 255 255 / 0.4),
+      inset -1px -2px 4px rgb(0 0 0 / 0.25);
+    transition: all 0.2s ease;
+  }
+  .skeu-btn-primary:hover {
+    background: linear-gradient(145deg, rgb(var(--color-coral)), rgb(var(--color-coral-deep)));
+    transform: translateY(-2px);
+    box-shadow:
+      8px 8px 20px rgb(var(--color-coral) / 0.5),
+      -3px -3px 12px rgb(255 255 255 / 0.6),
+      inset 1px 2px 4px rgb(255 255 255 / 0.5),
+      inset -1px -2px 4px rgb(0 0 0 / 0.2);
+  }
+  .skeu-btn-primary:active {
+    transform: scale(0.97) translateY(1px);
+    box-shadow:
+      inset 4px 4px 10px rgb(0 0 0 / 0.2),
+      inset -4px -4px 10px rgb(255 255 255 / 0.3);
   }
 }
 

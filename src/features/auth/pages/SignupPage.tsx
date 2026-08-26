@@ -7,8 +7,10 @@ import { AuthShell } from "@/features/auth/components/AuthShell";
 import { Input } from "@/components/ui/Field";
 import { Button } from "@/components/ui/Button";
 import { signupSchema, type SignupInput } from "@/features/auth/schemas";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function SignupPage() {
+  usePageMeta("Sign Up");
   const { signUpWithPassword } = useAuth();
   const navigate = useNavigate();
   const [formError, setFormError] = useState<string | null>(null);

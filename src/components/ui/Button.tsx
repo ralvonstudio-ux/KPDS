@@ -6,14 +6,18 @@ import { cn } from "@/lib/utils";
 const base =
   "inline-flex items-center justify-center gap-2 rounded-full text-sm font-medium " +
   "transition-[transform,background-color,color,box-shadow] duration-200 ease-spring " +
-  "focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 " +
-  "hover:scale-[1.02] active:scale-[0.96]";
+  "focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50";
+
+// primary/outline/ghost use a plain Tailwind hover/active scale; "gold" owns
+// its full hover/press transform via .skeu-btn-primary (see index.css) and
+// must NOT also get a scale utility here — both would fight over `transform`.
+const scaleOnPress = "hover:scale-[1.02] active:scale-[0.96]";
 
 const variants = {
-  primary: "bg-espresso text-white hover:bg-ink shadow-clay",
-  gold: "bg-gold text-espresso hover:bg-gold-deep shadow-clay hover:shadow-neu-coral",
-  outline: "border border-line-strong text-ink hover:border-espresso bg-transparent",
-  ghost: "text-ink hover:bg-black/[0.04]",
+  primary: `bg-espresso text-white hover:bg-ink shadow-clay ${scaleOnPress}`,
+  gold: "skeu-btn-primary",
+  outline: `border border-line-strong text-ink hover:border-espresso bg-transparent ${scaleOnPress}`,
+  ghost: `text-ink hover:bg-black/[0.04] ${scaleOnPress}`,
 };
 
 const sizes = {

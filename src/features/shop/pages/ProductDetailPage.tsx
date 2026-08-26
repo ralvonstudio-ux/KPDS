@@ -10,10 +10,12 @@ import { Input, Textarea } from "@/components/ui/Field";
 import { LoadingState, ErrorState, EmptyState, Spinner } from "@/components/ui/States";
 import { formatINR } from "@/lib/utils";
 import { fadeUp } from "@/lib/motion";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { data: product, isLoading, error, refetch } = useShopProduct(slug);
+  usePageMeta(product?.name, product?.description ?? undefined);
   const { user } = useAuth();
   const { addItem } = useCart();
   const navigate = useNavigate();

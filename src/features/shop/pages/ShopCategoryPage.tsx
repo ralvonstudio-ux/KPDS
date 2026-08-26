@@ -5,10 +5,21 @@ import { ProductCard, productToCardItem } from "@/features/shop/components/Produ
 import { PageHeader } from "@/components/ui/PageHeader";
 import { LoadingState, EmptyState, ErrorState } from "@/components/ui/States";
 import { staggerChildren, fadeUp } from "@/lib/motion";
+import { usePageMeta } from "@/lib/usePageMeta";
+
+// "home-decor" -> "Home Decor" — a readable title-cased fallback for the
+// browser tab while categorySlug is all we have (no category name loaded).
+function titleCaseSlug(slug: string) {
+  return slug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+}
 
 export default function ShopCategoryPage() {
   const { categorySlug } = useParams<{ categorySlug: string }>();
   const { data: products, isLoading, error, refetch } = useShopProducts(categorySlug);
+  usePageMeta(
+    categorySlug ? `${titleCaseSlug(categorySlug)} Gifts` : "Gift Center",
+    `Shop ${categorySlug ? titleCaseSlug(categorySlug) : ""} gifts from Khatu Pixel Digital Studio.`,
+  );
 
   return (
     <div className="page-space content-wrap">

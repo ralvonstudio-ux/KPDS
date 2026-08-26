@@ -93,7 +93,7 @@ export function Navbar() {
 
           <NavLink
             to="/book-your-event"
-            className="ml-1 shrink-0 whitespace-nowrap rounded-full bg-coral px-6 py-2.5 text-sm font-semibold text-white shadow-clay transition-[background-color,transform] duration-200 active:translate-y-px hover:bg-coral-deep"
+            className="skeu-btn-primary ml-1 shrink-0 whitespace-nowrap rounded-full px-6 py-2.5 text-sm font-semibold"
           >
             Book
           </NavLink>
@@ -149,7 +149,7 @@ export function Navbar() {
               </div>
               <NavLink
                 to="/book-your-event"
-                className="mt-2 rounded-full bg-coral px-6 py-3 text-center text-sm font-semibold text-white"
+                className="skeu-btn-primary mt-2 rounded-full px-6 py-3 text-center text-sm font-semibold"
               >
                 Book Your Event
               </NavLink>

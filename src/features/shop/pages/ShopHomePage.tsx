@@ -6,6 +6,7 @@ import { FALLBACK_PRODUCTS } from "@/features/shop/components/fallbackProducts";
 import { EmptyState } from "@/components/ui/States";
 import { staggerChildren, fadeUp } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 // A category's name doesn't carry an emoji in the database — this is a
 // purely cosmetic lookup for the filter pills, keyed by keyword so any
@@ -31,6 +32,7 @@ function categoryEmoji(name: string): string {
 const FALLBACK_OCCASIONS = ["Birthday", "Anniversary", "Wedding", "Couple"];
 
 export default function ShopHomePage() {
+  usePageMeta("Gift Center", "Personalised gifts, photo frames, albums, and keepsakes — designed, printed and created for your moments.");
   const { data: categories, error: categoriesError, refetch: refetchCategories } = useShopCategories();
   const [activeCategorySlug, setActiveCategorySlug] = useState<string | null>(null);
   const { data: products, isLoading, error: productsError, refetch: refetchProducts } = useShopProducts(activeCategorySlug ?? undefined);

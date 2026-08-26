@@ -1,7 +1,8 @@
 import { supabase } from "@/lib/supabase";
 
-/** Buckets created in supabase/migrations/20260811000013_storage.sql. */
-export type PublicBucket = "services" | "portfolio" | "products";
+/** Buckets created in supabase/migrations/20260811000013_storage.sql and
+ * supabase/migrations/20260826000002_hero_images.sql (hero). */
+export type PublicBucket = "services" | "portfolio" | "products" | "hero";
 
 const MAX_UPLOAD_BYTES = 8 * 1024 * 1024; // 8MB — comfortably under Storage's 10MB limit.
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];

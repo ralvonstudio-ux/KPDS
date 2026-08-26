@@ -588,6 +588,37 @@ export interface Database {
         Update: Partial<Database["public"]["Tables"]["testimonials"]["Row"]>;
         Relationships: [];
       };
+      hero_images: {
+        Row: {
+          id: string;
+          image_url: string;
+          alt_text: string | null;
+          is_published: boolean;
+          sort_order: number;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["hero_images"]["Row"]> & { image_url: string };
+        Update: Partial<Database["public"]["Tables"]["hero_images"]["Row"]>;
+        Relationships: [];
+      };
+      contact_messages: {
+        Row: {
+          id: string;
+          name: string;
+          email: string;
+          phone: string | null;
+          message: string;
+          is_read: boolean;
+          created_at: string;
+        };
+        Insert: Partial<Database["public"]["Tables"]["contact_messages"]["Row"]> & {
+          name: string;
+          email: string;
+          message: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["contact_messages"]["Row"]>;
+        Relationships: [];
+      };
     };
     Functions: {
       is_admin: {

@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { ButtonLink } from "@/components/ui/Button";
 import { fadeUp } from "@/lib/motion";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function CheckoutFailedPage() {
+  usePageMeta("Payment Failed");
   return (
     <div className="page-space content-wrap flex justify-center">
       <motion.div

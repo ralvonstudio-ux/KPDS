@@ -7,13 +7,15 @@ import type { Variants } from "framer-motion";
 export const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/** Shared entrance animation: gentle fade-up, 300–600ms, editorial ease. Respects prefers-reduced-motion via framer-motion's automatic OS-level handling. */
+/** Shared entrance animation: fade-up on scroll reveal, matching
+ * innovathon.online's RevealText timing exactly (0.8s, ease [0.16,1,0.3,1]).
+ * Respects prefers-reduced-motion via the app-root MotionConfig. */
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 30 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
   },
 };
 

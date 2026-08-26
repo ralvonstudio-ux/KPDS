@@ -5,8 +5,13 @@ import { FALLBACK_SERVICES } from "@/features/services/components/fallbackServic
 import { PageHeader } from "@/components/ui/PageHeader";
 import { LoadingState } from "@/components/ui/States";
 import { staggerChildren, fadeUp } from "@/lib/motion";
+import { usePageMeta } from "@/lib/usePageMeta";
+
+const DESCRIPTION =
+  "Every package is shaped around your event — see what's included, then talk to us for a quote built around you.";
 
 export default function ServicesPage() {
+  usePageMeta("Studio", DESCRIPTION);
   const { data: services, isLoading, error, refetch } = useServices();
   const hasRealServices = !!services && services.length > 0;
   const cards = hasRealServices ? services : FALLBACK_SERVICES;
@@ -16,7 +21,7 @@ export default function ServicesPage() {
       <PageHeader
         eyebrow="Khatu Pixel Digital Studio"
         title="Studio"
-        description="Every package is shaped around your event — see what's included, then talk to us for a quote built around you."
+        description={DESCRIPTION}
       />
 
       {error && (

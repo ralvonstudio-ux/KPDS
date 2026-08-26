@@ -50,6 +50,8 @@ const AdminCategoriesPage = lazy(() => import("@/features/admin/categories/pages
 const AdminProductsListPage = lazy(() => import("@/features/admin/products/pages/AdminProductsListPage"));
 const AdminProductEditPage = lazy(() => import("@/features/admin/products/pages/AdminProductEditPage"));
 const AdminBookingsListPage = lazy(() => import("@/features/admin/bookings/pages/AdminBookingsListPage"));
+const AdminMessagesListPage = lazy(() => import("@/features/admin/messages/pages/AdminMessagesListPage"));
+const AdminHeroImagesListPage = lazy(() => import("@/features/admin/hero/pages/AdminHeroImagesListPage"));
 const AdminBookingDetailPage = lazy(() => import("@/features/admin/bookings/pages/AdminBookingDetailPage"));
 const AdminTeamPage = lazy(() => import("@/features/admin/team/pages/AdminTeamPage"));
 const AdminOrdersListPage = lazy(() => import("@/features/admin/orders/pages/AdminOrdersListPage"));
@@ -128,6 +130,8 @@ export function AppRouter() {
           <Route path="/admin" element={<AdminOverviewPage />} />
           <Route path="/admin/bookings" element={<AdminBookingsListPage />} />
           <Route path="/admin/bookings/:id" element={<AdminBookingDetailPage />} />
+          <Route path="/admin/messages" element={<AdminMessagesListPage />} />
+          <Route path="/admin/hero" element={<AdminHeroImagesListPage />} />
           <Route path="/admin/services" element={<AdminServicesListPage />} />
           <Route path="/admin/services/:id" element={<AdminServiceEditPage />} />
           <Route path="/admin/portfolio" element={<AdminPortfolioListPage />} />

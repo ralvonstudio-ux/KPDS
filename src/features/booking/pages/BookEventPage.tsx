@@ -15,10 +15,12 @@ import { Input, Textarea, Select } from "@/components/ui/Field";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { fadeUp } from "@/lib/motion";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 type FlowStatus = "form" | "submitting" | "paying" | "payment_pending" | "success";
 
 export default function BookEventPage() {
+  usePageMeta("Book Your Event", "Tell us about your event and we'll put together a quote built around you.");
   const { user, profile } = useAuth();
   const [searchParams] = useSearchParams();
   const { data: services } = useServices();
