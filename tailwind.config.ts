@@ -58,6 +58,14 @@ export default {
         },
         line: withOpacity("--color-line"),
         "line-strong": withOpacity("--color-line-strong"),
+
+        // ---- Pastel accent tints, copied from innovathon.online's
+        // tailwind.config.js exactly — used for small colorful touches
+        // (badges, tags, soft decorative blobs), not page/card backgrounds.
+        pastelBlue: "#E0EFFF",
+        pastelPink: "#FFE5EC",
+        pastelGreen: "#E0FFEB",
+        pastelYellow: "#FFF5CC",
       },
       fontFamily: {
         sans: [
