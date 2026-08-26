@@ -1,11 +1,17 @@
 import { useEffect, type ReactNode } from "react";
 import Lenis from "lenis";
-import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/gsapSetup";
+import { prefersReducedMotion } from "@/lib/motion";
 
 /**
- * Site-wide smooth scroll (Lenis), wired into GSAP's own ticker so
- * ScrollTrigger stays perfectly in sync with the smoothed scroll position
- * instead of drifting — the standard Lenis+GSAP integration pattern.
+ * Site-wide smooth scroll. Uses Lenis's own built-in `autoRaf` loop rather
+ * than GSAP's ticker — nothing in the app creates GSAP ScrollTrigger
+ * instances any more (the cinematic scroll-driven homepage that needed it
+ * was replaced by the conventional layout), so wiring through GSAP just to
+ * drive Lenis's raf loop was pulling the entire GSAP + ScrollTrigger
+ * bundle — the single largest chunk of the main bundle — into every page
+ * for no actual animation. Dropping it here removed that dependency
+ * entirely; see git history if scroll-linked GSAP choreography is ever
+ * needed again.
  *
  * Skips itself entirely under prefers-reduced-motion: native scroll behaves
  * exactly as a reduced-motion user expects, no smoothing layer at all.
@@ -28,16 +34,12 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (prefersReducedMotion() || sharedLenis) return;
 
-    const lenis = new Lenis({
+    sharedLenis = new Lenis({
       duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      autoRaf: true,
     });
-    sharedLenis = lenis;
-
-    lenis.on("scroll", ScrollTrigger.update);
-    gsap.ticker.add((time) => lenis.raf(time * 1000));
-    gsap.ticker.lagSmoothing(0);
   }, []);
 
   return <>{children}</>;

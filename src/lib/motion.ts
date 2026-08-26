@@ -1,5 +1,12 @@
 import type { Variants } from "framer-motion";
 
+/** True when the user has asked the OS for reduced motion. Deliberately
+ * has zero dependencies beyond matchMedia — this used to live in
+ * gsapSetup.ts, which pulled the entire GSAP + ScrollTrigger bundle (the
+ * bulk of the main chunk) into every page just for this one check. */
+export const prefersReducedMotion = () =>
+  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 /** Shared entrance animation: gentle fade-up, 300–600ms, editorial ease. Respects prefers-reduced-motion via framer-motion's automatic OS-level handling. */
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
