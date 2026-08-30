@@ -12,8 +12,12 @@ export function GiftCenterSection() {
     products && products.length > 0 ? products.slice(0, 3).map(productToCardItem) : FALLBACK_PRODUCTS;
 
   return (
-    <section className="section-space bg-surface">
-      <div className="content-wrap">
+    <section className="section-space content-wrap">
+      {/* Same "framed panel" treatment as the hero and Studio section — a
+          rounded card floating on the page background rather than a
+          full-bleed tinted strip, so the homepage reads as one consistent
+          bento language throughout. */}
+      <div className="rounded-hero border border-line bg-surface p-5 shadow-clay-lg sm:p-6 lg:p-8">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-eyebrow uppercase tracking-[0.14em] text-muted">Gifts with a personal touch</p>
@@ -33,7 +37,7 @@ export function GiftCenterSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={staggerChildren}
-          className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3"
+          className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3"
         >
           {items.map((item) => (
             <motion.div key={item.id} variants={fadeUp}>

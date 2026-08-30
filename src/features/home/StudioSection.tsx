@@ -38,50 +38,56 @@ export function StudioSection() {
 
   return (
     <section className="section-space content-wrap">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-eyebrow uppercase tracking-[0.14em] text-muted">KPDS Studio</p>
-          <h2 className="mt-3 font-serif text-display-lg text-ink">We frame your story.</h2>
+      {/* Same "framed panel" treatment as the hero — a rounded card
+          floating on the page background, holding its own nested-tone
+          (bg-canvas) tiles — so the homepage reads as one consistent
+          bento language rather than the hero looking like a one-off. */}
+      <div className="rounded-hero border border-line bg-surface p-5 shadow-clay-lg sm:p-6 lg:p-8">
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="text-eyebrow uppercase tracking-[0.14em] text-muted">KPDS Studio</p>
+            <h2 className="mt-3 font-serif text-display-lg text-ink">We frame your story.</h2>
+          </div>
+          <Link to="/studio" className="text-sm font-medium text-coral hover:text-coral-deep">
+            Explore Studio →
+          </Link>
         </div>
-        <Link to="/studio" className="text-sm font-medium text-coral hover:text-coral-deep">
-          Explore Studio →
-        </Link>
-      </div>
 
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        variants={staggerChildren}
-        className="mt-10 flex gap-5 overflow-x-auto pb-2"
-      >
-        {cards.map((card) => (
-          <motion.div key={card.key} variants={fadeUp} className="w-52 shrink-0 sm:w-60">
-            <Link
-              to={card.to}
-              className="group block overflow-hidden rounded-card-lg border border-transparent shadow-clay transition-[border-color,box-shadow,transform] duration-300 ease-spring hover:-translate-y-1 hover:border-coral hover:shadow-clay-lg focus-visible:outline-none focus-visible:border-coral"
-            >
-              <div className="aspect-[3/4] overflow-hidden bg-black/5">
-                {card.image ? (
-                  <motion.img
-                    {...imageZoomHover}
-                    src={card.image}
-                    alt=""
-                    loading="lazy"
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <div className="flex h-full w-full items-center justify-center text-sm text-muted">Image coming soon</div>
-                )}
-              </div>
-              <div className="bg-surface p-5">
-                <h3 className="font-serif text-lg text-ink">{card.title}</h3>
-                <p className="mt-1 text-sm text-muted">{card.priceLabel}</p>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
-      </motion.div>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={staggerChildren}
+          className="mt-8 flex gap-5 overflow-x-auto pb-2"
+        >
+          {cards.map((card) => (
+            <motion.div key={card.key} variants={fadeUp} className="w-52 shrink-0 sm:w-60">
+              <Link
+                to={card.to}
+                className="group block overflow-hidden rounded-card border border-transparent bg-canvas transition-[border-color,box-shadow,transform] duration-300 ease-spring hover:-translate-y-1 hover:border-coral hover:shadow-clay focus-visible:outline-none focus-visible:border-coral"
+              >
+                <div className="aspect-[3/4] overflow-hidden bg-black/5">
+                  {card.image ? (
+                    <motion.img
+                      {...imageZoomHover}
+                      src={card.image}
+                      alt=""
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center text-sm text-muted">Image coming soon</div>
+                  )}
+                </div>
+                <div className="p-5">
+                  <h3 className="font-serif text-lg text-ink">{card.title}</h3>
+                  <p className="mt-1 text-sm text-muted">{card.priceLabel}</p>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 }
