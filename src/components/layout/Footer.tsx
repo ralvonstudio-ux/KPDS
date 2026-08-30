@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="border-t border-line">
       <div className="content-wrap grid gap-10 py-16 md:grid-cols-[1.4fr_1fr_1fr] md:py-20">
         <div>
-          <p className="font-serif text-2xl font-medium tracking-tight text-ink">KPDS</p>
+          <img src="/logo/kpds-mark.png" alt="KPDS" className="h-8 w-auto dark:brightness-0 dark:invert" />
           <p className="mt-3 max-w-xs text-sm text-muted">
             A creative house in Kanpur, working across personalized gifting and professional photography.
           </p>
