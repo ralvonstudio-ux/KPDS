@@ -65,28 +65,34 @@ export function Hero() {
       <FloatingBlob color="bg-pastelPink" size="h-96 w-96" top="45%" left="80%" duration={22} delay={1} />
       <FloatingBlob color="bg-pastelGreen" size="h-64 w-64" top="70%" left="15%" duration={16} delay={2} />
 
-      <div className="content-wrap py-10 md:py-16">
-        <div className="rounded-hero border border-line bg-surface p-3 shadow-clay-lg sm:p-4 lg:p-5">
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[1.7fr_1fr]">
+      <div className="content-wrap py-4 md:py-6 lg:py-8">
+        {/* lg:max-h caps the whole panel to comfortably fit a typical
+            laptop viewport under the sticky navbar (~72px) so the full
+            bento layout — hero row + bottom row — is visible without
+            scrolling on first load, matching the reference's single-view
+            feel. Only constrained at lg+; smaller breakpoints stack
+            vertically and are expected to scroll like a normal page. */}
+        <div className="rounded-hero border border-line bg-surface p-3 shadow-clay-lg sm:p-4 lg:flex lg:max-h-[calc(100vh-6.5rem)] lg:flex-col lg:overflow-hidden lg:p-4">
+          <div className="grid grid-cols-1 gap-3 lg:min-h-0 lg:flex-1 lg:grid-cols-[1.7fr_1fr]">
             {/* Big hero card — headline + CTA, floating photo bottom-right */}
             <motion.div
               initial="hidden"
               animate="visible"
               variants={staggerChildren}
-              className="relative overflow-hidden rounded-card-lg bg-canvas p-8 pb-56 sm:p-10 sm:pb-64 lg:pb-10"
+              className="relative overflow-hidden rounded-card-lg bg-canvas p-6 pb-48 sm:p-8 sm:pb-56 lg:flex lg:flex-col lg:justify-center lg:p-6 lg:pb-6"
             >
               <motion.p variants={fadeUp} className="text-eyebrow uppercase tracking-[0.14em] text-muted">
                 KPDS / Creative House
               </motion.p>
-              <motion.h1 variants={fadeUp} className="mt-4 max-w-md font-serif text-display-lg text-ink">
+              <motion.h1 variants={fadeUp} className="mt-3 max-w-md font-serif text-display-md text-ink lg:text-display-lg">
                 Make moments
                 <br />
                 mean more.
               </motion.h1>
-              <motion.p variants={fadeUp} className="mt-6 max-w-sm text-base leading-relaxed text-muted">
+              <motion.p variants={fadeUp} className="mt-3 max-w-sm text-sm leading-relaxed text-muted lg:text-base">
                 Personalized gifts for people you love and visual stories worth remembering.
               </motion.p>
-              <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-3">
+              <motion.div variants={fadeUp} className="mt-5 flex flex-wrap items-center gap-3">
                 <ButtonLink to="/gift-center" variant="gold" size="lg">
                   Explore Gifts →
                 </ButtonLink>
@@ -97,7 +103,7 @@ export function Hero() {
 
               {/* Floating photo — bleeds out of the card's bottom-right on
                   desktop, stacks below the copy on mobile. */}
-              <div className="absolute bottom-6 right-6 top-auto w-40 sm:bottom-8 sm:right-8 sm:w-52 lg:bottom-10 lg:right-10 lg:top-10 lg:w-64">
+              <div className="absolute bottom-5 right-5 top-auto w-32 sm:bottom-6 sm:right-6 sm:w-44 lg:bottom-6 lg:right-8 lg:top-6 lg:w-48">
                 <Dot className="left-[-14px] top-2 h-3 w-3 bg-coral/70" />
                 <Dot className="right-4 top-[-10px] h-2 w-2 bg-gold/60" delay={0.4} />
                 <Dot className="bottom-2 left-1/2 h-2.5 w-2.5 bg-pastelGreen" delay={0.8} />
@@ -106,24 +112,24 @@ export function Hero() {
             </motion.div>
 
             {/* Right column — quick links + a second floating photo */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-3">
               <motion.div
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
-                className="rounded-card-lg bg-canvas p-5"
+                className="rounded-card-lg bg-canvas p-4"
               >
                 <p className="text-eyebrow uppercase tracking-[0.14em] text-muted">Explore</p>
-                <div className="mt-3 flex flex-wrap gap-2.5">
+                <div className="mt-2.5 flex flex-wrap gap-2.5">
                   {QUICK_LINKS.map(({ to, label, icon: Icon, tint }) => (
                     <Link
                       key={to}
                       to={to}
                       aria-label={label}
                       title={label}
-                      className={`flex h-11 w-11 items-center justify-center rounded-full ${tint} text-ink/80 shadow-clay transition-transform duration-200 ease-spring hover:scale-110`}
+                      className={`flex h-10 w-10 items-center justify-center rounded-full ${tint} text-ink/80 shadow-clay transition-transform duration-200 ease-spring hover:scale-110`}
                     >
-                      <Icon size={18} strokeWidth={1.75} />
+                      <Icon size={17} strokeWidth={1.75} />
                     </Link>
                   ))}
                 </div>
@@ -133,49 +139,49 @@ export function Hero() {
                 initial="hidden"
                 animate="visible"
                 variants={fadeUp}
-                className="relative min-h-[12rem] flex-1 overflow-hidden rounded-card-lg bg-canvas p-4"
+                className="relative min-h-[9rem] flex-1 overflow-hidden rounded-card-lg bg-canvas p-3"
               >
                 <HeroSlot images={images} slotOffset={1} fill />
                 <Link
                   to="/portfolio"
                   aria-label="View portfolio"
-                  className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-surface/90 text-ink shadow-clay backdrop-blur-sm transition-transform duration-200 ease-spring hover:scale-110"
+                  className="absolute right-2.5 top-2.5 flex h-8 w-8 items-center justify-center rounded-full bg-surface/90 text-ink shadow-clay backdrop-blur-sm transition-transform duration-200 ease-spring hover:scale-110"
                 >
-                  <ArrowUpRight size={16} />
+                  <ArrowUpRight size={15} />
                 </Link>
               </motion.div>
             </div>
           </div>
 
           {/* Bottom row — three small real-content cards */}
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3 lg:shrink-0">
             <Link
               to="/studio"
-              className="group flex items-center gap-3 rounded-card-lg bg-canvas p-5 transition-[box-shadow] duration-200 hover:shadow-clay"
+              className="group flex items-center gap-3 rounded-card-lg bg-canvas p-4 transition-[box-shadow] duration-200 hover:shadow-clay"
             >
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pastelBlue text-ink/80">
-                <Camera size={18} strokeWidth={1.75} />
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-pastelBlue text-ink/80">
+                <Camera size={16} strokeWidth={1.75} />
               </span>
               <span className="min-w-0">
                 <span className="block text-sm font-medium text-ink">Studio</span>
                 <span className="block truncate text-xs text-muted">Photography &amp; videography</span>
               </span>
-              <ArrowUpRight size={16} className="ml-auto shrink-0 text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight size={15} className="ml-auto shrink-0 text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
 
-            <div className="rounded-card-lg bg-canvas p-5">
+            <div className="rounded-card-lg bg-canvas p-4">
               <div className="flex gap-0.5 text-coral">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <StarIcon key={i} filled={i < (testimonial.rating ?? 5)} />
                 ))}
               </div>
-              <p className="mt-2 line-clamp-2 text-sm text-ink/90">&ldquo;{testimonial.quote}&rdquo;</p>
-              <p className="mt-1.5 text-xs text-muted">— {testimonial.author_name}</p>
+              <p className="mt-1.5 line-clamp-1 text-sm text-ink/90">&ldquo;{testimonial.quote}&rdquo;</p>
+              <p className="mt-1 text-xs text-muted">— {testimonial.author_name}</p>
             </div>
 
             <Link
               to="/portfolio"
-              className="group flex items-center gap-3 rounded-card-lg bg-canvas p-5 transition-[box-shadow] duration-200 hover:shadow-clay"
+              className="group flex items-center gap-3 rounded-card-lg bg-canvas p-4 transition-[box-shadow] duration-200 hover:shadow-clay"
             >
               {portfolioItems && portfolioItems.length > 0 ? (
                 <span className="flex -space-x-3">
@@ -184,20 +190,20 @@ export function Hero() {
                       key={item.id}
                       src={item.cover_image_url}
                       alt=""
-                      className="h-10 w-10 shrink-0 rounded-full border-2 border-canvas object-cover"
+                      className="h-9 w-9 shrink-0 rounded-full border-2 border-canvas object-cover"
                     />
                   ))}
                 </span>
               ) : (
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pastelGreen text-ink/80">
-                  <GalleryHorizontalEnd size={18} strokeWidth={1.75} />
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-pastelGreen text-ink/80">
+                  <GalleryHorizontalEnd size={16} strokeWidth={1.75} />
                 </span>
               )}
               <span className="min-w-0">
                 <span className="block text-sm font-medium text-ink">Portfolio</span>
                 <span className="block truncate text-xs text-muted">See our latest work</span>
               </span>
-              <ArrowUpRight size={16} className="ml-auto shrink-0 text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight size={15} className="ml-auto shrink-0 text-muted transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
         </div>
