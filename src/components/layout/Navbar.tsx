@@ -38,7 +38,16 @@ export function Navbar() {
           <img
             src="/logo/kpds-mark.png"
             alt="KPDS"
-            className="h-9 w-auto dark:brightness-0 dark:invert"
+            // The crown sits well above the "KPDS" text in the source
+            // image, so the text itself occupies roughly the bottom
+            // quarter of the image's own box — centering that whole box
+            // (what `items-center` does by default) leaves the text
+            // sitting visibly lower than the nav links' text. translate-y
+            // nudges the wordmark up to sit on the same line as the nav
+            // links, letting the crown extend above that line as
+            // decoration. Offset measured directly from the image's pixel
+            // data (text row span vs. image height), not eyeballed.
+            className="h-9 w-auto -translate-y-[9px] dark:brightness-0 dark:invert"
           />
         </NavLink>
 
