@@ -9,10 +9,10 @@ import { fadeUp, staggerChildren, imageZoomHover } from "@/lib/motion";
 // never render empty. Real services always take priority the moment
 // they're available; this never overrides them.
 const FALLBACK_SERVICES = [
-  { title: "Wedding Stories", startingPricePaise: 2500000, image: "/images/seed/kpds-studio-wedding.jpg" },
-  { title: "Pre-Wedding Stories", startingPricePaise: 1500000, image: "/images/seed/kpds-studio-prewedding.jpg" },
-  { title: "Cinematic Films", startingPricePaise: 2000000, image: "/images/seed/kpds-studio-films.jpg" },
-  { title: "Haldi Celebration", startingPricePaise: 1200000, image: "/images/seed/kpds-studio-haldi.jpg" },
+  { title: "Wedding Stories", startingPricePaise: 2500000, image: "/images/seed/kpds-studio-wedding.webp" },
+  { title: "Pre-Wedding Stories", startingPricePaise: 1500000, image: "/images/seed/kpds-studio-prewedding.webp" },
+  { title: "Cinematic Films", startingPricePaise: 2000000, image: "/images/seed/kpds-studio-films.webp" },
+  { title: "Haldi Celebration", startingPricePaise: 1200000, image: "/images/seed/kpds-studio-haldi.webp" },
 ];
 
 /** "KPDS Studio" — the photography/videography side of the business. */

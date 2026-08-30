@@ -15,11 +15,11 @@ interface HeroImage {
 // Real photography always takes priority the moment it's published; this
 // never overrides it.
 const FALLBACK_HERO_IMAGES: HeroImage[] = [
-  { src: "/images/seed/kpds-hero-a.jpg", alt: "A KPDS wedding photography moment" },
-  { src: "/images/seed/kpds-hero-b.jpg", alt: "A personalised KPDS keepsake gift" },
-  { src: "/images/seed/kps-port-1.jpg", alt: "A KPDS portfolio moment" },
-  { src: "/images/seed/kps-port-3.jpg", alt: "A KPDS portfolio moment" },
-  { src: "/images/seed/kps-port-5.jpg", alt: "A KPDS portfolio moment" },
+  { src: "/images/seed/kpds-hero-a.webp", alt: "A KPDS wedding photography moment" },
+  { src: "/images/seed/kpds-hero-b.webp", alt: "A personalised KPDS keepsake gift" },
+  { src: "/images/seed/kps-port-1.webp", alt: "A KPDS portfolio moment" },
+  { src: "/images/seed/kps-port-3.webp", alt: "A KPDS portfolio moment" },
+  { src: "/images/seed/kps-port-5.webp", alt: "A KPDS portfolio moment" },
 ];
 const SLIDE_INTERVAL_MS = 4500;
 
@@ -112,6 +112,10 @@ function HeroSlot({
           src={image.src}
           alt={image.alt}
           loading={slotOffset === 0 ? "eager" : "lazy"}
+          // The slot-0 image is the largest above-the-fold image on the
+          // page (the LCP candidate) — fetchPriority tells the browser to
+          // fetch it ahead of same-priority requests queued after it.
+          fetchPriority={slotOffset === 0 ? "high" : undefined}
           initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
