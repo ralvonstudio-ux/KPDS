@@ -12,6 +12,26 @@ if (!supabaseUrl || !supabaseAnonKey) {
   );
 }
 
+// Every Supabase call in this app — auth, every table query, every image
+// upload — goes through this one client, and by default the underlying
+// `fetch` has no timeout at all. On a flaky connection (mobile data, a
+// congested network), a single stalled request just hangs forever, and
+// since every page fetches something on mount, that hang shows up as "this
+// page never finishes loading" anywhere in the app — not a per-page bug,
+// a client-wide one. Capping every request here means the worst case
+// becomes "falls back to the error/empty state after ~20s" instead of an
+// indefinite spinner. 20s (not something tighter like 5s) because image
+// uploads go through this same client and need real headroom on a slow
+// connection even after client-side compression (see uploadPublicImage in
+// src/lib/storage.ts).
+const REQUEST_TIMEOUT_MS = 20_000;
+
+function fetchWithTimeout(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+  const timeoutSignal = AbortSignal.timeout(REQUEST_TIMEOUT_MS);
+  const signal = init?.signal ? AbortSignal.any([init.signal, timeoutSignal]) : timeoutSignal;
+  return fetch(input, { ...init, signal });
+}
+
 export const supabase = createClient<Database>(
   supabaseUrl ?? "https://placeholder.supabase.co",
   supabaseAnonKey ?? "placeholder-anon-key",
@@ -20,6 +40,9 @@ export const supabase = createClient<Database>(
       persistSession: true,
       autoRefreshToken: true,
       detectSessionInUrl: true,
+    },
+    global: {
+      fetch: fetchWithTimeout,
     },
   },
 );

@@ -112,10 +112,15 @@ function HeroSlot({
           src={image.src}
           alt={image.alt}
           loading={slotOffset === 0 ? "eager" : "lazy"}
+          // fetchPriority as a JSX prop gets silently dropped by
+          // framer-motion's prop whitelist (logs a "React does not
+          // recognize fetchPriority" warning and never reaches the DOM) —
+          // setting it imperatively via the ref is what actually works.
           // The slot-0 image is the largest above-the-fold image on the
-          // page (the LCP candidate) — fetchPriority tells the browser to
-          // fetch it ahead of same-priority requests queued after it.
-          fetchPriority={slotOffset === 0 ? "high" : undefined}
+          // page (the LCP candidate), so it's the one worth prioritizing.
+          ref={(el: HTMLImageElement | null) => {
+            if (el && slotOffset === 0) el.fetchPriority = "high";
+          }}
           initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
