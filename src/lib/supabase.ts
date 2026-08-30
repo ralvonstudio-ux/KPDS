@@ -26,10 +26,24 @@ if (!supabaseUrl || !supabaseAnonKey) {
 // src/lib/storage.ts).
 const REQUEST_TIMEOUT_MS = 20_000;
 
+// Defensive on purpose: this replaces the fetch every single Supabase call
+// in the app goes through, so any way this could itself throw synchronously
+// (an unsupported AbortSignal API, an unexpected signal shape) must never
+// take the whole request pipeline down with it — worst case, fall back to
+// a plain, untimed fetch (today's original behavior) rather than break
+// something that worked before this file existed.
 function fetchWithTimeout(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
-  const timeoutSignal = AbortSignal.timeout(REQUEST_TIMEOUT_MS);
-  const signal = init?.signal ? AbortSignal.any([init.signal, timeoutSignal]) : timeoutSignal;
-  return fetch(input, { ...init, signal });
+  try {
+    const timeoutSignal = AbortSignal.timeout(REQUEST_TIMEOUT_MS);
+    const signal =
+      init?.signal && typeof AbortSignal.any === "function"
+        ? AbortSignal.any([init.signal, timeoutSignal])
+        : timeoutSignal;
+    return fetch(input, { ...init, signal });
+  } catch (err) {
+    console.error("[supabase] fetchWithTimeout setup failed, falling back to a plain fetch:", err);
+    return fetch(input, init);
+  }
 }
 
 export const supabase = createClient<Database>(
