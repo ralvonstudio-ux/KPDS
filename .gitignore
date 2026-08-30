@@ -27,3 +27,6 @@ Thumbs.db
 # supabase
 supabase/.branches
 supabase/.temp
+
+# client handover doc — contains live credentials, never commit
+handover/

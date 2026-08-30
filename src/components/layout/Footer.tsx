@@ -7,7 +7,7 @@ export function Footer() {
         <div>
           <img src="/logo/kpds-mark.png" alt="KPDS" className="h-8 w-auto dark:brightness-0 dark:invert" />
           <p className="mt-3 max-w-xs text-sm text-muted">
-            A creative house in Kanpur, working across personalized gifting and professional photography.
+            A creative house in Bahraich, working across personalized gifting and professional photography.
           </p>
         </div>
 
@@ -28,8 +28,16 @@ export function Footer() {
               <a href="tel:+919519342602" className="hover:text-ink">+91 95193 42602</a>
             </li>
             <li className="flex items-center gap-2">
+              <PhoneIcon />
+              <a href="tel:+918765575509" className="hover:text-ink">+91 87655 75509 (Office)</a>
+            </li>
+            <li className="flex items-center gap-2">
               <MailIcon />
               <a href="mailto:hello@kpds.studio" className="hover:text-ink">hello@kpds.studio</a>
+            </li>
+            <li className="flex items-start gap-2">
+              <PinIcon />
+              <span>KPDS, 1st Floor, Mastan Complex, near KDC Road, Bahraich – 271801</span>
             </li>
           </ul>
         </div>
@@ -37,7 +45,7 @@ export function Footer() {
 
       <div className="border-t border-line py-6">
         <div className="content-wrap flex flex-col items-center justify-between gap-2 text-xs text-muted md:flex-row">
-          <p>© {new Date().getFullYear()} KPDS. All rights reserved. · Kanpur, Uttar Pradesh</p>
+          <p>© {new Date().getFullYear()} KPDS. All rights reserved. · Bahraich, Uttar Pradesh</p>
           <p>Built by Ralvon.</p>
         </div>
       </div>
@@ -57,6 +65,14 @@ function MailIcon() {
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="shrink-0 text-coral">
       <rect x="3" y="5" width="18" height="14" rx="2" />
       <path d="m4 6.5 8 6 8-6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function PinIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" className="mt-0.5 shrink-0 text-coral">
+      <path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z" strokeLinejoin="round" />
+      <circle cx="12" cy="9.5" r="2.25" />
     </svg>
   );
 }
