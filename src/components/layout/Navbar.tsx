@@ -31,18 +31,26 @@ export function Navbar() {
         <NavLink to="/" className="shrink-0 py-1" aria-label="Khatu Pixel Digital Studio — home">
           {/* Full lockup — icon + "KPDS" above the "Khatu Pixel Digital
               Studio" wordmark (public/logo/kpds-full.png, built by
-              public/logo/build-full-logo.mjs). Background-removed with the
-              same technique as kpds-mark.png — no white box, sits directly
-              on the page. This is a stacked/vertical mark rather than a
-              single text line, so unlike the old icon-only navbar logo it
-              doesn't need a baseline-alignment offset — it just centers as
-              one self-contained unit, same as any other navbar item. Dark
-              mode uses a flat white silhouette (brightness-0 + invert)
-              rather than a second hand-authored asset. */}
+              scripts/build-full-logo.mjs). Background-removed — no white
+              box, sits directly on the page. This is a stacked/vertical
+              mark rather than a single text line, so unlike the old
+              icon-only navbar logo it doesn't need a baseline-alignment
+              offset — it just centers as one self-contained unit.
+              Two separate images, not a CSS filter: a flat brightness-0
+              invert turns the whole mark solid white, losing the red
+              swoosh and orange crown entirely. kpds-full-dark.png (see
+              scripts/build-dark-logo.mjs) inverts only the black line art
+              to white per-pixel and keeps the accent colors, so the crown
+              and swoosh stay visible in dark mode too. */}
           <img
             src="/logo/kpds-full.png"
             alt="Khatu Pixel Digital Studio"
-            className="h-14 w-auto dark:brightness-0 dark:invert"
+            className="block h-14 w-auto dark:hidden"
+          />
+          <img
+            src="/logo/kpds-full-dark.png"
+            alt="Khatu Pixel Digital Studio"
+            className="hidden h-14 w-auto dark:block"
           />
         </NavLink>
 
