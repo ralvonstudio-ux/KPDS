@@ -79,31 +79,38 @@ export function Hero() {
               initial="hidden"
               animate="visible"
               variants={staggerChildren}
-              className="relative overflow-hidden rounded-card-lg bg-canvas p-6 pb-48 sm:p-8 sm:pb-56 lg:flex lg:flex-col lg:justify-center lg:p-6 lg:pb-6"
+              // Text-left / photo-right as one flex row at every
+              // breakpoint, not just lg+ — below lg this used to switch to
+              // an absolutely-positioned photo stacked under the copy,
+              // which meant the side-by-side layout only actually existed
+              // on desktop. The photo column just shrinks (w-24 -> w-36 ->
+              // w-48) as the viewport narrows instead of dropping below
+              // the text.
+              className="relative flex items-center gap-4 overflow-hidden rounded-card-lg bg-canvas p-5 sm:gap-6 sm:p-8 lg:p-6"
             >
-              <motion.p variants={fadeUp} className="text-eyebrow uppercase tracking-[0.14em] text-muted">
-                KPDS / Creative House
-              </motion.p>
-              <motion.h1 variants={fadeUp} className="mt-3 max-w-md font-serif text-display-md text-ink lg:text-display-lg">
-                Make moments
-                <br />
-                mean more.
-              </motion.h1>
-              <motion.p variants={fadeUp} className="mt-3 max-w-sm text-sm leading-relaxed text-muted lg:text-base">
-                Personalized gifts for people you love and visual stories worth remembering.
-              </motion.p>
-              <motion.div variants={fadeUp} className="mt-5 flex flex-wrap items-center gap-3">
-                <ButtonLink to="/gift-center" variant="gold" size="lg">
-                  Explore Gifts →
-                </ButtonLink>
-                <ButtonLink to="/studio" variant="outline" size="lg">
-                  Explore Studio
-                </ButtonLink>
-              </motion.div>
+              <div className="min-w-0 flex-1">
+                <motion.p variants={fadeUp} className="text-eyebrow uppercase tracking-[0.14em] text-muted">
+                  KPDS / Creative House
+                </motion.p>
+                <motion.h1 variants={fadeUp} className="mt-3 font-serif text-display-sm text-ink sm:text-display-md lg:text-display-lg">
+                  Make moments
+                  <br />
+                  mean more.
+                </motion.h1>
+                <motion.p variants={fadeUp} className="mt-3 max-w-sm text-sm leading-relaxed text-muted lg:text-base">
+                  Personalized gifts for people you love and visual stories worth remembering.
+                </motion.p>
+                <motion.div variants={fadeUp} className="mt-4 flex flex-wrap items-center gap-2.5 sm:mt-5 sm:gap-3">
+                  <ButtonLink to="/gift-center" variant="gold" size="lg">
+                    Explore Gifts →
+                  </ButtonLink>
+                  <ButtonLink to="/studio" variant="outline" size="lg">
+                    Explore Studio
+                  </ButtonLink>
+                </motion.div>
+              </div>
 
-              {/* Floating photo — bleeds out of the card's bottom-right on
-                  desktop, stacks below the copy on mobile. */}
-              <div className="absolute bottom-5 right-5 top-auto w-32 sm:bottom-6 sm:right-6 sm:w-44 lg:bottom-6 lg:right-8 lg:top-6 lg:w-48">
+              <div className="relative w-24 shrink-0 sm:w-36 lg:w-48">
                 <Dot className="left-[-14px] top-2 h-3 w-3 bg-coral/70" />
                 <Dot className="right-4 top-[-10px] h-2 w-2 bg-gold/60" delay={0.4} />
                 <Dot className="bottom-2 left-1/2 h-2.5 w-2.5 bg-pastelGreen" delay={0.8} />
