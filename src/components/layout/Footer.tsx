@@ -5,7 +5,11 @@ export function Footer() {
     <footer className="border-t border-line">
       <div className="content-wrap grid gap-10 py-16 md:grid-cols-[1.4fr_1fr_1fr] md:py-20">
         <div>
-          <img src="/logo/kpds-full.png" alt="Khatu Pixel Digital Studio" className="h-20 w-auto dark:brightness-0 dark:invert" />
+          {/* Two images, not a CSS filter — see the matching comment in
+              Navbar.tsx for why (a flat invert loses the red/orange
+              accent colors entirely). */}
+          <img src="/logo/kpds-full.png" alt="Khatu Pixel Digital Studio" className="block h-20 w-auto dark:hidden" />
+          <img src="/logo/kpds-full-dark.png" alt="Khatu Pixel Digital Studio" className="hidden h-20 w-auto dark:block" />
           <p className="mt-3 max-w-xs text-sm text-muted">
             A creative house in Bahraich, working across personalized gifting and professional photography.
           </p>
