@@ -37,16 +37,17 @@ export function StudioSection() {
         }));
 
   return (
-    <section className="section-space content-wrap">
-      {/* Same "framed panel" treatment as the hero — a rounded card
-          floating on the page background, holding its own nested-tone
-          (bg-canvas) tiles — so the homepage reads as one consistent
-          bento language rather than the hero looking like a one-off. */}
-      <div className="rounded-hero border border-line bg-surface p-5 shadow-clay-lg sm:p-6 lg:p-8">
-        <div className="flex flex-wrap items-end justify-between gap-4">
+    <section className="content-wrap py-4 md:py-6 lg:py-8">
+      {/* Same "framed panel" + one-viewport-fit treatment as the hero and
+          Gift Center section — see the longer comment in
+          GiftCenterSection.tsx for why (the old section-space padding +
+          display-lg heading pushed sections past one screen, which read
+          as "cropped" scrolling into them). */}
+      <div className="rounded-hero border border-line bg-surface p-5 shadow-clay-lg sm:p-6 lg:flex lg:max-h-[calc(100vh-6.5rem)] lg:flex-col lg:overflow-hidden lg:p-6">
+        <div className="flex flex-wrap items-end justify-between gap-4 lg:shrink-0">
           <div>
             <p className="text-eyebrow uppercase tracking-[0.14em] text-muted">KPDS Studio</p>
-            <h2 className="mt-3 font-serif text-display-lg text-ink">We frame your story.</h2>
+            <h2 className="mt-2 font-serif text-display-sm text-ink sm:text-display-md lg:mt-3">We frame your story.</h2>
           </div>
           <Link to="/studio" className="text-sm font-medium text-coral hover:text-coral-deep">
             Explore Studio →
@@ -58,7 +59,7 @@ export function StudioSection() {
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
           variants={staggerChildren}
-          className="mt-8 flex gap-5 overflow-x-auto pb-2"
+          className="mt-6 flex gap-5 overflow-x-auto pb-2 lg:mt-5"
         >
           {cards.map((card) => (
             <motion.div key={card.key} variants={fadeUp} className="w-52 shrink-0 sm:w-60">
