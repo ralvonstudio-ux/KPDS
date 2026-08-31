@@ -28,26 +28,21 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-canvas/95 backdrop-blur-md">
       <div className="content-wrap flex items-center gap-6 py-4">
-        <NavLink to="/" className="shrink-0" aria-label="KPDS — home">
-          {/* Background-removed PNG (public/logo/kpds-mark.png, see
-              scripts/logo-remove-bg.mjs) — no white box around it, sits
-              directly on whatever the page background is. Dark mode uses a
-              flat white silhouette (brightness-0 + invert) rather than a
-              second hand-authored asset — the black line-art + red/orange
-              accent would otherwise disappear against the dark page. */}
+        <NavLink to="/" className="shrink-0 py-1" aria-label="Khatu Pixel Digital Studio — home">
+          {/* Full lockup — icon + "KPDS" above the "Khatu Pixel Digital
+              Studio" wordmark (public/logo/kpds-full.png, built by
+              public/logo/build-full-logo.mjs). Background-removed with the
+              same technique as kpds-mark.png — no white box, sits directly
+              on the page. This is a stacked/vertical mark rather than a
+              single text line, so unlike the old icon-only navbar logo it
+              doesn't need a baseline-alignment offset — it just centers as
+              one self-contained unit, same as any other navbar item. Dark
+              mode uses a flat white silhouette (brightness-0 + invert)
+              rather than a second hand-authored asset. */}
           <img
-            src="/logo/kpds-mark.png"
-            alt="KPDS"
-            // The crown sits well above the "KPDS" text in the source
-            // image, so the text itself occupies roughly the bottom
-            // quarter of the image's own box — centering that whole box
-            // (what `items-center` does by default) leaves the text
-            // sitting visibly lower than the nav links' text. translate-y
-            // nudges the wordmark up to sit on the same line as the nav
-            // links, letting the crown extend above that line as
-            // decoration. Offset measured directly from the image's pixel
-            // data (text row span vs. image height), not eyeballed.
-            className="h-9 w-auto -translate-y-[9px] dark:brightness-0 dark:invert"
+            src="/logo/kpds-full.png"
+            alt="Khatu Pixel Digital Studio"
+            className="h-14 w-auto dark:brightness-0 dark:invert"
           />
         </NavLink>
 
